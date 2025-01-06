@@ -1,0 +1,23 @@
+name: Merge to Main
+
+on:
+  workflow_dispatch:  # 수동 실행을 위한 트리거
+
+jobs:
+  merge-to-main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Fetch all branches
+        run: git fetch origin +refs/heads/*:refs/remotes/origin/*
+
+      - name: Merge dev to main
+        run: |
+          git fetch origin
+          git checkout main
+          git pull origin main
+          git merge origin/dev --no-ff --no-edit
+          git push origin main
