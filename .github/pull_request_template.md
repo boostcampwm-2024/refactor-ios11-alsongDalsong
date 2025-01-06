@@ -1,16 +1,13 @@
-## What is this PR?
-- PR에 대한 설명
+## 관련 이슈
 
-## PR Type
-- [ ] Bugfix
-- [ ] Chore
-- [ ] New feature (기능을 추가하는 feat)
-- [ ] Breaking change (기존의 기능이 동작하지 않을 수 있는 fix/feat)
-- [ ] Documentation Update
+- #이슈번호(입력하면 자동으로 생성)
 
-## ScreenShot(if available)
-|기능|스크린샷|
-|:--:|:--:|
-|GIF|<img src = "" width ="250">|
+## 완료 및 수정 내역
 
-## Further comments
+ - [ ]
+
+## 테스트 방법 (선택)
+
+## 리뷰 노트
+
+## 스크린샷(선택)
