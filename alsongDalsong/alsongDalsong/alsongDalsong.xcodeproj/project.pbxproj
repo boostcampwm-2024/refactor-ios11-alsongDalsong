@@ -1,0 +1,690 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		169725682CE5F863005B4953 /* ASNetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 169725632CE5F859005B4953 /* ASNetworkKit.framework */; };
+		169725692CE5F863005B4953 /* ASNetworkKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 169725632CE5F859005B4953 /* ASNetworkKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		169C069D2CECE8860084B082 /* ASCacheKitProtocol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 169C06882CEC9FE60084B082 /* ASCacheKitProtocol.framework */; };
+		169C069E2CECE8860084B082 /* ASCacheKitProtocol.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 169C06882CEC9FE60084B082 /* ASCacheKitProtocol.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		16DE64562CEE249300DFC48F /* ASContainer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16DE64552CEE248F00DFC48F /* ASContainer.framework */; };
+		16DE64572CEE249300DFC48F /* ASContainer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 16DE64552CEE248F00DFC48F /* ASContainer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B7EA8412CFA9FBE00B2BE2A /* ASLogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7EA8402CFA9FBE00B2BE2A /* ASLogKit.framework */; };
+		1B7EA8422CFA9FBE00B2BE2A /* ASLogKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7EA8402CFA9FBE00B2BE2A /* ASLogKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8D1355A62CEB2B8600868316 /* ASCacheKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D13559B2CEB2B7E00868316 /* ASCacheKit.framework */; };
+		8D1355A72CEB2B8600868316 /* ASCacheKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D13559B2CEB2B7E00868316 /* ASCacheKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8D37A1FF2CEE19AF0015DC56 /* ASMusicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D37A1FE2CEE19A40015DC56 /* ASMusicKit.framework */; };
+		8D37A2002CEE19AF0015DC56 /* ASMusicKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D37A1FE2CEE19A40015DC56 /* ASMusicKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8D37A22A2CEF22F20015DC56 /* ASAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D37A2252CEF22EE0015DC56 /* ASAudioKit.framework */; };
+		8D37A22B2CEF22F20015DC56 /* ASAudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D37A2252CEF22EE0015DC56 /* ASAudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8D64F9412CEB1D6C0069B77F /* ASEntity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D64F9402CEB1D600069B77F /* ASEntity.framework */; };
+		8D64F9422CEB1D6C0069B77F /* ASEntity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D64F9402CEB1D600069B77F /* ASEntity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8D7F5F012CFAAC63002EAB0F /* ASRepositoryProtocol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D7F5F002CFAA96C002EAB0F /* ASRepositoryProtocol.framework */; };
+		8D7F5F022CFAAC63002EAB0F /* ASRepositoryProtocol.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D7F5F002CFAA96C002EAB0F /* ASRepositoryProtocol.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8D95AF212CEB8BC000C211AD /* ASRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D95AF202CEB8BB900C211AD /* ASRepository.framework */; };
+		8D95AF222CEB8BC000C211AD /* ASRepository.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D95AF202CEB8BB900C211AD /* ASRepository.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		169725622CE5F859005B4953 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1697255C2CE5F859005B4953 /* ASNetworkKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B10CADB2CE4C13F002A5B8F;
+			remoteInfo = ASNetworkKit;
+		};
+		169C06872CEC9FE60084B082 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D1355952CEB2B7E00868316 /* ASCacheKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1BF1C9582CEA3C270003EED9;
+			remoteInfo = ASCacheKitProtocol;
+		};
+		16DE64542CEE248F00DFC48F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16DE64502CEE248F00DFC48F /* ASContainer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 16DE63F52CEE02AC00DFC48F;
+			remoteInfo = ASContainer;
+		};
+		8D13559A2CEB2B7E00868316 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D1355952CEB2B7E00868316 /* ASCacheKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1BD3B6952CE203680037A6E1;
+			remoteInfo = ASCacheKit;
+		};
+		8D37A1FD2CEE19A40015DC56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D37A1F92CEE19A40015DC56 /* ASMusicKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1635A4282CE59833002246E0;
+			remoteInfo = ASMusicKit;
+		};
+		8D37A2242CEF22EE0015DC56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D37A21E2CEF22EE0015DC56 /* ASAudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4E89071E2CE23D1B00D5B547;
+			remoteInfo = ASAudioKit;
+		};
+		8D64F93F2CEB1D600069B77F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D64F93B2CEB1D600069B77F /* ASEntity.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B9D3FF12CE3AD62004C79EE;
+			remoteInfo = ASEntity;
+		};
+		8D7F5EFF2CFAA96C002EAB0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D95AF1B2CEB8BB900C211AD /* ASRepository.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B7EA8652CFAA2B600B2BE2A;
+			remoteInfo = ASRepositoryProtocol;
+		};
+		8D95AF1F2CEB8BB900C211AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D95AF1B2CEB8BB900C211AD /* ASRepository.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1601093E2CEB79E500FB3182;
+			remoteInfo = ASRepository;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1697256A2CE5F863005B4953 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				16DE64572CEE249300DFC48F /* ASContainer.framework in Embed Frameworks */,
+				8D1355A72CEB2B8600868316 /* ASCacheKit.framework in Embed Frameworks */,
+				8D37A2002CEE19AF0015DC56 /* ASMusicKit.framework in Embed Frameworks */,
+				1B7EA8422CFA9FBE00B2BE2A /* ASLogKit.framework in Embed Frameworks */,
+				8D37A22B2CEF22F20015DC56 /* ASAudioKit.framework in Embed Frameworks */,
+				169725692CE5F863005B4953 /* ASNetworkKit.framework in Embed Frameworks */,
+				8D95AF222CEB8BC000C211AD /* ASRepository.framework in Embed Frameworks */,
+				8D64F9422CEB1D6C0069B77F /* ASEntity.framework in Embed Frameworks */,
+				8D7F5F022CFAAC63002EAB0F /* ASRepositoryProtocol.framework in Embed Frameworks */,
+				169C069E2CECE8860084B082 /* ASCacheKitProtocol.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1697255C2CE5F859005B4953 /* ASNetworkKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASNetworkKit.xcodeproj; path = ../ASNetworkKit/ASNetworkKit.xcodeproj; sourceTree = "<group>"; };
+		16DE64502CEE248F00DFC48F /* ASContainer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASContainer.xcodeproj; path = ../ASContainer/ASContainer.xcodeproj; sourceTree = "<group>"; };
+		16F8B7772CE59B7F0059F22A /* alsongDalsong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = alsongDalsong.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B7EA8402CFA9FBE00B2BE2A /* ASLogKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASLogKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BBE1CA82CE47C660052A698 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		8D1355952CEB2B7E00868316 /* ASCacheKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASCacheKit.xcodeproj; path = ../ASCacheKit/ASCacheKit.xcodeproj; sourceTree = "<group>"; };
+		8D37A1F92CEE19A40015DC56 /* ASMusicKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASMusicKit.xcodeproj; path = ../ASMusicKit/ASMusicKit.xcodeproj; sourceTree = "<group>"; };
+		8D37A21E2CEF22EE0015DC56 /* ASAudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASAudioKit.xcodeproj; path = ../ASAudioKit/ASAudioKit.xcodeproj; sourceTree = "<group>"; };
+		8D64F93B2CEB1D600069B77F /* ASEntity.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASEntity.xcodeproj; path = ../ASEntity/ASEntity.xcodeproj; sourceTree = "<group>"; };
+		8D95AF1B2CEB8BB900C211AD /* ASRepository.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASRepository.xcodeproj; path = ../ASRepository/ASRepository.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		168180AC2CE599F00013307D /* Exceptions for "alsongDalsong" folder in "alsongDalsong" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+				Resources/Secret.xcconfig,
+			);
+			target = 8D69A5912CDC5A83006B9075 /* alsongDalsong */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8D69A5942CDC5A83006B9075 /* alsongDalsong */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				168180AC2CE599F00013307D /* Exceptions for "alsongDalsong" folder in "alsongDalsong" target */,
+			);
+			path = alsongDalsong;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D69A58F2CDC5A83006B9075 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16DE64562CEE249300DFC48F /* ASContainer.framework in Frameworks */,
+				8D1355A62CEB2B8600868316 /* ASCacheKit.framework in Frameworks */,
+				8D37A1FF2CEE19AF0015DC56 /* ASMusicKit.framework in Frameworks */,
+				1B7EA8412CFA9FBE00B2BE2A /* ASLogKit.framework in Frameworks */,
+				8D37A22A2CEF22F20015DC56 /* ASAudioKit.framework in Frameworks */,
+				169725682CE5F863005B4953 /* ASNetworkKit.framework in Frameworks */,
+				8D95AF212CEB8BC000C211AD /* ASRepository.framework in Frameworks */,
+				8D64F9412CEB1D6C0069B77F /* ASEntity.framework in Frameworks */,
+				8D7F5F012CFAAC63002EAB0F /* ASRepositoryProtocol.framework in Frameworks */,
+				169C069D2CECE8860084B082 /* ASCacheKitProtocol.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		169725572CE5F82F005B4953 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1B7EA8402CFA9FBE00B2BE2A /* ASLogKit.framework */,
+				16DE64502CEE248F00DFC48F /* ASContainer.xcodeproj */,
+				8D37A21E2CEF22EE0015DC56 /* ASAudioKit.xcodeproj */,
+				8D37A1F92CEE19A40015DC56 /* ASMusicKit.xcodeproj */,
+				8D95AF1B2CEB8BB900C211AD /* ASRepository.xcodeproj */,
+				8D1355952CEB2B7E00868316 /* ASCacheKit.xcodeproj */,
+				8D64F93B2CEB1D600069B77F /* ASEntity.xcodeproj */,
+				1697255C2CE5F859005B4953 /* ASNetworkKit.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1697255D2CE5F859005B4953 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				169725632CE5F859005B4953 /* ASNetworkKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		16DE64512CEE248F00DFC48F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				16DE64552CEE248F00DFC48F /* ASContainer.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8D1355962CEB2B7E00868316 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D13559B2CEB2B7E00868316 /* ASCacheKit.framework */,
+				169C06882CEC9FE60084B082 /* ASCacheKitProtocol.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8D37A1FA2CEE19A40015DC56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D37A1FE2CEE19A40015DC56 /* ASMusicKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8D37A21F2CEF22EE0015DC56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D37A2252CEF22EE0015DC56 /* ASAudioKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8D64F93C2CEB1D600069B77F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D64F9402CEB1D600069B77F /* ASEntity.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8D69A5892CDC5A83006B9075 = {
+			isa = PBXGroup;
+			children = (
+				1BBE1CA82CE47C660052A698 /* .swiftlint.yml */,
+				8D69A5942CDC5A83006B9075 /* alsongDalsong */,
+				16F8B7772CE59B7F0059F22A /* alsongDalsong.app */,
+				169725572CE5F82F005B4953 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8D95AF1C2CEB8BB900C211AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D95AF202CEB8BB900C211AD /* ASRepository.framework */,
+				8D7F5F002CFAA96C002EAB0F /* ASRepositoryProtocol.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D69A5912CDC5A83006B9075 /* alsongDalsong */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D69A5A52CDC5A85006B9075 /* Build configuration list for PBXNativeTarget "alsongDalsong" */;
+			buildPhases = (
+				8D69A58E2CDC5A83006B9075 /* Sources */,
+				8D69A58F2CDC5A83006B9075 /* Frameworks */,
+				8D69A5902CDC5A83006B9075 /* Resources */,
+				1BBE1CB32CE47C920052A698 /* SwiftLint Script */,
+				1697256A2CE5F863005B4953 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8D69A5942CDC5A83006B9075 /* alsongDalsong */,
+			);
+			name = alsongDalsong;
+			packageProductDependencies = (
+			);
+			productName = alsongDalsong;
+			productReference = 16F8B7772CE59B7F0059F22A /* alsongDalsong.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8D69A58A2CDC5A83006B9075 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1610;
+				TargetAttributes = {
+					8D69A5912CDC5A83006B9075 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 8D69A58D2CDC5A83006B9075 /* Build configuration list for PBXProject "alsongDalsong" */;
+			developmentRegion = ko;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				ko,
+			);
+			mainGroup = 8D69A5892CDC5A83006B9075;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8D69A5892CDC5A83006B9075;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8D37A21F2CEF22EE0015DC56 /* Products */;
+					ProjectRef = 8D37A21E2CEF22EE0015DC56 /* ASAudioKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 8D1355962CEB2B7E00868316 /* Products */;
+					ProjectRef = 8D1355952CEB2B7E00868316 /* ASCacheKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 16DE64512CEE248F00DFC48F /* Products */;
+					ProjectRef = 16DE64502CEE248F00DFC48F /* ASContainer.xcodeproj */;
+				},
+				{
+					ProductGroup = 8D64F93C2CEB1D600069B77F /* Products */;
+					ProjectRef = 8D64F93B2CEB1D600069B77F /* ASEntity.xcodeproj */;
+				},
+				{
+					ProductGroup = 8D37A1FA2CEE19A40015DC56 /* Products */;
+					ProjectRef = 8D37A1F92CEE19A40015DC56 /* ASMusicKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 1697255D2CE5F859005B4953 /* Products */;
+					ProjectRef = 1697255C2CE5F859005B4953 /* ASNetworkKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 8D95AF1C2CEB8BB900C211AD /* Products */;
+					ProjectRef = 8D95AF1B2CEB8BB900C211AD /* ASRepository.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				8D69A5912CDC5A83006B9075 /* alsongDalsong */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		169725632CE5F859005B4953 /* ASNetworkKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ASNetworkKit.framework;
+			remoteRef = 169725622CE5F859005B4953 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		169C06882CEC9FE60084B082 /* ASCacheKitProtocol.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ASCacheKitProtocol.framework;
+			remoteRef = 169C06872CEC9FE60084B082 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		16DE64552CEE248F00DFC48F /* ASContainer.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ASContainer.framework;
+			remoteRef = 16DE64542CEE248F00DFC48F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8D13559B2CEB2B7E00868316 /* ASCacheKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ASCacheKit.framework;
+			remoteRef = 8D13559A2CEB2B7E00868316 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8D37A1FE2CEE19A40015DC56 /* ASMusicKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ASMusicKit.framework;
+			remoteRef = 8D37A1FD2CEE19A40015DC56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8D37A2252CEF22EE0015DC56 /* ASAudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ASAudioKit.framework;
+			remoteRef = 8D37A2242CEF22EE0015DC56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8D64F9402CEB1D600069B77F /* ASEntity.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ASEntity.framework;
+			remoteRef = 8D64F93F2CEB1D600069B77F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8D7F5F002CFAA96C002EAB0F /* ASRepositoryProtocol.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ASRepositoryProtocol.framework;
+			remoteRef = 8D7F5EFF2CFAA96C002EAB0F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8D95AF202CEB8BB900C211AD /* ASRepository.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ASRepository.framework;
+			remoteRef = 8D95AF1F2CEB8BB900C211AD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D69A5902CDC5A83006B9075 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1BBE1CB32CE47C920052A698 /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D69A58E2CDC5A83006B9075 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8D69A5A62CDC5A85006B9075 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 8D69A5942CDC5A83006B9075 /* alsongDalsong */;
+			baseConfigurationReferenceRelativePath = Resources/Secret.xcconfig;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = alsongDalsong/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "알쏭달쏭";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music-games";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "알쏭달쏭은 Apple Music을 이용하여 음악을 찾는 것을 돕습니다";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.9.2;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.boostcamp9.alsongDalsong;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8D69A5A72CDC5A85006B9075 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 8D69A5942CDC5A83006B9075 /* alsongDalsong */;
+			baseConfigurationReferenceRelativePath = Resources/Secret.xcconfig;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = alsongDalsong/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "알쏭달쏭";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music-games";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "알쏭달쏭은 Apple Music을 이용하여 음악을 찾는 것을 돕습니다";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.9.2;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.boostcamp9.alsongDalsong;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8D69A5A82CDC5A85006B9075 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 8D69A5942CDC5A83006B9075 /* alsongDalsong */;
+			baseConfigurationReferenceRelativePath = Resources/Secret.xcconfig;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8D69A5A92CDC5A85006B9075 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 8D69A5942CDC5A83006B9075 /* alsongDalsong */;
+			baseConfigurationReferenceRelativePath = Resources/Secret.xcconfig;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8D69A58D2CDC5A83006B9075 /* Build configuration list for PBXProject "alsongDalsong" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D69A5A82CDC5A85006B9075 /* Debug */,
+				8D69A5A92CDC5A85006B9075 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8D69A5A52CDC5A85006B9075 /* Build configuration list for PBXNativeTarget "alsongDalsong" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D69A5A62CDC5A85006B9075 /* Debug */,
+				8D69A5A72CDC5A85006B9075 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8D69A58A2CDC5A83006B9075 /* Project object */;
+}
