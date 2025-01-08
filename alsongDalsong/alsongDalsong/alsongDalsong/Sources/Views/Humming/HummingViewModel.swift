@@ -102,6 +102,7 @@ final class HummingViewModel: @unchecked Sendable {
         playerPublisher.combineLatest(recordsPublisher)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] playersCount, recordsCount in
+                NSLog("팀원 허밍 완료 반영: \(Date())")
                 let submitStatus = (submits: String(recordsCount), total: String(playersCount))
                 self?.submissionStatus = submitStatus
             }

@@ -77,6 +77,7 @@ final class SelectMusicViewController: UIViewController {
     
     private func setAction() {
         submitButton.addAction(UIAction { [weak self] _ in
+            NSLog("음악 선택 제출 버튼 클릭: \(Date())")
             self?.showSubmitMusicLoading()
         }, for: .touchUpInside)
         
@@ -113,6 +114,7 @@ final class SelectMusicViewController: UIViewController {
 
 extension SelectMusicViewController {
     private func showSubmitMusicLoading() {
+        NSLog("음악 선택 제출 버튼 클릭: \(Date())")
         let alert = LoadingAlertController(
             progressText: .submitMusic,
             loadAction: { [weak self] in

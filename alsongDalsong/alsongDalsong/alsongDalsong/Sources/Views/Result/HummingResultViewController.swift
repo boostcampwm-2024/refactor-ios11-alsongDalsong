@@ -165,6 +165,7 @@ class HummingResultViewController: UIViewController {
 
 extension HummingResultViewController {
     private func showNextResultLoading() {
+        NSLog("다음 정답 선택: \(Date())")
         let alert = LoadingAlertController(
             progressText: .nextResult,
             loadAction: { [weak self] in
@@ -178,6 +179,7 @@ extension HummingResultViewController {
     }
 
     private func showLobbyLoading() {
+        NSLog("종료 선택: \(Date())")
         let alert = LoadingAlertController(
             progressText: .toLobby,
             loadAction: { [weak self] in

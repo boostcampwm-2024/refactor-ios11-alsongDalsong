@@ -138,6 +138,7 @@ final class SubmitAnswerViewController: UIViewController {
 
 extension SubmitAnswerViewController {
     private func showSubmitAnswerLoading() {
+        NSLog("정답 제출 \(Date())")
         let alert = LoadingAlertController(
             progressText: .submitMusic,
             loadAction: { [weak self] in

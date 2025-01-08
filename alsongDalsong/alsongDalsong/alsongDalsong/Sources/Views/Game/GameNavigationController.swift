@@ -115,16 +115,22 @@ final class GameNavigationController: @unchecked Sendable {
         let viewType = state.resolveViewType()
         switch viewType {
             case .submitMusic:
+                NSLog("음악 선택 화면 시작: \(Date())")
                 navigateToSelectMusic()
             case .humming:
+                NSLog("허밍 화면 시작: \(Date())")
                 navigateToHumming()
             case .rehumming:
+                NSLog("리허밍 화면 시작: \(Date())")
                 navigateToRehumming()
             case .submitAnswer:
+                NSLog("정답제출 화면 시작: \(Date())")
                 navigateToSubmitAnswer()
             case .result:
+                NSLog("결과 화면 시작: \(Date())")
                 navigateToResult()
             case .lobby:
+                NSLog("로비 화면 시작: \(Date())")
                 navigateToLobby()
             default:
                 break

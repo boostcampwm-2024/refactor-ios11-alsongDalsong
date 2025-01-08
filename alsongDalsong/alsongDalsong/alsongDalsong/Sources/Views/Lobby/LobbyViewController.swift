@@ -127,6 +127,7 @@ final class LobbyViewController: UIViewController {
 
 extension LobbyViewController {
     func showStartGameLoading() {
+        NSLog("게임 시작 버튼 클릭 \(Date())")
         let alert = LoadingAlertController(
             progressText: .startGame,
             loadAction: { [weak self] in

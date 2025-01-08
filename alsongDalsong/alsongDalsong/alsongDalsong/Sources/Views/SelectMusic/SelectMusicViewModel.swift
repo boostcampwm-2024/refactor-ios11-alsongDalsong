@@ -68,6 +68,7 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
         playerPublisher.combineLatest(answersPublisher)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] playersCount, answersCount in
+                NSLog("팀원 음악 선택 완료 반영: \(Date())")
                 let submitStatus = (submits: String(answersCount), total: String(playersCount))
                 self?.submissionStatus = submitStatus
             }

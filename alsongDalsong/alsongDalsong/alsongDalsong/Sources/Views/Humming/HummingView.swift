@@ -115,6 +115,7 @@ final class HummingViewController: UIViewController {
 
 extension HummingViewController {
     private func showSubmitHummingLoading() {
+        NSLog("1차 허밍 제출 \(Date())")
         let alert = LoadingAlertController(
             progressText: .submitHumming,
             loadAction: { [weak self] in

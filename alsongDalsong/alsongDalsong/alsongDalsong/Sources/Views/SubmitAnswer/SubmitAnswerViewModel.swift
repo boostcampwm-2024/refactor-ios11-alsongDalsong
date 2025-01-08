@@ -84,6 +84,7 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
 
         playerPublisher.combineLatest(submitsPublisher)
             .sink { [weak self] playersCount, submitsCount in
+                NSLog("팀원 정답 완료 반영: \(Date())")
                 let submitStatus = (submits: String(submitsCount), total: String(playersCount))
                 self?.submissionStatus = submitStatus
             }
