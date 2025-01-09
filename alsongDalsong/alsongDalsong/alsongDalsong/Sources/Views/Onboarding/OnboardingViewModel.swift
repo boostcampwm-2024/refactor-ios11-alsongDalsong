@@ -2,6 +2,7 @@ import ASMusicKit
 import ASRepositoryProtocol
 import Combine
 import Foundation
+import OSLog
 
 final class OnboardingViewModel: @unchecked Sendable {
     private var avatarRepository: AvatarRepositoryProtocol
@@ -33,6 +34,7 @@ final class OnboardingViewModel: @unchecked Sendable {
         Task {
             avatars = try await avatarRepository.getAvatarUrls()
             avatars.shuffle()
+            os_log("\(#function): 아바타 URL 가져오고, 셔플")
             self.refreshAvatars()
         }
     }
@@ -45,6 +47,7 @@ final class OnboardingViewModel: @unchecked Sendable {
             guard let randomAvatarUrl = avatars.randomElement() else { return }
             selectedAvatar = randomAvatarUrl
             self.avatarData = await dataDownloadRepository.downloadData(url: randomAvatarUrl)
+            os_log("\(#function): 아바타 이미지 데이터 다운로드")
         }
     }
 

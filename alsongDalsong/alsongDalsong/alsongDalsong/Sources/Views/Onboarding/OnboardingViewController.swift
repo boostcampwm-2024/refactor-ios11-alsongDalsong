@@ -2,6 +2,7 @@ import ASContainer
 import ASRepositoryProtocol
 import Combine
 import UIKit
+import OSLog
 
 final class OnboardingViewController: UIViewController {
     private var logoImageView = UIImageView(image: UIImage(named: Constants.logoImageName))
@@ -140,6 +141,7 @@ final class OnboardingViewController: UIViewController {
 
         bind(viewModel?.$avatarData) { [weak self] data in
             self?.avatarView.setImage(imageData: data)
+            os_log("\(#function): setImage 함수 호출")
         }
 
         bind(viewModel?.$buttonEnabled) { [weak self] enabled in

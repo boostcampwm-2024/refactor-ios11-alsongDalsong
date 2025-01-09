@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 import ASCacheKit
 import ASNetworkKit
+import OSLog
 
 final class ASAvatarCircleView: UIView {
     private var imageView = UIImageView()
@@ -39,5 +40,7 @@ final class ASAvatarCircleView: UIView {
     func setImage(imageData: Data?) {
         guard let imageData else { return }
         imageView.image = UIImage(data: imageData)
+        
+        os_log("\(#function): 프로필 이미지 불러와짐")
     }
 }

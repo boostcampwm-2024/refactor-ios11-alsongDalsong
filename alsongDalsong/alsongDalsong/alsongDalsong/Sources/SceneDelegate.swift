@@ -1,11 +1,12 @@
 import ASCacheKit
 import ASContainer
-import ASLogKit
 import ASNetworkKit
 import ASRepository
 import ASRepositoryProtocol
+import ASLogKit
 import Firebase
 import UIKit
+import OSLog
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -41,6 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navigationController.interactivePopGestureRecognizer?.isEnabled = false
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+        os_log("\(#function): 앱 시작")
     }
     
     func sceneDidDisconnect(_: UIScene) {

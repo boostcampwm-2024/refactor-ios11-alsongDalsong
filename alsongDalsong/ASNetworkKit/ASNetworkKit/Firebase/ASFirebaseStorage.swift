@@ -1,5 +1,6 @@
 @preconcurrency internal import FirebaseStorage
 import Foundation
+import OSLog
 
 public final class ASFirebaseStorage: ASFirebaseStorageProtocol {
     private let storageRef = Storage.storage().reference()
@@ -8,6 +9,7 @@ public final class ASFirebaseStorage: ASFirebaseStorageProtocol {
         let avatarRef = storageRef.child("avatar")
         do {
             let result = try await avatarRef.listAll()
+            os_log("\(#function): 아바타 리스트 가져옴")
             return try await fetchDownloadURLs(from: result.items)
         } catch {
             throw ASNetworkErrors.responseError
@@ -22,6 +24,7 @@ public final class ASFirebaseStorage: ASFirebaseStorageProtocol {
                 }
             }
             
+            os_log("\(#function): 아바타 URL 다운로드")
             return try await taskGroup.reduce(into: []) { urls, url in
                 urls.append(url)
             }
@@ -36,6 +39,8 @@ public final class ASFirebaseStorage: ASFirebaseStorageProtocol {
                 } else if let error = error {
                     continuation.resume(throwing: error)
                 }
+                
+                os_log("\(#function): 아바타 개별 URL 메타데이터 다운로드")
             }
         }
     }
