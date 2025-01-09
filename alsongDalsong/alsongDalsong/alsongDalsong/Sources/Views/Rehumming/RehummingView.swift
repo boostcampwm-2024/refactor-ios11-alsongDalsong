@@ -123,6 +123,7 @@ final class RehummingViewController: UIViewController {
 
 extension RehummingViewController {
     private func showSubmitHummingLoading() {
+        NSLog("리허밍 제출 버튼 클릭 \(Date())")
         let alert = LoadingAlertController(
             progressText: .submitHumming,
             loadAction: { [weak self] in

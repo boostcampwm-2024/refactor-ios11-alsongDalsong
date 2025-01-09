@@ -178,6 +178,7 @@ final class OnboardingViewController: UIViewController {
     private func joinRoom(with roomNumber: String) {
         Task {
             do {
+                NSLog("게임 참가하기 버튼 클릭 \(Date())")
                 let number = try await viewModel?.joinRoom(roomNumber: roomNumber)
                 guard let number, !number.isEmpty else { return }
                 navigateToLobby(with: number)
@@ -248,6 +249,7 @@ extension OnboardingViewController {
     }
 
     private func showCreateRoomLoading() {
+        NSLog("게임 방 생성하기 버튼 클릭 \(Date())")
         let alert = LoadingAlertController(
             progressText: .joinRoom,
             loadAction: { [weak self] in
