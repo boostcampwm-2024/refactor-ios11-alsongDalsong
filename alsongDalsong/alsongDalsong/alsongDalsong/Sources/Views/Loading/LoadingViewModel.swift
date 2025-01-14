@@ -17,15 +17,27 @@ final class LoadingViewModel: @unchecked Sendable {
     }
     
     @Published var avatarData: Data?
+    @Published var loadingStatus = ""
     
     func fetchAvatars() {
         Task {
             if avatars.isEmpty {
+                loadingStatus = "게임 데이터 불러오는 중"
                 avatars = try await avatarRepository.getAvatarUrls()
             }
             
             guard let randomAvatarUrl = avatars.randomElement() else { return }
             selectedAvatar = randomAvatarUrl
+            loadingStatus = "아바타 이미지 다운로드 중"
+            
+            await withTaskGroup(of: Data?.self) { group in
+                avatars.forEach { url in
+                    group.addTask { [weak self] in
+                        return await self?.dataDownloadRepository.downloadData(url: url)
+                    }
+                }
+            }
+            
             avatarData = await dataDownloadRepository.downloadData(url: randomAvatarUrl)
         }
     }
