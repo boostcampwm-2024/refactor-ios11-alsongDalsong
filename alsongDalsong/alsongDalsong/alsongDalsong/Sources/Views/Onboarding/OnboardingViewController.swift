@@ -16,8 +16,8 @@ final class OnboardingViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     var shouldMoveKeyboard: Bool = true
 
-    init(viewmodel: OnboardingViewModel, inviteCode: String) {
-        viewModel = viewmodel
+    init(viewModel: OnboardingViewModel, inviteCode: String) {
+        self.viewModel = viewModel
         self.inviteCode = inviteCode
         super.init(nibName: nil, bundle: nil)
     }
