@@ -21,10 +21,8 @@ final class LoadingViewModel: @unchecked Sendable {
     
     func fetchAvatars() {
         Task {
-            if avatars.isEmpty {
-                loadingStatus = "게임 데이터 불러오는 중"
-                avatars = try await avatarRepository.getAvatarUrls()
-            }
+            loadingStatus = "게임 데이터 불러오는 중"
+            avatars = try await avatarRepository.getAvatarUrls()
             
             guard let randomAvatarUrl = avatars.randomElement() else { return }
             selectedAvatar = randomAvatarUrl
