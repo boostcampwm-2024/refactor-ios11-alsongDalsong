@@ -29,22 +29,16 @@ final class OnboardingViewModel: @unchecked Sendable {
         self.nickname = nickname
     }
 
-    private func fetchAvatars() {
-        Task {
-            avatars = try await avatarRepository.getAvatarUrls()
-            avatars.shuffle()
-            self.refreshAvatars()
-        }
-    }
-
     func refreshAvatars() {
-        if avatars.isEmpty {
-            fetchAvatars()
-        }
         Task {
-            guard let randomAvatarUrl = avatars.randomElement() else { return }
+            if avatars.isEmpty {
+                avatars = try await avatarRepository.getAvatarUrls()
+            }
+            
+            let filteredAvatars = avatars.filter { $0 != selectedAvatar }
+            guard let randomAvatarUrl = filteredAvatars.randomElement() else { return }
             selectedAvatar = randomAvatarUrl
-            self.avatarData = await dataDownloadRepository.downloadData(url: randomAvatarUrl)
+            avatarData = await dataDownloadRepository.downloadData(url: randomAvatarUrl)
         }
     }
 
