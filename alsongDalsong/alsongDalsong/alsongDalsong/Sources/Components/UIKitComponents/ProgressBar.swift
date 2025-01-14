@@ -10,9 +10,12 @@ final class ProgressBar: UIView {
     typealias CompletionHandler = () -> Void
     private var completionHandler: CompletionHandler?
     private var isCancelled = false
+    private var didSetInitialWidth = false
+    private var isAnimating = false
 
     init() {
         super.init(frame: .zero)
+        setupProgressBar()
     }
 
     @available(*, unavailable)
@@ -34,7 +37,11 @@ final class ProgressBar: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupProgressBar()
+        
+        guard !didSetInitialWidth, !isAnimating else { return }
+        
+        progressBarWidthConstraint?.constant = bounds.width
+        didSetInitialWidth = true
     }
 
     func setCompletionHandler(_ handler: @escaping CompletionHandler) {
@@ -50,7 +57,7 @@ final class ProgressBar: UIView {
         addSubview(progressBar)
 
         progressBar.translatesAutoresizingMaskIntoConstraints = false
-        progressBarWidthConstraint = progressBar.widthAnchor.constraint(equalToConstant: bounds.width)
+        progressBarWidthConstraint = progressBar.widthAnchor.constraint(equalToConstant: 0)
         NSLayoutConstraint.activate([
             progressBar.topAnchor.constraint(equalTo: topAnchor),
             progressBar.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -64,12 +71,14 @@ final class ProgressBar: UIView {
         let timeInterval = targetDate.timeIntervalSince(Date.now)
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
-
+        isAnimating = true
+        
         UIView.animate(
             withDuration: timeInterval,
             delay: 0,
             options: .curveLinear,
             animations: {
+                self.isAnimating = false
                 self.progressBarWidthConstraint?.constant = 0
                 self.layoutIfNeeded()
             },
