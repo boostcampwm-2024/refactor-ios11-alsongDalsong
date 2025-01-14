@@ -3,7 +3,6 @@ import SwiftUI
 
 struct SelectAnswerView: View {
     @ObservedObject var viewModel: SubmitAnswerViewModel
-    @State var searchTerm = ""
     @Environment(\.dismiss) private var dismiss
     @FocusState private var isFocused: Bool
 
@@ -40,15 +39,7 @@ struct SelectAnswerView: View {
                     isFocused = false
                 }
 
-                ASSearchBar(text: $searchTerm, placeHolder: "노래를 선택하세요")
-                    .onChange(of: searchTerm) { newValue in
-                        debouncer.debounce {
-                            Task {
-                                if newValue.isEmpty { viewModel.resetSearchList() }
-                                try await viewModel.searchMusic(text: newValue)
-                            }
-                        }
-                    }
+                ASSearchBar(text: $viewModel.searchTerm, placeHolder: "노래를 선택하세요")
                     .focused($isFocused)
                 if viewModel.isSearching {
                     VStack {

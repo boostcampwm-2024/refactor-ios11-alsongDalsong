@@ -23,6 +23,8 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
         didSet { isPlaying ? playingMusic() : stopMusic() }
     }
 
+    @Published var searchTerm: String = ""
+
     private let gameStatusRepository: GameStatusRepositoryProtocol
     private let playersRepository: PlayersRepositoryProtocol
     private let recordsRepository: RecordsRepositoryProtocol
@@ -45,8 +47,26 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
         self.submitsRepository = submitsRepository
         self.dataDownloadRepository = dataDownloadRepository
         bindGameStatus()
+        bindSearchTerm()
     }
-    
+
+    private func bindSearchTerm() {
+        $searchTerm
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .sink { [weak self] term in
+                guard let self else { return }
+                if term.isEmpty { resetSearchList() }
+                else {
+                    Task {
+                        do {
+                            try await self.searchMusic(text: term)
+                        } catch {}
+                    }
+                }
+            }
+            .store(in: &cancellables)
+    }
+
     private func bindRecord(on recordOrder: UInt8) {
         recordsRepository.getHumming(on: recordOrder)
             .sink { [weak self] record in
@@ -62,7 +82,7 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
                 self?.dueTime = newDueTime
             }
             .store(in: &cancellables)
-        
+
         gameStatusRepository.getRecordOrder()
             .sink { [weak self] newRecordOrder in
                 self?.recordOrder = newRecordOrder
@@ -70,7 +90,7 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
                 self?.bindSubmissionStatus(with: newRecordOrder)
             }
             .store(in: &cancellables)
-        
+
         gameStatusRepository.getStatus()
             .sink { [weak self] newStatus in
                 self?.status = newStatus
@@ -143,7 +163,7 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
         guard let selectedMusic else { return }
         do {
             let response = try await submitsRepository.submitAnswer(answer: selectedMusic)
-            
+
         } catch {
             throw error
         }
@@ -167,27 +187,26 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
         recordedData = data
         isRecording = false
     }
-    
-    @MainActor
+
     func resetSearchList() {
         searchList = []
     }
-    
+
     @MainActor
     private func updateMusicData(with musicData: Data) {
         self.musicData = musicData
     }
-    
+
     @MainActor
     private func updateSearchList(with searchList: [Music]) {
         self.searchList = searchList
     }
-    
+
     @MainActor
     private func updateIsSearching(with isSearching: Bool) {
         self.isSearching = isSearching
     }
-    
+
     func cancelSubscriptions() {
         cancellables.removeAll()
     }
