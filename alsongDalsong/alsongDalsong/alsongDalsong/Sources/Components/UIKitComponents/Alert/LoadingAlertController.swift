@@ -24,8 +24,13 @@ final class LoadingAlertController: ASAlertController {
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.startAnimating()
         progressView.style = .large
-        progressView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 12).isActive = true
         progressView.hidesWhenStopped = true
+        
+        NSLayoutConstraint.activate([
+            progressView.widthAnchor.constraint(equalToConstant: 48),
+            progressView.heightAnchor.constraint(equalToConstant: 48),
+        ])
+        
         Task {
             guard let load else { return }
             do {
@@ -47,7 +52,6 @@ final class LoadingAlertController: ASAlertController {
         stackView.addArrangedSubview(progressLabel)
         progressLabel.translatesAutoresizingMaskIntoConstraints = false
         progressLabel.adjustsFontSizeToFitWidth = true
-        progressLabel.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12).isActive = true
     }
 
     convenience init(
