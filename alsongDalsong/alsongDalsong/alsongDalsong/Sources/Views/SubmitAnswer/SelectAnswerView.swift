@@ -6,8 +6,6 @@ struct SelectAnswerView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState private var isFocused: Bool
 
-    private let debouncer = Debouncer(delay: 0.5)
-
     var body: some View {
         NavigationStack {
             VStack {
