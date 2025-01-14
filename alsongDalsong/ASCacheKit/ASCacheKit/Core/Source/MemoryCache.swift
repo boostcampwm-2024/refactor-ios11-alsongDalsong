@@ -1,7 +1,7 @@
 import Foundation
 import ASCacheKitProtocol
 
-struct MemoryCacheManager: @unchecked Sendable, MemoryCacheManagerProtocol {
+final class MemoryCacheManager: @unchecked Sendable, MemoryCacheManagerProtocol {
     private let cache = NSCache<NSString, AnyObject>()
 
     func getObject(forKey key: String) -> AnyObject? {

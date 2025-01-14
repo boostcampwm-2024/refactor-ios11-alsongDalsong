@@ -1,7 +1,7 @@
 import ASCacheKitProtocol
 import Foundation
 
-public struct ASCacheManager: CacheManagerProtocol, Sendable {
+public final class ASCacheManager: CacheManagerProtocol, Sendable {
     public let memoryCache: MemoryCacheManagerProtocol
     public let diskCache: DiskCacheManagerProtocol
 
