@@ -26,6 +26,11 @@ final class LobbyViewController: UIViewController {
         bindToComponents()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        lobbyView.view = nil
+    }
+
     private func bindToComponents() {
         viewmodel.$canBeginGame.combineLatest(viewmodel.$isHost)
             .receive(on: DispatchQueue.main)
