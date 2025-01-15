@@ -67,15 +67,6 @@ public actor ASAudioPlayer: NSObject {
         return audioPlayer?.duration ?? 0
     }
 
-    public func updateMeters() {
-        audioPlayer?.updateMeters()
-    }
-
-    /// player에 입력된 평균 dB을 리턴합니다.
-    public func getAveragePower() -> Float? {
-        return audioPlayer?.averagePower(forChannel: 0)
-    }
-
     public func setOnPlaybackFinished(_ handler: @Sendable @escaping () async -> Void) {
         onPlaybackFinished = handler
     }
