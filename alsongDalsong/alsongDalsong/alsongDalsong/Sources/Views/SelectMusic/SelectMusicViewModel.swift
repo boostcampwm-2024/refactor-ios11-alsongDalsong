@@ -20,6 +20,8 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
         didSet { isPlaying ? playMusic() : stopMusic() }
     }
     
+    @Published var searchTerm: String = ""
+    
     private let playersRepository: PlayersRepositoryProtocol
     private let answersRepository: AnswersRepositoryProtocol
     private let gameStatusRepository: GameStatusRepositoryProtocol
@@ -41,6 +43,7 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
         bindGameStatus()
         bindAnswer()
         bindSubmissionStatus()
+        bindSearchTerm()
     }
     
     private func bindAnswer() {
@@ -70,6 +73,21 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
             .sink { [weak self] playersCount, answersCount in
                 let submitStatus = (submits: String(answersCount), total: String(playersCount))
                 self?.submissionStatus = submitStatus
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func bindSearchTerm() {
+        $searchTerm
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .sink { [weak self] term in
+                guard let self, !term.isEmpty else {
+                    self?.resetSearchList()
+                    return
+                }
+                Task { [weak self] in
+                    try? await self?.searchMusic(text: term)
+                }
             }
             .store(in: &cancellables)
     }
@@ -108,15 +126,11 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
     }
  
     func searchMusic(text: String) async throws {
-        do {
-            if text.isEmpty { return }
-            await updateIsSearching(with: true)
-            let searchList = try await musicAPI.search(for: text)
-            await updateSearchList(with: searchList)
-            await updateIsSearching(with: false)
-        } catch {
-            throw error
-        }
+        if text.isEmpty { return }
+        await updateIsSearching(with: true)
+        let searchList = try await musicAPI.search(for: text)
+        await updateSearchList(with: searchList)
+        await updateIsSearching(with: false)
     }
     
     @MainActor
@@ -142,7 +156,6 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
         downloadMusic(url: url)
     }
     
-    @MainActor
     func resetSearchList() {
         searchList = []
     }
