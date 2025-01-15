@@ -14,8 +14,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    with:
-      xcode-version: latest-stable
+    - name: ⚙️ Set up Xcode
+      uses: apple-actions/setup-xcode@v3  # Xcode 버전 설정
+      with:
+        xcode-version: 'latest-stable'  # 최신 안정적인 Xcode 버전 사용
     
     - name: 🛠 Start alsongDalsong Build
       run: |
