@@ -1,5 +1,6 @@
 import Foundation
 import ASCacheKitProtocol
+import ASLogKit
 
 final class DiskCacheManager: @unchecked Sendable, DiskCacheManagerProtocol {
     private let fileManager = FileManager.default
@@ -43,35 +44,41 @@ final class DiskCacheManager: @unchecked Sendable, DiskCacheManagerProtocol {
     ///
     /// 설정해둔 max 용량보다 크면 가장 사용한지 오래된 캐시를 지웁니다.
     private func optimizeCache() {
-        let (currentSize, totalFiles) = calculateTotalCache()
-        guard currentSize > maxSize else { return }
+        let (totalSize, cachedFilesMetaData) = getCachedFileMetaData()
+        guard totalSize > maxSize else { return }
         
-        let sortedFiles = totalFiles.sorted {
-            let date1 = (try? $0.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? Date.distantPast
-            let date2 = (try? $1.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? Date.distantPast
-            return date1 < date2
-        }
+        let sortedFiles = cachedFilesMetaData.sorted { $0.lastModifiedDate < $1.lastModifiedDate }
         
-        var remainingSize = currentSize
-        for fileURL in sortedFiles {
+        var remainingSize = totalSize
+        for metaData in sortedFiles {
             guard remainingSize > maxSize else { break }
             
-            let fileSize = (try? fileURL.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
-            try? fileManager.removeItem(at: fileURL)
-            remainingSize -= fileSize
+            do {
+                try fileManager.removeItem(at: metaData.url)
+                remainingSize -= metaData.size
+            } catch {
+                Logger.debug("캐시 삭제 실패")
+            }
         }
     }
     
-    private func calculateTotalCache() -> (size: Int, files: [URL]) {
+    private func getCachedFileMetaData() -> (totalSize: Int, metaData: [CachedFile]) {
         guard let totalFiles = try? fileManager.contentsOfDirectory(
             at: cacheDirectory,
             includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey]) else { return (0, []) }
         
-        let totalSize = totalFiles.reduce(0) { sum, fileURL in
-            let fileSize = try? fileURL.resourceValues(forKeys: [.fileSizeKey]).fileSize
-            return sum + (fileSize ?? 0)
+        var totalSize = 0
+        var cachedFilesMetaData = [CachedFile]()
+        
+        for fileURL in totalFiles {
+            let resourceValues = try? fileURL.resourceValues(forKeys: [.fileSizeKey, .contentModificationDateKey])
+            let fileSize = resourceValues?.fileSize ?? 0
+            let modificationDate = resourceValues?.contentModificationDate ?? Date.distantPast
+            
+            totalSize += fileSize
+            cachedFilesMetaData.append(CachedFile(url: fileURL, size: fileSize, lastModifiedDate: modificationDate))
         }
         
-        return (size: totalSize, files: totalFiles)
+        return (totalSize, cachedFilesMetaData)
     }
 }
