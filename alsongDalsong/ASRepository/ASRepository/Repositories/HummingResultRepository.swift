@@ -128,14 +128,4 @@ public final class LocalHummingResultRepository: HummingResultRepositoryProtocol
 
         return submit ?? Answer.answerStub1
     }
-    
-    public func getRecordData(url: URL) async -> Data? {
-        do {
-            guard let endpoint = ResourceEndpoint(url: url) else { return nil }
-            let data = try await self.networkManager.sendRequest(to: endpoint, type: .json, body: nil, option: .both)
-            return data
-        } catch {
-            return nil
-        }
-    }
 }
