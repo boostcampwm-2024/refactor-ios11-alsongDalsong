@@ -67,6 +67,7 @@ struct SpeechBubbleCell: View {
         }
     }
 
+    @ViewBuilder
     private var contentView: some View {
         switch messageType {
             case let .music(music):
