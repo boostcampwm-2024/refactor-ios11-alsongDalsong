@@ -3,9 +3,6 @@ name: CI
 on:
   pull_request: #dev 브랜치로 PR을 올릴 경우 실행
     branches: [ "dev" ]
-    
-  push:
-    branches: ["Refactor/#13"]  # test용도
 
 jobs:
   build:
