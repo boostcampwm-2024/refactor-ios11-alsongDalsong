@@ -17,12 +17,12 @@ class ASCacheKitDemoViewModel: ObservableObject {
     func clearCache(at cacheOption: CacheOption) {
         switch cacheOption {
             case .onlyMemory:
-                cacheManager.clearMemoryCache()
+                cacheManager.memoryCache.clearCache()
             case .onlyDisk:
-                cacheManager.clearDiskCache()
+                cacheManager.diskCache.clearCache()
             case .both:
-                cacheManager.clearMemoryCache()
-                cacheManager.clearDiskCache()
+                cacheManager.memoryCache.clearCache()
+                cacheManager.diskCache.clearCache()
             default: break
         }
     }
