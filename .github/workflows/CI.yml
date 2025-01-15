@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: 🛠 Start alsongDalsong Build
       run: |
-        xcodebuild build -project alsongDalsong.xcworkspace \
+        xcodebuild build -workspace alsongDalsong.xcworkspace \
           -scheme alsongDalsong \
           -sdk iphonesimulator \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest'
