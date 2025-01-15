@@ -34,4 +34,3 @@ exports.V2 = {
   submitMusic: submitMusicV2,
   submitAnswer: submitAnswerV2,
 };
-∑
