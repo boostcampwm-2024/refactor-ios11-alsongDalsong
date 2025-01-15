@@ -10,11 +10,6 @@ final class ASCacheManager: CacheManagerProtocol, Sendable {
         diskCache = DiskCacheManager()
     }
 
-    init(memoryCache: MemoryCacheManagerProtocol, diskCache: DiskCacheManagerProtocol) {
-        self.memoryCache = memoryCache
-        self.diskCache = diskCache
-    }
-
     func loadCache(from url: URL, cacheOption: CacheOption) -> Data? {
         let cacheKey = url.absoluteString
         return loadData(forKey: cacheKey, cacheOption: cacheOption)

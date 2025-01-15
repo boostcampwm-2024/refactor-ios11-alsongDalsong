@@ -102,6 +102,6 @@ final class WaveForm: UIView {
 
 extension WaveForm {
     enum Direction {
-        case RTL, LTR
+        case LTR
     }
 }

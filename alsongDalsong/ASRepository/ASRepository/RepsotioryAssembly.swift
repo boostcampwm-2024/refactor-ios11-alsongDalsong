@@ -40,10 +40,8 @@ public struct RepsotioryAssembly: Assembly {
 
         container.register(PlayersRepositoryProtocol.self) { r in
             let mainRepository = r.resolve(MainRepositoryProtocol.self)
-            let firebaseAuthManager = r.resolve(ASFirebaseAuthProtocol.self)
             return PlayersRepository(
-                mainRepository: mainRepository,
-                firebaseAuthManager: firebaseAuthManager
+                mainRepository: mainRepository
             )
         }
 

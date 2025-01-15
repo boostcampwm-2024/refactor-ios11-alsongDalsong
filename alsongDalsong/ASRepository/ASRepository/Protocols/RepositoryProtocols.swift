@@ -3,7 +3,6 @@ import Combine
 import Foundation
 
 public protocol AnswersRepositoryProtocol {
-    func getAnswers() -> AnyPublisher<[Answer], Never>
     func getAnswersCount() -> AnyPublisher<Int, Never>
     func getMyAnswer() -> AnyPublisher<Answer?, Never>
     func submitMusic(answer: ASEntity.Music) async throws -> Bool

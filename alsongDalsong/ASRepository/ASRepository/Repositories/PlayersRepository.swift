@@ -6,12 +6,9 @@ import ASRepositoryProtocol
 
 final class PlayersRepository: PlayersRepositoryProtocol {
     private var mainRepository: MainRepositoryProtocol
-    private var firebaseAuthManager: ASFirebaseAuthProtocol
     
-    init(mainRepository: MainRepositoryProtocol,
-                firebaseAuthManager: ASFirebaseAuthProtocol) {
+    init(mainRepository: MainRepositoryProtocol) {
         self.mainRepository = mainRepository
-        self.firebaseAuthManager = firebaseAuthManager
     }
     
     func getPlayers() -> AnyPublisher<[Player], Never> {

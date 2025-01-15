@@ -50,11 +50,6 @@ public actor ASAudioPlayer: NSObject {
         return false
     }
 
-    /// 현재 플레이되고 있는 파일의 진행시간을 리턴합니다.
-    public func getCurrentTime() -> TimeInterval {
-        return audioPlayer?.currentTime ?? 0
-    }
-
     /// 녹음파일의 총 녹음시간을 리턴합니다.
     public func getDuration(data: Data) -> TimeInterval {
         if audioPlayer == nil {
