@@ -29,14 +29,31 @@
 | <img width=300 src="https://github.com/user-attachments/assets/5d6e9355-7738-4361-92cd-824ad6d6b470"> | <img width=300 src="https://github.com/user-attachments/assets/a12d8c07-2e50-460c-b5b1-e686e00a3cf2"> | <img width=300 src="https://github.com/user-attachments/assets/41b05c64-06e6-4559-8cf1-4d302f1e4ad5"> |
 | :---------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
 
-## Team 대대대대(DDDD)
+## 🎼 iOS11
 
-|                                              S024 박상원                                              |                                              S029 박진성                                              |                                              S033 손승재                                              |                                              S050 이민하                                              |
-| :---------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/1ea87e89-64d3-4948-8ae7-40b03802af01" width=150> | <img src="https://github.com/user-attachments/assets/5bc994cc-d56d-472f-b91d-4e545e42bf51" width=150> | <img src="https://github.com/user-attachments/assets/35077735-1bf3-46e5-b086-da1f7f17510b" width=150> | <img src="https://github.com/user-attachments/assets/c7d1b9c7-1b5e-44f8-ba8f-ba6258a8a5fe" width=150> |
-|                             [@psangwon62](https://github.com/psangwon62)                              |                                 [@Tltlbo](https://github.com/kth1210)                                 |                              [@Sonny-Kor](https://github.com/Sonny-Kor)                               |                             [@moral-life](https://github.com/moral-life)                              |
-|                                              로얄 iOS핑                                               |                                   물 흘러가듯이<br>살고 있습니도르.                                   |                                  나는 더 나은<br>미래를 위해 싸운다                                   |                            도덕적인 삶을 추구하는<br>개발자 이민하입니다.                             |
-|                                                 대구                                                  |                                                 대구                                                  |                                                 대구                                                  |                                                 대전                                                  |
+<table>
+  <tr align=center>
+    <td width="160px"><img src="https://avatars.githubusercontent.com/u/86788943?v=4"></td>
+    <td width="160px"><img src="https://avatars.githubusercontent.com/u/131857557?v=4"></td>
+    <td width="160px"><img src="https://avatars.githubusercontent.com/u/120548537?v=4"></td>
+    <td width="160px"><img src="https://avatars.githubusercontent.com/u/46300191?v=4"></td>
+    <td width="160px"><img src="https://avatars.githubusercontent.com/u/28076019?v=4"></td>
+  </tr>
+  <tr align=center>
+    <td width="160px"><a href="https://github.com/around-forest">around-forest</a></td>
+    <td width="160px"><a href="https://github.com/INYEKIM">INYEKIM</a></td>
+    <td width="160px"><a href="https://github.com/hyunjuntyler">hyunjuntyler</a></td>
+    <td width="160px"><a href="https://github.com/Sonny-Kor">Sonny-Kor</a></td>
+    <td width="160px"><a href="https://https://github.com/moral-life">moral-life</a></td>
+  </tr>
+  <tr align=center>
+    <td width="160px">김건우</td>
+    <td width="160px">김인예</td>
+    <td width="160px">김현준</td>
+    <td width="160px">손승재</td>
+    <td width="160px">이민하</td>
+  </tr>
+</table>
 
 # 🕹️ HOW TO PLAY? 🕹️
 
