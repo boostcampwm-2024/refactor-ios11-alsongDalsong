@@ -40,7 +40,6 @@ final class DiskCacheManager: @unchecked Sendable, DiskCacheManagerProtocol {
     }
     
     /// 캐시를 최적화하는 메서드
-    /// comment
     ///
     /// 설정해둔 max 용량보다 크면 가장 사용한지 오래된 캐시를 지웁니다.
     private func optimizeCache() {
