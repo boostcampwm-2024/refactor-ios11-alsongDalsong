@@ -4,21 +4,14 @@ import Foundation
 import ASLogKit
 import ASRepositoryProtocol
 
-public final class RecordsRepository: RecordsRepositoryProtocol {
+final class RecordsRepository: RecordsRepositoryProtocol {
     private var mainRepository: MainRepositoryProtocol
 
-    public init(mainRepository: MainRepositoryProtocol) {
+    init(mainRepository: MainRepositoryProtocol) {
         self.mainRepository = mainRepository
     }
 
-    public func getRecords() -> AnyPublisher<[ASEntity.Record], Never> {
-        mainRepository.records
-            .receive(on: DispatchQueue.main)
-            .compactMap { $0 }
-            .eraseToAnyPublisher()
-    }
-
-    public func getRecordsCount(on recordOrder: UInt8) -> AnyPublisher<Int, Never> {
+    func getRecordsCount(on recordOrder: UInt8) -> AnyPublisher<Int, Never> {
        return mainRepository.records
             .compactMap { $0 }
             .map { records in
@@ -30,7 +23,7 @@ public final class RecordsRepository: RecordsRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
-    public func getHumming(on recordOrder: UInt8) -> AnyPublisher<ASEntity.Record?, Never> {
+    func getHumming(on recordOrder: UInt8) -> AnyPublisher<ASEntity.Record?, Never> {
         let recordsPublisher = mainRepository.records
         let playersPublisher = mainRepository.players
 
@@ -46,7 +39,7 @@ public final class RecordsRepository: RecordsRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
-    public func uploadRecording(_ record: Data) async throws -> Bool {
+    func uploadRecording(_ record: Data) async throws -> Bool {
         return try await mainRepository.postRecording(record)
     }
     

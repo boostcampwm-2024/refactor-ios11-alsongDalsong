@@ -11,7 +11,6 @@ public protocol AnswersRepositoryProtocol {
 
 public protocol GameStatusRepositoryProtocol {
     func getStatus() -> AnyPublisher<Status?, Never>
-    func getRound() -> AnyPublisher<UInt8, Never>
     func getRecordOrder() -> AnyPublisher<UInt8, Never>
     func getDueTime() -> AnyPublisher<Date, Never>
 }
@@ -24,7 +23,6 @@ public protocol PlayersRepositoryProtocol {
 }
 
 public protocol RecordsRepositoryProtocol {
-    func getRecords() -> AnyPublisher<[ASEntity.Record], Never>
     func getRecordsCount(on recordOrder: UInt8) -> AnyPublisher<Int, Never>
     func getHumming(on recordOrder: UInt8) -> AnyPublisher<ASEntity.Record?, Never>
     func uploadRecording(_ record: Data) async throws -> Bool
@@ -33,15 +31,9 @@ public protocol RecordsRepositoryProtocol {
 public protocol RoomInfoRepositoryProtocol {
     func getRoomNumber() -> AnyPublisher<String, Never>
     func getMode() -> AnyPublisher<Mode, Never>
-    func getRecordOrder() -> AnyPublisher<UInt8, Never>
-}
-
-public protocol SelectedRecordsRepositoryProtocol {
-    func getSelectedRecords() -> AnyPublisher<[UInt8], Never>
 }
 
 public protocol SubmitsRepositoryProtocol {
-    func getSubmits() -> AnyPublisher<[Answer], Never>
     func getSubmitsCount() -> AnyPublisher<Int, Never>
     func submitAnswer(answer: Music) async throws -> Bool
 }

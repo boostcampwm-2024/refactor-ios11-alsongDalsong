@@ -1,5 +1,4 @@
 import ASDecoder
-import ASEncoder
 import ASEntity
 import ASLogKit
 import ASNetworkKit
@@ -7,31 +6,31 @@ import Combine
 import Foundation
 import ASRepositoryProtocol
 
-public final class MainRepository: MainRepositoryProtocol {
-    public var myId: String? { ASFirebaseAuth.myID }
-    public var number = CurrentValueSubject<String?, Never>(nil)
-    public var host = CurrentValueSubject<Player?, Never>(nil)
-    public var players = CurrentValueSubject<[Player]?, Never>(nil)
-    public var mode = CurrentValueSubject<ASEntity.Mode?, Never>(nil)
-    public var round = CurrentValueSubject<UInt8?, Never>(nil)
-    public var status = CurrentValueSubject<ASEntity.Status?, Never>(nil)
-    public var recordOrder = CurrentValueSubject<UInt8?, Never>(nil)
-    public var answers = CurrentValueSubject<[ASEntity.Answer]?, Never>(nil)
-    public var dueTime = CurrentValueSubject<Date?, Never>(nil)
-    public var submits = CurrentValueSubject<[ASEntity.Answer]?, Never>(nil)
-    public var records = CurrentValueSubject<[ASEntity.Record]?, Never>(nil)
-    public var selectedRecords = CurrentValueSubject<[UInt8]?, Never>(nil)
+final class MainRepository: MainRepositoryProtocol {
+    var myId: String? { ASFirebaseAuth.myID }
+    var number = CurrentValueSubject<String?, Never>(nil)
+    var host = CurrentValueSubject<Player?, Never>(nil)
+    var players = CurrentValueSubject<[Player]?, Never>(nil)
+    var mode = CurrentValueSubject<ASEntity.Mode?, Never>(nil)
+    var round = CurrentValueSubject<UInt8?, Never>(nil)
+    var status = CurrentValueSubject<ASEntity.Status?, Never>(nil)
+    var recordOrder = CurrentValueSubject<UInt8?, Never>(nil)
+    var answers = CurrentValueSubject<[ASEntity.Answer]?, Never>(nil)
+    var dueTime = CurrentValueSubject<Date?, Never>(nil)
+    var submits = CurrentValueSubject<[ASEntity.Answer]?, Never>(nil)
+    var records = CurrentValueSubject<[ASEntity.Record]?, Never>(nil)
+    var selectedRecords = CurrentValueSubject<[UInt8]?, Never>(nil)
 
     private let databaseManager: ASFirebaseDatabaseProtocol
     private let networkManager: ASNetworkManagerProtocol
     private var cancellables: Set<AnyCancellable> = []
 
-    public init(databaseManager: ASFirebaseDatabaseProtocol, networkManager: ASNetworkManagerProtocol) {
+    init(databaseManager: ASFirebaseDatabaseProtocol, networkManager: ASNetworkManagerProtocol) {
         self.databaseManager = databaseManager
         self.networkManager = networkManager
     }
 
-    public func connectRoom(roomNumber: String) {
+    func connectRoom(roomNumber: String) {
         databaseManager.addRoomListener(roomNumber: roomNumber)
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -60,7 +59,7 @@ public final class MainRepository: MainRepositoryProtocol {
             .store(in: &cancellables)
     }
 
-    public func disconnectRoom() {
+    func disconnectRoom() {
         update(\.number, with: nil)
         update(\.host, with: nil)
         update(\.players, with: nil)
@@ -86,7 +85,7 @@ public final class MainRepository: MainRepositoryProtocol {
         }
     }
 
-    public func postRecording(_ record: Data) async throws -> Bool {
+    func postRecording(_ record: Data) async throws -> Bool {
         let queryItems = [URLQueryItem(name: "userId", value: ASFirebaseAuth.myID),
                           URLQueryItem(name: "roomNumber", value: number.value)]
         let endPoint = FirebaseEndpoint(path: .uploadRecording, method: .post)
@@ -103,7 +102,7 @@ public final class MainRepository: MainRepositoryProtocol {
         return success
     }
     
-    public func postResetGame() async throws -> Bool {
+    func postResetGame() async throws -> Bool {
         let queryItems = [URLQueryItem(name: "userId", value: ASFirebaseAuth.myID),
                           URLQueryItem(name: "roomNumber", value: number.value)]
         let endPoint = FirebaseEndpoint(path: .resetGame, method: .post)

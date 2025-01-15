@@ -6,23 +6,16 @@ import Combine
 import Foundation
 import ASRepositoryProtocol
 
-public final class SubmitsRepository: SubmitsRepositoryProtocol {
+final class SubmitsRepository: SubmitsRepositoryProtocol {
     private var mainRepository: MainRepositoryProtocol
     private var networkManager: ASNetworkManagerProtocol
 
-    public init(mainRepository: MainRepositoryProtocol, networkManager: ASNetworkManagerProtocol) {
+    init(mainRepository: MainRepositoryProtocol, networkManager: ASNetworkManagerProtocol) {
         self.mainRepository = mainRepository
         self.networkManager = networkManager
     }
-
-    public func getSubmits() -> AnyPublisher<[Answer], Never> {
-        mainRepository.answers
-            .receive(on: DispatchQueue.main)
-            .compactMap { $0 }
-            .eraseToAnyPublisher()
-    }
     
-    public func getSubmitsCount() -> AnyPublisher<Int, Never> {
+    func getSubmitsCount() -> AnyPublisher<Int, Never> {
         mainRepository.submits
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
@@ -30,7 +23,7 @@ public final class SubmitsRepository: SubmitsRepositoryProtocol {
             .eraseToAnyPublisher()
     }
     
-    public func submitAnswer(answer: Music) async throws -> Bool {
+    func submitAnswer(answer: Music) async throws -> Bool {
         let queryItems = [URLQueryItem(name: "userId", value: ASFirebaseAuth.myID),
                           URLQueryItem(name: "roomNumber", value: mainRepository.number.value)]
         let endPoint = FirebaseEndpoint(path: .submitAnswer, method: .post)
