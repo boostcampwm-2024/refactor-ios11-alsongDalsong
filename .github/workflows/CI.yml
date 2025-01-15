@@ -10,15 +10,10 @@ on:
 jobs:
   build:
     # job이 실행될 환경
-    runs-on: macos-latest
+    runs-on: macos-15
 
     steps:
     - uses: actions/checkout@v4
-    - name: ⚙️ Set up Xcode
-      uses: apple-actions/setup-xcode@v3  # Xcode 버전 설정
-      with:
-        xcode-version: 'latest-stable'  # 최신 안정적인 Xcode 버전 사용
-    
     - name: 🛠 Start alsongDalsong Build
       run: |
         xcodebuild build -workspace alsongDalsong.xcworkspace -scheme alsongDalsong -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest'
