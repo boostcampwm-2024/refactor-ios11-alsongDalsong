@@ -5,7 +5,7 @@ import Combine
 import Foundation
 
 final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
-    @Published private(set) var answers: [Answer] = []
+    @Published private(set) var answers: [Answer]
     @Published private(set) var searchList: [Music] = []
     @Published private(set) var isSearching: Bool = false
     @Published private(set) var dueTime: Date?
