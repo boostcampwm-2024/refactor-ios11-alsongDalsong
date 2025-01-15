@@ -128,13 +128,6 @@ class ASAlertController: UIViewController {
 
 // MARK: - Alert Type
 
-enum ASAlertStyle {
-    case input
-    case `default`
-    case confirm
-    case load
-}
-
 enum ASAlertText {
     enum Title: CustomStringConvertible {
         case leaveRoom

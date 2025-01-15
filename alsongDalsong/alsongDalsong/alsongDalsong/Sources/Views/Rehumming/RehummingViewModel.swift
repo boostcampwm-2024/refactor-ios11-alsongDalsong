@@ -5,8 +5,6 @@ import Foundation
 
 final class RehummingViewModel: @unchecked Sendable {
     @Published private(set) var dueTime: Date?
-    @Published private(set) var recordOrder: UInt8?
-    @Published private(set) var status: Status?
     @Published private(set) var submissionStatus: (submits: String, total: String) = ("0", "0")
     @Published private(set) var music: Music?
     @Published private(set) var recordedData: Data?
@@ -72,14 +70,8 @@ final class RehummingViewModel: @unchecked Sendable {
             .store(in: &cancellables)
         gameStatusRepository.getRecordOrder()
             .sink { [weak self] newRecordOrder in
-                self?.recordOrder = newRecordOrder
                 self?.bindRecord(on: newRecordOrder)
                 self?.bindSubmissionStatus(with: newRecordOrder)
-            }
-            .store(in: &cancellables)
-        gameStatusRepository.getStatus()
-            .sink { [weak self] newStatus in
-                self?.status = newStatus
             }
             .store(in: &cancellables)
     }

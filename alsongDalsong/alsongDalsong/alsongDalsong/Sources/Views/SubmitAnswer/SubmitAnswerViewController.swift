@@ -11,7 +11,6 @@ final class SubmitAnswerViewController: UIViewController {
     private var selectedAnswerView: UIHostingController<SelectAnswerView>?
     private var buttonStack = UIStackView()
     private let viewModel: SubmitAnswerViewModel
-    private var cancellables: Set<AnyCancellable> = []
 
     init(viewModel: SubmitAnswerViewModel) {
         self.viewModel = viewModel

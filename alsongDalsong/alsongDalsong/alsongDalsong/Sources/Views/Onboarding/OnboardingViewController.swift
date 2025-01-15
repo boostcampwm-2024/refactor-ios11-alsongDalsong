@@ -273,13 +273,13 @@ private extension OnboardingViewController {
         )
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardWillHide(_:)),
+            selector: #selector(keyboardWillHide),
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(appDidEnterBackground(_:)),
+            selector: #selector(appDidEnterBackground),
             name: UIApplication.didEnterBackgroundNotification,
             object: nil
         )
@@ -312,13 +312,13 @@ private extension OnboardingViewController {
         }
     }
 
-    @objc func keyboardWillHide(_ notification: NSNotification) {
+    @objc func keyboardWillHide() {
         UIView.animate(withDuration: 0.3) {
             self.view.transform = .identity
         }
     }
 
-    @objc func appDidEnterBackground(_ notification: NSNotification) {
+    @objc func appDidEnterBackground() {
         view.endEditing(true)
     }
 }

@@ -9,10 +9,6 @@ final class WaveForm: UIView {
     private var circleColor: UIColor
     private var highlightColor: UIColor
 
-    override class func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
     init(numOfColumns: Int = 48, circleColor: UIColor = .white, highlightColor: UIColor = .black) {
         self.numOfColumns = numOfColumns
         self.circleColor = circleColor

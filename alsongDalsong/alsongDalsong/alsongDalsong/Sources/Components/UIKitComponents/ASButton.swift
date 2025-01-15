@@ -149,22 +149,3 @@ final class ASButton: UIButton {
         }
     }
 }
-
-struct ASButtonWrapper: UIViewRepresentable {
-    let systemImageName: String
-    let title: String
-    let backgroundColor: UIColor
-    let textStyle: UIFont.TextStyle = .largeTitle
-    func makeUIView(context _: Context) -> ASButton {
-        let view = ASButton()
-        view.setConfiguration(
-            systemImageName: systemImageName,
-            text: title,
-            textStyle: textStyle,
-            backgroundColor: backgroundColor
-        )
-        return view
-    }
-
-    func updateUIView(_: ASButton, context _: Context) {}
-}
