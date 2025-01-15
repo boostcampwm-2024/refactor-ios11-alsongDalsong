@@ -12,11 +12,11 @@ jobs:
     # job이 실행될 환경
     runs-on: macos-latest
 
-    with:
-        xcode-version: '16.0'
-    
     steps:
     - uses: actions/checkout@v4
+    with:
+      xcode-version: latest-stable
+    
     - name: 🛠 Start alsongDalsong Build
       run: |
         xcodebuild build -workspace alsongDalsong.xcworkspace -scheme alsongDalsong -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest'
