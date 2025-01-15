@@ -68,22 +68,6 @@ public struct GameState {
         }
         return nil
     }
-
-    private func resolveHarmonyViewType(status: Status) -> GameViewType {
-        .submitMusic
-    }
-
-    private func resolveSyncViewType(status: Status) -> GameViewType {
-        .submitMusic
-    }
-
-    private func resolveInstantViewType(status: Status) -> GameViewType {
-        .submitMusic
-    }
-
-    private func resolveTTSViewType(status: Status) -> GameViewType {
-        .submitMusic
-    }
 }
 
 public enum GameViewType {

@@ -4,12 +4,6 @@ public struct Record: Codable, Equatable, Sendable, Hashable {
     public var player: Player?
     public var recordOrder: UInt8?
     public var fileUrl: URL?
-    
-    public init(player: Player? = nil, recordOrder: UInt8? = nil, fileUrl: URL? = nil) {
-        self.player = player
-        self.recordOrder = recordOrder
-        self.fileUrl = fileUrl
-    }
 }
 
 extension Record {
