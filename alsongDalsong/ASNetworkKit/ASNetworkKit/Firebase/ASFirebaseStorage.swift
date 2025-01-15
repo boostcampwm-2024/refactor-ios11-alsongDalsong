@@ -16,26 +16,14 @@ public final class ASFirebaseStorage: ASFirebaseStorageProtocol {
     
     private func fetchDownloadURLs(from items: [StorageReference]) async throws -> [URL] {
         try await withThrowingTaskGroup(of: URL.self) { taskGroup in
-            for item in items {
+            items.forEach { item in
                 taskGroup.addTask {
-                    try await self.downloadURL(for: item)
+                    try await item.downloadURL()
                 }
             }
             
             return try await taskGroup.reduce(into: []) { urls, url in
                 urls.append(url)
-            }
-        }
-    }
-
-    private func downloadURL(for item: StorageReference) async throws -> URL {
-        try await withCheckedThrowingContinuation { continuation in
-            item.downloadURL { url, error in
-                if let url = url {
-                    continuation.resume(returning: url)
-                } else if let error = error {
-                    continuation.resume(throwing: error)
-                }
             }
         }
     }

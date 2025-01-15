@@ -30,16 +30,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         window = UIWindow(windowScene: windowScene)
         
-        let onboardingVM = OnboardingViewModel(
-            avatarRepository: DIContainer.shared.resolve(AvatarRepositoryProtocol.self),
-            roomActionRepository: DIContainer.shared.resolve(RoomActionRepositoryProtocol.self),
-            dataDownloadRepository: DIContainer.shared.resolve(DataDownloadRepositoryProtocol.self)
+        let avatarRepository = DIContainer.shared.resolve(AvatarRepositoryProtocol.self)
+        let dataDownloadRepository = DIContainer.shared.resolve(DataDownloadRepositoryProtocol.self)
+        let loadingVM = LoadingViewModel(
+            avatarRepository: avatarRepository,
+            dataDownloadRepository: dataDownloadRepository
         )
-        let onboardingVC = OnboardingViewController(viewmodel: onboardingVM, inviteCode: inviteCode)
-        let navigationController = UINavigationController(rootViewController: onboardingVC)
-        navigationController.navigationBar.isHidden = true
-        navigationController.interactivePopGestureRecognizer?.isEnabled = false
-        window?.rootViewController = navigationController
+        
+        let loadingVC = LoadingViewController(viewModel: loadingVM, inviteCode: inviteCode)
+        window?.rootViewController = loadingVC
         window?.makeKeyAndVisible()
     }
     
