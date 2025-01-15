@@ -1,4 +1,3 @@
-import ASEntity
 import Foundation
 
 public protocol ASFirebaseAuthProtocol: Sendable {

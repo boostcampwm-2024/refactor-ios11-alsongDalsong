@@ -1,10 +1,10 @@
 @preconcurrency internal import FirebaseStorage
 import Foundation
 
-public final class ASFirebaseStorage: ASFirebaseStorageProtocol {
+final class ASFirebaseStorage: ASFirebaseStorageProtocol {
     private let storageRef = Storage.storage().reference()
     
-    public func getAvatarUrls() async throws -> [URL] {
+    func getAvatarUrls() async throws -> [URL] {
         let avatarRef = storageRef.child("avatar")
         do {
             let result = try await avatarRef.listAll()
