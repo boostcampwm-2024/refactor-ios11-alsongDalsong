@@ -80,10 +80,6 @@ class ASAlertController: UIViewController {
         stackView.addArrangedSubview(titleLabel)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: stackView.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: stackView.topAnchor),
-        ])
     }
 
     func setButtonStackView() {
@@ -96,7 +92,6 @@ class ASAlertController: UIViewController {
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             buttonStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
-            buttonStackView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
         ])
     }
 
