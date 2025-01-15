@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  pull_request: #dev 브랜치로 PR을 올릴 경우 실행
+    branches: [ "dev" ]
+
+jobs:
+  build:
+    # job이 실행될 환경
+    runs-on: macos-15
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: 🛠 Start alsongDalsong Build
+      run: |
+        xcodebuild build -workspace alsongDalsong.xcworkspace -scheme alsongDalsong -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest'
