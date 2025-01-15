@@ -1,6 +1,5 @@
 public protocol Registerable {
     func register<T>(_ type: T.Type, factory: @escaping (Resolvable) -> T)
-    func register<T>(_ type: T.Type, _ object: T)
     func registerSingleton<T>(_ type: T.Type, factory: @escaping (Resolvable) -> T)
     func registerSingleton<T>(_ type: T.Type, _ object: T)
 }
@@ -23,11 +22,6 @@ public final class DIContainer: Registerable, Resolvable {
     public func register<T>(_ type: T.Type, factory: @escaping (Resolvable) -> T) {
         let key = "\(type)"
         factories[key] = factory
-    }
-    
-    public func register<T>(_ type: T.Type, _ object: T) {
-        let key = "\(type)"
-        factories[key] = { _ in object }
     }
     
     public func registerSingleton<T>(_ type: T.Type, factory: @escaping (Resolvable) -> T) {
