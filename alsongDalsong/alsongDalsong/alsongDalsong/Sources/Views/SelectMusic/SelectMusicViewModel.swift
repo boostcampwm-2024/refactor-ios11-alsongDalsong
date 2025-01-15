@@ -81,14 +81,12 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
         $searchTerm
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .sink { [weak self] term in
-                guard let self else { return }
-                if term.isEmpty { resetSearchList() }
-                else {
-                    Task {
-                        do {
-                            try await self.searchMusic(text: term)
-                        } catch {}
-                    }
+                guard let self, !term.isEmpty else {
+                    self?.resetSearchList()
+                    return
+                }
+                Task { [weak self] in
+                    try? await self?.searchMusic(text: term)
                 }
             }
             .store(in: &cancellables)
