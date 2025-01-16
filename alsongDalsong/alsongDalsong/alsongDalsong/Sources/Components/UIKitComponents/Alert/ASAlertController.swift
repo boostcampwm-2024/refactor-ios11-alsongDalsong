@@ -182,6 +182,7 @@ enum ASAlertText {
         case submitHumming
         case nextResult
         case toLobby
+        
         var description: String {
             switch self {
                 case .joinRoom: "방 정보를 가져오는 중..."
