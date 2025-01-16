@@ -13,6 +13,7 @@ const { resetGame } = require('./api/ResetGame.js');
 const { submitMusicV2 } = require('./api/SubmitMusicV2.js');
 const { submitAnswerV2 } = require('./api/SubmitAnswerV2.js');
 const { uploadRecordingV2 } = require('./api/UploadRecordV2.js');
+const { uploadRecordingV3 } = require('./api/UploadRecordV3.js');
 
 // 방 관련 API
 exports.createRoom = createRoom;
@@ -34,4 +35,7 @@ exports.V2 = {
   submitMusic: submitMusicV2,
   submitAnswer: submitAnswerV2,
 };
-∑
+
+exports.V3 = {
+  uploadRecording: uploadRecordingV3,
+};
