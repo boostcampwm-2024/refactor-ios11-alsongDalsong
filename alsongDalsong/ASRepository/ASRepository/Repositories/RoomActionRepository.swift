@@ -4,12 +4,12 @@ import Combine
 import Foundation
 import ASRepositoryProtocol
 
-public final class RoomActionRepository: RoomActionRepositoryProtocol {
+final class RoomActionRepository: RoomActionRepositoryProtocol {
     private let mainRepository: MainRepositoryProtocol
     private let authManager: ASFirebaseAuthProtocol
     private let networkManager: ASNetworkManagerProtocol
     
-    public init(
+    init(
         mainRepository: MainRepositoryProtocol,
         authManager: ASFirebaseAuthProtocol,
         networkManager: ASNetworkManagerProtocol
@@ -19,7 +19,7 @@ public final class RoomActionRepository: RoomActionRepositoryProtocol {
         self.networkManager = networkManager
     }
 
-    public func createRoom(nickname: String, avatar: URL) async throws -> String {
+    func createRoom(nickname: String, avatar: URL) async throws -> String {
         try await self.authManager.signIn(nickname: nickname, avatarURL: avatar)
         let response: [String: String]? = try await self.sendRequest(
             endpointPath: .createRoom,
@@ -31,7 +31,7 @@ public final class RoomActionRepository: RoomActionRepositoryProtocol {
         return roomNumber
     }
     
-    public func joinRoom(nickname: String, avatar: URL, roomNumber: String) async throws -> Bool {
+    func joinRoom(nickname: String, avatar: URL, roomNumber: String) async throws -> Bool {
         let player = try await self.authManager.signIn(nickname: nickname, avatarURL: avatar)
         let response: [String: String]? = try await self.sendRequest(
             endpointPath: .joinRoom,
@@ -43,13 +43,13 @@ public final class RoomActionRepository: RoomActionRepositoryProtocol {
         return roomNumberResponse == roomNumber
     }
     
-    public func leaveRoom() async throws -> Bool {
+    func leaveRoom() async throws -> Bool {
         self.mainRepository.disconnectRoom()
         try await self.authManager.signOut()
         return true
     }
     
-    public func startGame(roomNumber: String) async throws -> Bool {
+    func startGame(roomNumber: String) async throws -> Bool {
         let response: [String: Bool]? = try await self.sendRequest(
             endpointPath: .gameStart,
             requestBody: ["roomNumber": roomNumber, "userId": ASFirebaseAuth.myID]
@@ -60,7 +60,7 @@ public final class RoomActionRepository: RoomActionRepositoryProtocol {
         return response
     }
     
-    public func changeMode(roomNumber: String, mode: Mode) async throws -> Bool {
+    func changeMode(roomNumber: String, mode: Mode) async throws -> Bool {
         let response: [String: Bool] = try await self.sendRequest(
             endpointPath: .changeMode,
             requestBody: ["roomNumber": roomNumber, "userId": ASFirebaseAuth.myID, "mode": mode.rawValue]
@@ -71,7 +71,7 @@ public final class RoomActionRepository: RoomActionRepositoryProtocol {
         return isSuccess
     }
     
-    public func changeRecordOrder(roomNumber: String) async throws -> Bool {
+    func changeRecordOrder(roomNumber: String) async throws -> Bool {
         let response: [String: Bool] = try await self.sendRequest(
             endpointPath: .changeRecordOrder,
             requestBody: ["roomNumber": roomNumber, "userId": ASFirebaseAuth.myID]
@@ -82,7 +82,7 @@ public final class RoomActionRepository: RoomActionRepositoryProtocol {
         return isSuccess
     }
     
-    public func resetGame() async throws -> Bool {
+    func resetGame() async throws -> Bool {
         return try await mainRepository.postResetGame()
     }
     

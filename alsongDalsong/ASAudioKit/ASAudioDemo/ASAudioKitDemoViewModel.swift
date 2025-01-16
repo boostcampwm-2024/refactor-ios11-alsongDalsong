@@ -109,12 +109,6 @@ extension ASAudioKitDemoViewModel {
         progressTimer?.invalidate()
     }
 
-    func updateCurrentTime() {
-        Task {
-            playedTime = await audioPlayer.getCurrentTime()
-        }
-    }
-
     func getDuration(recordedFile: Data?) -> TimeInterval? {
         guard let recordedFile else { return nil }
         var timeInterval: TimeInterval?

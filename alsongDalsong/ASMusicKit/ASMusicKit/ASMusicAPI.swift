@@ -96,12 +96,12 @@ public struct ASMusicAPI {
     }
 }
 
-public enum ASMusicError: Error, LocalizedError {
+enum ASMusicError: Error, LocalizedError {
     case notAuthorized
     case searchError
     case playListHasNoSongs
 
-    public var errorDescription: String? {
+    var errorDescription: String? {
         switch self {
             case .notAuthorized:
                 "애플 뮤직에 접근하는 권한이 없습니다."

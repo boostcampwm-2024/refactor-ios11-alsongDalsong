@@ -32,11 +32,6 @@ final class GameNavigationController: @unchecked Sendable {
         self.roomNumber = roomNumber
     }
 
-    @available(*, unavailable)
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     func setConfiguration() {
         gameStateRepository.getGameState()
             .receive(on: DispatchQueue.main)
@@ -144,14 +139,12 @@ final class GameNavigationController: @unchecked Sendable {
         let roomInfoRepository: RoomInfoRepositoryProtocol = DIContainer.shared.resolve(RoomInfoRepositoryProtocol.self)
         let playersRepository: PlayersRepositoryProtocol = DIContainer.shared.resolve(PlayersRepositoryProtocol.self)
         let roomActionRepository: RoomActionRepositoryProtocol = DIContainer.shared.resolve(RoomActionRepositoryProtocol.self)
-        let avatarRepository: AvatarRepositoryProtocol = DIContainer.shared.resolve(AvatarRepositoryProtocol.self)
         let dataDownloadRepository: DataDownloadRepositoryProtocol = DIContainer.shared.resolve(DataDownloadRepositoryProtocol.self)
 
         let vm = LobbyViewModel(
             playersRepository: playersRepository,
             roomInfoRepository: roomInfoRepository,
             roomActionRepository: roomActionRepository,
-            avatarRepository: avatarRepository,
             dataDownloadRepository: dataDownloadRepository
         )
         let vc = LobbyViewController(lobbyViewModel: vm)
@@ -276,8 +269,6 @@ final class GameNavigationController: @unchecked Sendable {
         }
         navigationController.pushViewController(guideVC, animated: true)
     }
-
-    private func navigationToWaiting() {}
 
     private func leaveRoom() {
         Task {

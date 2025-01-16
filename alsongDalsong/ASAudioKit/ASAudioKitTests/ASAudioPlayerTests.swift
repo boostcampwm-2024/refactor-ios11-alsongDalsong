@@ -37,10 +37,9 @@ struct ASAudioPlayerTests {
             return
         }
 
-        player.startPlaying(data: testMusic, option: .partial(time: 6))
+        await player.startPlaying(data: testMusic, option: .partial(time: 6))
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
-            #expect(player.getCurrentTime() == 6)
             #expect(player.isPlaying() == false)
         }
 

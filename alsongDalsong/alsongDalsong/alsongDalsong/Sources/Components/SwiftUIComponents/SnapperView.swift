@@ -2,7 +2,6 @@ import SwiftUI
 import ASEntity
 
 struct SnapperView: View {
-    private let size: CGSize
     private let modeInfos = Mode.allCases
     private let padding: CGFloat
     private let cardWidth: CGFloat
@@ -14,7 +13,6 @@ struct SnapperView: View {
     @State private var totalDrag: CGFloat = 0.0
     
     init(size: CGSize, currentMode: Binding<Mode>) {
-        self.size = size
         self.cardWidth = size.width * 0.85
         self.padding = (size.width - cardWidth) / 2.0
         self.maxSwipeDistance = cardWidth + spacing

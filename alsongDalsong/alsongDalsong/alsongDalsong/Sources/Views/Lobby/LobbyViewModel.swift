@@ -8,14 +8,12 @@ final class LobbyViewModel: ObservableObject, @unchecked Sendable {
     private var playersRepository: PlayersRepositoryProtocol
     private var roomInfoRepository: RoomInfoRepositoryProtocol
     private var roomActionRepository: RoomActionRepositoryProtocol
-    private var avatarRepository: AvatarRepositoryProtocol
     private var dataDownloadRepository: DataDownloadRepositoryProtocol
 
     let playerMaxCount = 4
     private(set) var roomNumber: String = ""
     @Published var players: [Player] = []
     @Published var host: Player?
-    @Published var isGameStrted: Bool = false
     @Published var isHost: Bool = false
     @Published var canBeginGame: Bool = false
     @Published var mode: Mode = .humming {
@@ -31,13 +29,11 @@ final class LobbyViewModel: ObservableObject, @unchecked Sendable {
     init(playersRepository: PlayersRepositoryProtocol,
          roomInfoRepository: RoomInfoRepositoryProtocol,
          roomActionRepository: RoomActionRepositoryProtocol,
-         avatarRepository: AvatarRepositoryProtocol,
          dataDownloadRepository: DataDownloadRepositoryProtocol)
     {
         self.playersRepository = playersRepository
         self.roomActionRepository = roomActionRepository
         self.roomInfoRepository = roomInfoRepository
-        self.avatarRepository = avatarRepository
         self.dataDownloadRepository = dataDownloadRepository
         fetchData()
     }

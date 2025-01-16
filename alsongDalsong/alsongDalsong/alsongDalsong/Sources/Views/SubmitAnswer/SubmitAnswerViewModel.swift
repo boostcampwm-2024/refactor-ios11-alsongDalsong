@@ -9,12 +9,8 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
     @Published private(set) var selectedMusic: Music?
     @Published private(set) var isSearching: Bool = false
     @Published private(set) var dueTime: Date?
-    @Published private(set) var recordOrder: UInt8?
-    @Published private(set) var status: Status?
     @Published private(set) var submissionStatus: (submits: String, total: String) = ("0", "0")
     @Published private(set) var music: Music?
-    @Published private(set) var recordedData: Data?
-    @Published private(set) var isRecording: Bool = false
     @Published private(set) var musicData: Data? {
         didSet { isPlaying = true }
     }
@@ -83,20 +79,13 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
 
         gameStatusRepository.getRecordOrder()
             .sink { [weak self] newRecordOrder in
-                self?.recordOrder = newRecordOrder
                 self?.bindRecord(on: newRecordOrder)
-                self?.bindSubmissionStatus(with: newRecordOrder)
-            }
-            .store(in: &cancellables)
-
-        gameStatusRepository.getStatus()
-            .sink { [weak self] newStatus in
-                self?.status = newStatus
+                self?.bindSubmissionStatus()
             }
             .store(in: &cancellables)
     }
 
-    private func bindSubmissionStatus(with recordOrder: UInt8) {
+    private func bindSubmissionStatus() {
         let playerPublisher = playersRepository.getPlayersCount()
         let submitsPublisher = submitsRepository.getSubmitsCount()
 
@@ -168,23 +157,6 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
     }
 
     // MARK: - 이부분 부터 RehummingViewModel
-
-    func startRecording() {
-        isRecording = true
-    }
-
-    func togglePlayPause() {
-        Task {
-            await AudioHelper.shared.startPlaying(recordedData, option: .full)
-        }
-    }
-
-    func updateRecordedData(with data: Data) {
-        // TODO: - data가 empty일 때(녹음이 제대로 되지 않았을 때 사용자 오류처리 필요
-        guard !data.isEmpty else { return }
-        recordedData = data
-        isRecording = false
-    }
 
     func resetSearchList() {
         searchList = []

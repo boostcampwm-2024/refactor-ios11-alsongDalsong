@@ -10,10 +10,6 @@ final class ASPanel: UIView {
         super.init(coder: coder)
     }
 
-    func updateBackgroundColor(_ color: UIColor) {
-        backgroundColor = color
-    }
-
     private func setupUI() {
         layer.cornerRadius = 12
         layer.borderColor = UIColor.black.cgColor

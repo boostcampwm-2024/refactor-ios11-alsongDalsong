@@ -19,17 +19,12 @@ final class HummingResultViewModel: @unchecked Sendable {
     private var dataDownloadRepository: DataDownloadRepositoryProtocol
     private var cancellables = Set<AnyCancellable>()
 
-    @Published var recordOrder: UInt8? = 0
     @Published var isHost: Bool = false
     @Published var result: Result = (nil, [], nil)
     @Published var resultPhase: ResultPhase = .none
     @Published var canEndGame: Bool = false
 
     var totalResult: [(answer: ASEntity.Answer, records: [ASEntity.Record], submit: ASEntity.Answer)] = []
-
-    var resultEnded: Bool {
-        totalResult.isEmpty
-    }
 
     private var roomNumber: String = ""
 
@@ -183,7 +178,6 @@ extension HummingResultViewModel {
             .sink { [weak self] _, recordOrder in
                 guard let self else { return }
                 Logger.debug("recordOrder changed", recordOrder)
-                self.recordOrder = recordOrder
                 updateCurrentResult()
             }
             .store(in: &cancellables)

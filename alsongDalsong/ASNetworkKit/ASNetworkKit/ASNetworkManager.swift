@@ -1,17 +1,17 @@
 import ASCacheKitProtocol
 import Foundation
 
-public struct ASNetworkManager: ASNetworkManagerProtocol {
+struct ASNetworkManager: ASNetworkManagerProtocol {
     private let urlSession: URLSessionProtocol
     private let cacheManager: CacheManagerProtocol
 
-    public init(urlSession: URLSessionProtocol = URLSession.shared, cacheManager: CacheManagerProtocol) {
+    init(urlSession: URLSessionProtocol = URLSession.shared, cacheManager: CacheManagerProtocol) {
         self.urlSession = urlSession
         self.cacheManager = cacheManager
     }
 
     @discardableResult
-    public func sendRequest(
+    func sendRequest(
         to endpoint: any Endpoint,
         type: HTTPContentType,
         body: Data? = nil,

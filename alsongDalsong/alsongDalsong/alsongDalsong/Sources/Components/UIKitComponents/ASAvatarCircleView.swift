@@ -1,7 +1,5 @@
 import UIKit
 import SwiftUI
-import ASCacheKit
-import ASNetworkKit
 
 final class ASAvatarCircleView: UIView {
     private var imageView = UIImageView()

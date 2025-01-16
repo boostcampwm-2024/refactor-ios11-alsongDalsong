@@ -2,12 +2,12 @@ import ASEntity
 import Combine
 @preconcurrency internal import FirebaseFirestore
 
-public final class ASFirebaseDatabase: ASFirebaseDatabaseProtocol {
+final class ASFirebaseDatabase: ASFirebaseDatabaseProtocol {
     private let firestoreRef = Firestore.firestore()
     private var roomListeners: ListenerRegistration?
     private var roomPublisher = PassthroughSubject<Room, Error>()
     
-    public func addRoomListener(roomNumber: String) -> AnyPublisher<Room, Error> {
+    func addRoomListener(roomNumber: String) -> AnyPublisher<Room, Error> {
         let roomRef = firestoreRef.collection("rooms").document(roomNumber)
         let listener = roomRef.addSnapshotListener { documentSnapshot, error in
             if let error {
@@ -30,7 +30,7 @@ public final class ASFirebaseDatabase: ASFirebaseDatabaseProtocol {
         return roomPublisher.eraseToAnyPublisher()
     }
     
-    public func removeRoomListener() {
+    func removeRoomListener() {
         roomListeners?.remove()
     }
 }

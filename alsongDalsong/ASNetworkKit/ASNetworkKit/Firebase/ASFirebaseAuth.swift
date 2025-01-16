@@ -11,7 +11,7 @@ public final class ASFirebaseAuth: ASFirebaseAuthProtocol {
     public func signIn(nickname: String, avatarURL: URL?) async throws {
         do {
             guard let myID = ASFirebaseAuth.myID else { throw ASNetworkErrors.FirebaseSignInError }
-            let player = Player(id: myID, avatarUrl: avatarURL, nickname: nickname, score: 0, order: 0)
+            let player = Player(id: myID, avatarUrl: avatarURL, nickname: nickname, order: 0)
             let playerData = try ASEncoder.encode(player)
             let dict = try JSONSerialization.jsonObject(with: playerData, options: .allowFragments) as? [String: Any]
             let userStatusRef = databaseRef.child("players").child(myID)

@@ -1,26 +1,21 @@
 import ASCacheKitProtocol
 import Foundation
 
-public final class ASCacheManager: CacheManagerProtocol, Sendable {
-    public let memoryCache: MemoryCacheManagerProtocol
-    public let diskCache: DiskCacheManagerProtocol
+final class ASCacheManager: CacheManagerProtocol, Sendable {
+    let memoryCache: MemoryCacheManagerProtocol
+    let diskCache: DiskCacheManagerProtocol
 
-    public init() {
+    init() {
         memoryCache = MemoryCacheManager()
         diskCache = DiskCacheManager()
     }
 
-    public init(memoryCache: MemoryCacheManagerProtocol, diskCache: DiskCacheManagerProtocol) {
-        self.memoryCache = memoryCache
-        self.diskCache = diskCache
-    }
-
-    public func loadCache(from url: URL, cacheOption: CacheOption) -> Data? {
+    func loadCache(from url: URL, cacheOption: CacheOption) -> Data? {
         let cacheKey = url.absoluteString
         return loadData(forKey: cacheKey, cacheOption: cacheOption)
     }
 
-    public func saveCache(withKey url: URL, data: Data, cacheOption: CacheOption) {
+    func saveCache(withKey url: URL, data: Data, cacheOption: CacheOption) {
         let cacheKey = url.absoluteString
         switch cacheOption {
             case .onlyMemory:
@@ -63,13 +58,5 @@ public final class ASCacheManager: CacheManagerProtocol, Sendable {
             return diskData
         }
         return nil
-    }
-
-    public func clearMemoryCache() {
-        memoryCache.clearCache()
-    }
-
-    public func clearDiskCache() {
-        diskCache.clearCache()
     }
 }

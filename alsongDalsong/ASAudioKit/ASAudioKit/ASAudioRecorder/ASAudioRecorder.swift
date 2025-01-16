@@ -59,11 +59,6 @@ public actor ASAudioRecorder {
         }
     }
 
-    /// 현재 녹음된 시간을 리턴합니다.
-    public func getCurrentTime() -> TimeInterval {
-        return audioRecorder?.currentTime ?? 0
-    }
-
     /// recorder의 입력 레벨을 업데이트합니다.
     public func updateMeters() {
         audioRecorder?.updateMeters()

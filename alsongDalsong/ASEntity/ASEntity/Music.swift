@@ -6,7 +6,6 @@ public struct Music: Codable, Equatable, Identifiable, Sendable, Hashable {
     public var artist: String?
     public var artworkUrl: URL?
     public var previewUrl: URL?
-    public var lyrics: String?
     public var artworkBackgroundColor: String?
 
     public init() {}

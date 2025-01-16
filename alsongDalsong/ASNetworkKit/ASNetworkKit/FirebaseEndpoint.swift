@@ -58,15 +58,15 @@ public struct FirebaseEndpoint: Endpoint, Equatable {
 }
 
 // MARK: - example functions
-
-public extension FirebaseEndpoint {
-    func test(body: Data) -> any Endpoint {
-        Self(path: .auth, method: .get)
-            .update(\.body, with: body)
-    }
-
-    func fetchAllAvatarURLs() -> any Endpoint {
-        Self(path: .auth, method: .get)
-            .update(\.queryItems, with: [.init(name: "listAvatarUrls", value: "true")])
-    }
-}
+//
+// public extension FirebaseEndpoint {
+//     func test(body: Data) -> any Endpoint {
+//         Self(path: .auth, method: .get)
+//             .update(\.body, with: body)
+//     }
+//
+//     func fetchAllAvatarURLs() -> any Endpoint {
+//         Self(path: .auth, method: .get)
+//             .update(\.queryItems, with: [.init(name: "listAvatarUrls", value: "true")])
+//     }
+//}

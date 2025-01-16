@@ -5,7 +5,6 @@ import Combine
 import Foundation
 
 final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
-    @Published private(set) var answers: [Answer] = []
     @Published private(set) var searchList: [Music] = []
     @Published private(set) var isSearching: Bool = false
     @Published private(set) var dueTime: Date?
@@ -41,20 +40,10 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
         self.gameStatusRepository = gameStatusRepository
         self.dataDownloadRepository = dataDownloadRepository
         bindGameStatus()
-        bindAnswer()
         bindSubmissionStatus()
         bindSearchTerm()
     }
     
-    private func bindAnswer() {
-        answersRepository.getAnswers()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] newAnswers in
-                self?.answers = newAnswers
-            }
-            .store(in: &cancellables)
-    }
-
     private func bindGameStatus() {
         gameStatusRepository.getDueTime()
             .receive(on: DispatchQueue.main)

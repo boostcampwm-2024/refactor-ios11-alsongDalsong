@@ -1,6 +1,5 @@
 import UIKit
 import Combine
-import ASEntity
 
 final class MusicPanelView: UIView {
     private let albumImageView = UIImageView()

@@ -40,10 +40,8 @@ public struct RepsotioryAssembly: Assembly {
 
         container.register(PlayersRepositoryProtocol.self) { r in
             let mainRepository = r.resolve(MainRepositoryProtocol.self)
-            let firebaseAuthManager = r.resolve(ASFirebaseAuthProtocol.self)
             return PlayersRepository(
-                mainRepository: mainRepository,
-                firebaseAuthManager: firebaseAuthManager
+                mainRepository: mainRepository
             )
         }
 
@@ -72,13 +70,6 @@ public struct RepsotioryAssembly: Assembly {
             )
         }
 
-        container.register(SelectedRecordsRepositoryProtocol.self) { r in
-            let mainRepository = r.resolve(MainRepositoryProtocol.self)
-            return SelectedRecordsRepository(
-                mainRepository: mainRepository
-            )
-        }
-
         container.register(SubmitsRepositoryProtocol.self) { r in
             let mainRepository = r.resolve(MainRepositoryProtocol.self)
             let networkManager = r.resolve(ASNetworkManagerProtocol.self)
@@ -95,11 +86,7 @@ public struct RepsotioryAssembly: Assembly {
 
         container.register(HummingResultRepositoryProtocol.self) { r in
             let mainRepository = r.resolve(MainRepositoryProtocol.self)
-            let storageManager = r.resolve(ASFirebaseStorageProtocol.self)
-            let networkManager = r.resolve(ASNetworkManagerProtocol.self)
             return HummingResultRepository(
-                storageManager: storageManager,
-                networkManager: networkManager,
                 mainRepository: mainRepository
             )
         }

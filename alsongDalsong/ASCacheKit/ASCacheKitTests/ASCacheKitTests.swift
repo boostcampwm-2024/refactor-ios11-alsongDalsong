@@ -4,7 +4,7 @@ import Testing
 import UIKit
 
 struct ASCacheKitTests {
-    private var cacheManager = ASCacheManager(memoryCache: MockMemoryCacheManager(), diskCache: MockDiskCacheManager())
+    private var cacheManager = ASCacheManager()
     let testData = UIImage(systemName: "star")!.pngData()!
     let testImageURL = URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUcmUojj8oZ0EzJU027Pul8SpM6ZMxr8HXAgsuunxkFZKSW7K27kLqcsoRaWaEX03kmQg&usqp=CAU")!
 
