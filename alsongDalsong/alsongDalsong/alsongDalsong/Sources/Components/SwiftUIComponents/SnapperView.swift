@@ -43,10 +43,10 @@ struct SnapperView: View {
                     isDragging = false
                     totalDrag = 0.0
                     
-                    if (value.translation.width < -(cardWidth / 2.0) && self.currentMode.Index < modeInfos.count) {
+                    if (value.translation.width < -(cardWidth / 5.0) && self.currentMode.Index < modeInfos.count) {
                         self.currentMode = Mode.fromIndex(self.currentMode.Index + 1) ?? .harmony
                     }
-                    if (value.translation.width > (cardWidth / 2.0) && self.currentMode.Index > 1) {
+                    if (value.translation.width > (cardWidth / 5.0) && self.currentMode.Index > 1) {
                         self.currentMode = Mode.fromIndex(self.currentMode.Index - 1) ?? .harmony
                     }
             }
