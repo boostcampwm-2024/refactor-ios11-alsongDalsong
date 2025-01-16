@@ -1,9 +1,10 @@
 import Foundation
-import os.log
+import os
+import OSLog
 
 public enum Logger {
-    private static var logger: os.Logger {
-        return os.Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.unknown.app", category: "Logger")
+    private static var logger: OSLog {
+        return OSLog(subsystem: Bundle.main.bundleIdentifier ?? "com.unknown.app", category: "Logger")
     }
 
     public static func debug(_ items: Any..., separator: String = " ", terminator: String = "\n") {
@@ -14,33 +15,35 @@ public enum Logger {
         log(.info, items, separator: separator, terminator: terminator)
     }
 
-    public static func warning(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-        log(.warning, items, separator: separator, terminator: terminator)
+    public static func fault(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+        log(.fault, items, separator: separator, terminator: terminator)
     }
 
     public static func error(_ items: Any..., separator: String = " ", terminator: String = "\n") {
         log(.error, items, separator: separator, terminator: terminator)
     }
 
-    public static func critical(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-        log(.critical, items, separator: separator, terminator: terminator)
+    public static func notice(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+        log(.default, items, separator: separator, terminator: terminator)
     }
 
     private static func log(_ level: LogLevel, _ items: [Any], separator: String, terminator _: String) {
         #if DEBUG
             let message = items.map { stringify($0) }.joined(separator: separator)
+            let osLogType: OSLogType
             switch level {
-                case .debug:
-                logger.debug("[\(level.rawValue)] \(message, privacy: .private)")
-                case .info:
-                logger.info("[\(level.rawValue)] \(message, privacy: .private)")
-                case .warning:
-                logger.warning("[\(level.rawValue)] \(message, privacy: .private)")
-                case .error:
-                logger.error("[\(level.rawValue)] \(message, privacy: .private)")
-                case .critical:
-                logger.fault("[\(level.rawValue)] \(message, privacy: .private)")
+            case .debug:
+                osLogType = .debug
+            case .info:
+                osLogType = .info
+            case .fault:
+                osLogType = .fault
+            case .error:
+                osLogType = .error
+            case .default:
+                osLogType = .default
             }
+            os_log("[%@] %{public}@", log: logger, type: osLogType, level.rawValue, message)
         #endif
     }
 
@@ -58,7 +61,7 @@ public enum Logger {
 enum LogLevel: String {
     case debug = "DEBUG"
     case info = "INFO"
-    case warning = "WARNING"
+    case fault = "FAULT"
     case error = "ERROR"
-    case critical = "CRITICAL"
+    case `default` = "NOTICE"
 }
