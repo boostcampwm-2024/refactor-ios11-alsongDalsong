@@ -46,7 +46,7 @@ final class DiskCacheManager: @unchecked Sendable, DiskCacheManagerProtocol {
         let (totalSize, cachedFilesMetaData) = getCachedFileMetaData()
         guard totalSize > maxSize else { return }
         
-        let sortedFiles = cachedFilesMetaData.sorted { $0.lastModifiedDate < $1.lastModifiedDate }
+        let sortedFiles = cachedFilesMetaData.sorted { $0.modificationDate < $1.modificationDate }
         
         var remainingSize = totalSize
         for metaData in sortedFiles {
@@ -75,7 +75,7 @@ final class DiskCacheManager: @unchecked Sendable, DiskCacheManagerProtocol {
             let modificationDate = resourceValues?.contentModificationDate ?? Date.distantPast
             
             totalSize += fileSize
-            cachedFilesMetaData.append(CachedFile(url: fileURL, size: fileSize, lastModifiedDate: modificationDate))
+            cachedFilesMetaData.append(CachedFile(url: fileURL, size: fileSize, modificationDate: modificationDate))
         }
         
         return (totalSize, cachedFilesMetaData)
