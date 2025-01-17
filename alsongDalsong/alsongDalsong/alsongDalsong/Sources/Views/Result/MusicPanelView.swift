@@ -43,7 +43,7 @@ final class MusicPanelView: UIView {
     private func setupView() {
         backgroundColor = .asSystem
         
-        titleLabel.text = "정답은..."
+        titleLabel.text = String(localized: "정답은...")
         titleLabel.font = .font(ofSize: 24)
         titleLabel.textColor = .asBlack
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

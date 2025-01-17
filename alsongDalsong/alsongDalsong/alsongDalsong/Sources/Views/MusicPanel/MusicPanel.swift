@@ -122,7 +122,7 @@ final class MusicPanel: UIView {
     }
 
     private func setupNoMusicLabel() {
-        noMusicLabel.text = "정답을 선택해 주세요."
+        noMusicLabel.text = String(localized: "정답을 선택해 주세요.")
         noMusicLabel.textColor = .secondaryLabel
         noMusicLabel.font = .font(forTextStyle: .title2)
         noMusicLabel.textAlignment = .center

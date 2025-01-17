@@ -39,8 +39,7 @@ final class LobbyViewController: UIViewController {
         
         roomInfoLabel.numberOfLines = 0
         roomInfoLabel.textColor = .label
-        startButton.setTitle("게임 시작", for: .normal)
-        startButton.setTitle("게임 시작", for: .disabled)
+        startButton.setTitle(String(localized: "게임 시작"), for: .normal)
         startButton.setTitleColor(.blue, for: .normal)
         startButton.setTitleColor(.gray, for: .disabled)
         startButton.addTarget(self, action: #selector(didTapStartGameButton), for: .touchUpInside)

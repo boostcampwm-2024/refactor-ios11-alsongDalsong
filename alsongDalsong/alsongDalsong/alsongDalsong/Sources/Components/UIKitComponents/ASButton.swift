@@ -113,16 +113,16 @@ final class ASButton: UIButton {
         var text: String? {
             switch self {
                 case .disabled: nil
-                case .needMorePlayers: "게임 인원 부족"
+                case .needMorePlayers: String(localized: "게임 인원 부족")
                 case let .idle(string, _): string
-                case .startRecord: "녹음하기"
-                case .recording: "녹음중.."
-                case .reRecord: "재녹음"
-                case .complete: "완료"
-                case .submit: "제출하기"
-                case .submitted: "제출 완료"
-                case .startGame: "시작하기!"
-                case .hostSelecting: "시작 대기 중"
+                case .startRecord: String(localized: "녹음하기")
+                case .recording: String(localized: "녹음중..")
+                case .reRecord: String(localized: "재녹음")
+                case .complete: String(localized: "완료")
+                case .submit: String(localized: "제출하기")
+                case .submitted: String(localized: "제출 완료")
+                case .startGame: String(localized: "시작하기!")
+                case .hostSelecting: String(localized: "시작 대기 중")
                 }
         }
 

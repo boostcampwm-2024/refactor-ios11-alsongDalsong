@@ -31,13 +31,13 @@ final class GuideViewController: UIViewController {
     private func setupUI() {
         self.navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .asLightGray
-        titleLabel.text = type.title
-        descriptionLabel.text = type.description
+        titleLabel.text = type.title.localized()
+        descriptionLabel.text = type.description.localized()
         cautionLabel.isHidden = true
 
         if let caution = type.caution {
             cautionLabel.isHidden = false
-            cautionLabel.text = "* \(caution)"
+            cautionLabel.text = "* " + caution.localized()
             cautionLabel.textColor = .systemRed
         }
 

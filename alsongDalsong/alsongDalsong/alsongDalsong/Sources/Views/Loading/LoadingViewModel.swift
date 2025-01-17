@@ -21,12 +21,12 @@ final class LoadingViewModel: @unchecked Sendable {
     
     func fetchAvatars() {
         Task {
-            loadingStatus = "게임 데이터 불러오는 중"
+            loadingStatus = String(localized: "게임 데이터 불러오는 중")
             avatars = try await avatarRepository.getAvatarUrls()
             
             guard let randomAvatarUrl = avatars.randomElement() else { return }
             selectedAvatar = randomAvatarUrl
-            loadingStatus = "아바타 이미지 다운로드 중"
+            loadingStatus = String(localized: "아바타 이미지 다운로드 중")
             
             await withTaskGroup(of: Data?.self) { group in
                 avatars.forEach { url in

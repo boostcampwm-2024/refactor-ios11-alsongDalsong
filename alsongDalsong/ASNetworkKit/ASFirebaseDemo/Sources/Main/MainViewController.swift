@@ -21,20 +21,20 @@ final class MainViewController: UIViewController {
     private func setupUI() {
         nicknameField = UITextField()
         nicknameField.borderStyle = .roundedRect
-        nicknameField.placeholder = "닉네임 입력해주세요"
+        nicknameField.placeholder = String(localized: "닉네임 입력해주세요")
         
         textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.placeholder = "방번호 입력해주세요"
+        textField.placeholder = String(localized: "방번호 입력해주세요")
         
         createButton = UIButton()
-        createButton.setTitle("방 생성하기", for: .normal)
+        createButton.setTitle(String(localized: "방 생성하기!"), for: .normal)
         createButton.setTitleColor(.blue, for: .normal)
         createButton.setTitleColor(.gray, for: .disabled)
         createButton.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
         
         joinButton = UIButton()
-        joinButton.setTitle("방 참가하기", for: .normal)
+        joinButton.setTitle(String(localized: "방 참가하기!"), for: .normal)
         joinButton.setTitleColor(.blue, for: .normal)
         joinButton.setTitleColor(.gray, for: .disabled)
         joinButton.addTarget(self, action: #selector(joinButtonTapped), for: .touchUpInside)
