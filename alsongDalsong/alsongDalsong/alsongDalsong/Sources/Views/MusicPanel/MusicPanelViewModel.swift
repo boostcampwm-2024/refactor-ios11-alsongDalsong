@@ -25,6 +25,12 @@ final class MusicPanelViewModel: @unchecked Sendable {
         bindAudioHelper()
     }
 
+    deinit {
+        Task {
+            await AudioHelper.shared.stopPlaying()
+        }
+    }
+
     private func bindAudioHelper() {
         Task {
             await AudioHelper.shared.playerStatePublisher
@@ -82,7 +88,6 @@ final class MusicPanelViewModel: @unchecked Sendable {
         if self.type == type {
             buttonState = state
         }
-
     }
 
     private func getPreviewData() {

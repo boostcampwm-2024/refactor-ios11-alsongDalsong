@@ -46,6 +46,10 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
         bindSearchTerm()
     }
 
+    deinit {
+        stopMusic()
+    }
+
     private func bindSearchTerm() {
         $searchTerm
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
