@@ -19,6 +19,8 @@
 		1BF1C9732CEA3E290003EED9 /* ASCacheKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD3B6952CE203680037A6E1 /* ASCacheKit.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29CC86FD2D3E494C007DBA97 /* ASLogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29CC86FC2D3E494C007DBA97 /* ASLogKit.framework */; };
 		29CC86FE2D3E494C007DBA97 /* ASLogKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29CC86FC2D3E494C007DBA97 /* ASLogKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		29CC86FF2D3E4DC1007DBA97 /* ASCacheKitProtocol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF1C9582CEA3C270003EED9 /* ASCacheKitProtocol.framework */; };
+		29CC87002D3E4DC1007DBA97 /* ASCacheKitProtocol.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF1C9582CEA3C270003EED9 /* ASCacheKitProtocol.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,13 @@
 			remoteGlobalIDString = 1BD3B6942CE203680037A6E1;
 			remoteInfo = ASCacheKit;
 		};
+		29CC87012D3E4DC1007DBA97 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BD3B68C2CE203680037A6E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1BF1C9572CEA3C270003EED9;
+			remoteInfo = ASCacheKitProtocol;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,6 +75,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				29CC87002D3E4DC1007DBA97 /* ASCacheKitProtocol.framework in Embed Frameworks */,
 				1B0630BE2CE66867005300BF /* ASCacheKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -135,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29CC86FF2D3E4DC1007DBA97 /* ASCacheKitProtocol.framework in Frameworks */,
 				1B0630BD2CE66867005300BF /* ASCacheKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,6 +252,7 @@
 			);
 			dependencies = (
 				1B0630C02CE66867005300BF /* PBXTargetDependency */,
+				29CC87022D3E4DC1007DBA97 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				1B0630AD2CE66729005300BF /* ASCacheKitDemo */,
@@ -473,6 +485,11 @@
 			platformFilter = ios;
 			target = 1BD3B6942CE203680037A6E1 /* ASCacheKit */;
 			targetProxy = 1BF1C9742CEA3E290003EED9 /* PBXContainerItemProxy */;
+		};
+		29CC87022D3E4DC1007DBA97 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1BF1C9572CEA3C270003EED9 /* ASCacheKitProtocol */;
+			targetProxy = 29CC87012D3E4DC1007DBA97 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

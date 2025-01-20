@@ -7,10 +7,6 @@ class ToastViewModel: ObservableObject {
     func present(message: String) {
         isPresented = true
         self.message = message
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.isPresented = false
-        }
     }
 }
 
