@@ -29,11 +29,11 @@ struct ASMusicItemCell: View {
             }
             VStack(alignment: .leading) {
                 Text(music?.title ?? String(localized: "선택된 곡 없음"))
-                    .font(.doHyeon(size: 16))
+                    .font(.wantedSansBold(size: 16))
                     .lineLimit(1)
                 Text(music?.artist ?? String(localized: "아티스트"))
                     .foregroundStyle(.gray)
-                    .font(.doHyeon(size: 16))
+                    .font(.wantedSansBold(size: 16))
                     .lineLimit(1)
             }
         }

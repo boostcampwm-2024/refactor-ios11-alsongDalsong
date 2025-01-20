@@ -90,7 +90,7 @@ final class MusicPanel: UIView {
         artistLabel.textColor = .secondaryLabel
 
         [titleLabel, artistLabel].forEach { label in
-            label.font = .font(forTextStyle: .title3)
+            label.font = .font(.wantedSansBold, forTextStyle: .title3)
             label.textAlignment = panelType == .large ? .center : .left
             label.numberOfLines = 1
             label.lineBreakMode = .byTruncatingTail

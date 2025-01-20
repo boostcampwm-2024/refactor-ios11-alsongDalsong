@@ -83,7 +83,7 @@ struct SpeechBubbleCell: View {
                             .foregroundStyle(.gray)
                     }
                     .frame(width: 130)
-                    .font(.custom("Dohyeon-Regular", size: 20))
+                    .font(.wantedSansBold(size: 20))
                     .lineLimit(1)
                     Spacer()
                 }

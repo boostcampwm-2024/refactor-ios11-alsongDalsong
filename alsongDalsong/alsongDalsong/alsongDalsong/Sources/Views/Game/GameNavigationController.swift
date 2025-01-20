@@ -47,8 +47,11 @@ final class GameNavigationController: @unchecked Sendable {
         navigationController.navigationBar.tintColor = .asBlack
         let defaultFontSize = UIFont.preferredFont(forTextStyle: .headline).pointSize as CGFloat?
         var fontStyle = UIFont()
-        if let defaultFontSize { fontStyle = UIFont.font(ofSize: defaultFontSize)}
-        else { fontStyle = UIFont.font(ofSize: 18) }
+        if let defaultFontSize {
+            fontStyle = .font(setFont(), ofSize: defaultFontSize)
+        } else {
+            fontStyle = .font(setFont(), ofSize: 18)
+        }
         navigationController.navigationBar.titleTextAttributes = [.font: fontStyle]
         let backButtonImage = setImage()
 
@@ -93,6 +96,15 @@ final class GameNavigationController: @unchecked Sendable {
                 return "#\(roomNumber)"
             default:
                 return ""
+        }
+    }
+    
+    private func setFont() -> FontName {
+        let viewType = gameInfo?.resolveViewType()
+        if case .lobby = viewType {
+            return .neoDunggeunmoPro
+        } else {
+            return .dohyeon
         }
     }
 

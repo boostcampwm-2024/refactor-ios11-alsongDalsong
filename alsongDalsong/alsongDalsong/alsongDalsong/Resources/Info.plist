@@ -22,6 +22,8 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>DoHyeon-Regular.ttf</string>
+		<string>NeoDunggeunmoPro-Regular.ttf</string>
+		<string>WantedSans-Bold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
