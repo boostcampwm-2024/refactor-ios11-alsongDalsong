@@ -20,8 +20,28 @@ public struct Player: Codable, Equatable, Identifiable, Sendable, Hashable {
 }
 
 extension Player {
-    public static let playerStub1: Player = Player(id: "0", avatarUrl: nil, nickname: "Tltlbo", order: 0)
-    public static let playerStub2: Player = Player(id: "1", avatarUrl: nil, nickname: "Sonny", order: 1)
-    public static let playerStub3: Player = Player(id: "2", avatarUrl: nil, nickname: "Moral-life", order: 2)
-    public static let playerStub4: Player = Player(id: "3", avatarUrl: nil, nickname: "Sang₩", order: 3)
+    public static let playerStub1: Player = Player(
+        id: "0",
+        avatarUrl: URL(string: "https://avatars.githubusercontent.com/u/86788943?v=4"),
+        nickname: "around-forest",
+        order: 0
+    )
+    public static let playerStub2: Player = Player(
+        id: "1",
+        avatarUrl: URL(string: "https://avatars.githubusercontent.com/u/131857557?v=4"),
+        nickname: "INYEKIM",
+        order: 1
+    )
+    public static let playerStub3: Player = Player(
+        id: "2",
+        avatarUrl: URL(string: "https://avatars.githubusercontent.com/u/120548537?v=4"),
+        nickname: "hyunjuntyler",
+        order: 2
+    )
+    public static let playerStub4: Player = Player(
+        id: "3",
+        avatarUrl: URL(string: "https://avatars.githubusercontent.com/u/28076019?v=4"),
+        nickname: "moral-life",
+        order: 3
+    )
 }
