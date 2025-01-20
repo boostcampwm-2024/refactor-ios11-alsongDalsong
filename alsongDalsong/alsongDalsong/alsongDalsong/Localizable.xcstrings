@@ -82,7 +82,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Not enough players"
+            "value" : "Not Enough Players"
           }
         }
       }
@@ -530,7 +530,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No song selected"
+            "value" : "No Song Selected"
           }
         }
       }
