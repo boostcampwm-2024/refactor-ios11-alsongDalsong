@@ -15,14 +15,14 @@ final class ASFirebaseDatabase: ASFirebaseDatabaseProtocol {
             }
             
             guard let document = documentSnapshot, document.exists else {
-                return self.roomPublisher.send(completion: .failure(ASNetworkErrors.FirebaseListenerError))
+                return self.roomPublisher.send(completion: .failure(ASNetworkErrors.FirebaseListenerError(reason: error?.localizedDescription)))
             }
             
             do {
                 let room = try document.data(as: Room.self)
                 return self.roomPublisher.send(room)
             } catch {
-                return self.roomPublisher.send(completion: .failure(ASNetworkErrors.FirebaseListenerError))
+                return self.roomPublisher.send(completion: .failure(ASNetworkErrors.FirebaseListenerError(reason: error.localizedDescription)))
             }
         }
         
