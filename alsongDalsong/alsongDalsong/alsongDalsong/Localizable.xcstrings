@@ -482,17 +482,6 @@
         }
       }
     },
-    "사냥꾼" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hunter"
-          }
-        }
-      }
-    },
     "사부님" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -515,12 +504,23 @@
         }
       }
     },
+    "사냥꾼" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hunter"
+          }
+        }
+      }
+    },
     "선택 완료" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Complete"
+            "value" : "Done"
           }
         }
       }
@@ -602,7 +602,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Complete"
+            "value" : "Done"
           }
         }
       }
@@ -666,7 +666,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Re-record"
+            "value" : "Redo"
           }
         }
       }
@@ -686,7 +686,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Choose the correct answer"
+            "value" : "Answer"
           }
         }
       }
@@ -696,7 +696,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Submit correct answer"
+            "value" : "Submit"
           }
         }
       }
@@ -726,7 +726,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Submission complete"
+            "value" : "Done"
           }
         }
       }

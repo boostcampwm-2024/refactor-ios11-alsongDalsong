@@ -88,7 +88,7 @@ final class SubmitAnswerViewController: UIViewController {
             buttonStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             buttonStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             buttonStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            buttonStack.heightAnchor.constraint(equalToConstant: 64),
+            buttonStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 64),
         ])
     }
 
