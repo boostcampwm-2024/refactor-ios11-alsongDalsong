@@ -5,7 +5,6 @@ import SwiftUI
 import UIKit
 
 struct HummingPreview: PreviewProvider {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) static var appDelegate
     static var previews: some View {
         let gameStatusRepository = GameStatusMockRepository(status: .humming)
         let playerRepository = PlayersMockRepository()
