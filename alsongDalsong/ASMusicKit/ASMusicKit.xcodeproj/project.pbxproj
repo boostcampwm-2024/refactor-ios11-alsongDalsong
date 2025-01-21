@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		859365942D3F709D0086C8C4 /* ASMusicErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859365912D3F70960086C8C4 /* ASMusicErrors.swift */; };
 		8D7F5A862CF88C32002EAB0F /* ASEntity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D7F5A852CF88C25002EAB0F /* ASEntity.framework */; };
 		8D7F5A872CF88C32002EAB0F /* ASEntity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D7F5A852CF88C25002EAB0F /* ASEntity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		1635A4282CE59833002246E0 /* ASMusicKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASMusicKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		859365912D3F70960086C8C4 /* ASMusicErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASMusicErrors.swift; sourceTree = "<group>"; };
 		8D7F5A802CF88C25002EAB0F /* ASEntity.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASEntity.xcodeproj; path = ../ASEntity/ASEntity.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +81,7 @@
 		8D9402E22CE37DA1009D21C4 = {
 			isa = PBXGroup;
 			children = (
+				859365912D3F70960086C8C4 /* ASMusicErrors.swift */,
 				8D4F31732CE3805D00E13720 /* ASMusicKit */,
 				1635A4282CE59833002246E0 /* ASMusicKit.framework */,
 				8D7F5A7F2CF88C25002EAB0F /* Frameworks */,
@@ -186,6 +189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				859365942D3F709D0086C8C4 /* ASMusicErrors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
