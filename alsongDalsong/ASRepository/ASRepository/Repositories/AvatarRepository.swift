@@ -18,7 +18,7 @@ final class AvatarRepository: AvatarRepositoryProtocol {
             let urls = try await self.storageManager.getAvatarUrls()
             return urls
         } catch {
-            throw error
+            throw ASRepositoryErrors.getAvatarUrlsError(reason: error.localizedDescription)
         }
     }
 }

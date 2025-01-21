@@ -40,7 +40,11 @@ final class RecordsRepository: RecordsRepositoryProtocol {
     }
 
     func uploadRecording(_ record: Data) async throws -> Bool {
-        return try await mainRepository.postRecording(record)
+        do {
+            return try await mainRepository.postRecording(record)
+        } catch {
+            throw ASRepositoryErrors.uploadRecordingError(reason: error.localizedDescription)
+        }
     }
     
     private func findRecord(records: [ASEntity.Record]?,

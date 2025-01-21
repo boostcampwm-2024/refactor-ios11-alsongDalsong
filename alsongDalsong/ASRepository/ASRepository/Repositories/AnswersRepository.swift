@@ -38,14 +38,18 @@ final class AnswersRepository: AnswersRepositoryProtocol {
     }
 
     func submitMusic(answer: ASEntity.Music) async throws -> Bool {
-        let queryItems = [URLQueryItem(name: "userId", value: ASFirebaseAuth.myID),
-                          URLQueryItem(name: "roomNumber", value: mainRepository.number.value)]
-        let endPoint = FirebaseEndpoint(path: .submitMusic, method: .post)
-            .update(\.queryItems, with: queryItems)
+        do {
+            let queryItems = [URLQueryItem(name: "userId", value: ASFirebaseAuth.myID),
+                              URLQueryItem(name: "roomNumber", value: mainRepository.number.value)]
+            let endPoint = FirebaseEndpoint(path: .submitMusic, method: .post)
+                .update(\.queryItems, with: queryItems)
 
-        let body = try ASEncoder.encode(answer)
-        let response = try await networkManager.sendRequest(to: endPoint, type: .json, body: body, option: .none)
-        let responseDict = try ASDecoder.decode([String: String].self, from: response)
-        return !responseDict.isEmpty
+            let body = try ASEncoder.encode(answer)
+            let response = try await networkManager.sendRequest(to: endPoint, type: .json, body: body, option: .none)
+            let responseDict = try ASDecoder.decode([String: String].self, from: response)
+            return !responseDict.isEmpty
+        } catch {
+            throw ASRepositoryErrors.submitMusicError(reason: error.localizedDescription)
+        }
     }
 }

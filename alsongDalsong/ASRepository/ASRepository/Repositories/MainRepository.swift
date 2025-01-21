@@ -86,37 +86,45 @@ final class MainRepository: MainRepositoryProtocol {
     }
 
     func postRecording(_ record: Data) async throws -> Bool {
-        let queryItems = [URLQueryItem(name: "userId", value: ASFirebaseAuth.myID),
-                          URLQueryItem(name: "roomNumber", value: number.value)]
-        let endPoint = FirebaseEndpoint(path: .uploadRecording, method: .post)
-            .update(\.queryItems, with: queryItems)
+        do {
+            let queryItems = [URLQueryItem(name: "userId", value: ASFirebaseAuth.myID),
+                              URLQueryItem(name: "roomNumber", value: number.value)]
+            let endPoint = FirebaseEndpoint(path: .uploadRecording, method: .post)
+                .update(\.queryItems, with: queryItems)
 
-        let response = try await networkManager.sendRequest(
-            to: endPoint,
-            type: .multipart,
-            body: record,
-            option: .none
-        )
-        let responseDict = try ASDecoder.decode([String: Bool].self, from: response)
-        guard let success = responseDict["success"] else { return false }
-        return success
+            let response = try await networkManager.sendRequest(
+                to: endPoint,
+                type: .multipart,
+                body: record,
+                option: .none
+            )
+            let responseDict = try ASDecoder.decode([String: Bool].self, from: response)
+            guard let success = responseDict["success"] else { return false }
+            return success
+        } catch {
+            throw ASRepositoryErrors.postRecordingError(reason: error.localizedDescription)
+        }
     }
     
     func postResetGame() async throws -> Bool {
-        let queryItems = [URLQueryItem(name: "userId", value: ASFirebaseAuth.myID),
-                          URLQueryItem(name: "roomNumber", value: number.value)]
-        let endPoint = FirebaseEndpoint(path: .resetGame, method: .post)
-            .update(\.queryItems, with: queryItems)
+        do {
+            let queryItems = [URLQueryItem(name: "userId", value: ASFirebaseAuth.myID),
+                              URLQueryItem(name: "roomNumber", value: number.value)]
+            let endPoint = FirebaseEndpoint(path: .resetGame, method: .post)
+                .update(\.queryItems, with: queryItems)
 
-        let response = try await networkManager.sendRequest(
-            to: endPoint,
-            type: .none,
-            body: nil,
-            option: .none
-        )
-        
-        let responseDict = try ASDecoder.decode([String: Bool].self, from: response)
-        guard let success = responseDict["success"] else { return false }
-        return success
+            let response = try await networkManager.sendRequest(
+                to: endPoint,
+                type: .none,
+                body: nil,
+                option: .none
+            )
+
+            let responseDict = try ASDecoder.decode([String: Bool].self, from: response)
+            guard let success = responseDict["success"] else { return false }
+            return success
+        } catch {
+            throw ASRepositoryErrors.postResetGameError(reason: error.localizedDescription)
+        }
     }
 }
