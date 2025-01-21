@@ -125,11 +125,7 @@ final class LobbyViewController: UIViewController {
     }
 
     private func gameStart() async throws {
-        do {
-            try await viewmodel.gameStart()
-        } catch {
-            throw error
-        }
+        try await viewmodel.gameStart()
     }
 }
 

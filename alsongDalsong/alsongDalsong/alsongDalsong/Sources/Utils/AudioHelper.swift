@@ -1,5 +1,4 @@
 import ASAudioKit
-import ASLogKit
 import Combine
 import Foundation
 
@@ -69,12 +68,13 @@ actor AudioHelper {
 
     func analyze(with data: Data) async -> [CGFloat] {
         do {
-            Logger.debug("파형분석 시작")
+            LogHandler.handleDebug("파형분석 시작")
             let columns = try await ASAudioAnalyzer.analyze(data: data, samplesCount: 24)
-            Logger.debug("파형분석 완료")
-            Logger.debug(columns)
+            LogHandler.handleDebug("파형분석 완료")
+            LogHandler.handleDebug(columns)
             return columns
         } catch {
+            LogHandler.handleError(.analyzeError(reason: error.localizedDescription))
             return []
         }
     }
@@ -112,13 +112,20 @@ extension AudioHelper {
 
     func play(file: Data, option: PlayType) async {
         switch option {
-            case .full: await player?.startPlaying(data: file)
-            case let .partial(time):
-                await player?.startPlaying(data: file)
+            case .full:
                 do {
+                    try await player?.startPlaying(data: file)
+                } catch {
+                    LogHandler.handleError(.playFullError(reason: error.localizedDescription))
+                }
+            case let .partial(time):
+                do {
+                    try await player?.startPlaying(data: file)
                     try await Task.sleep(nanoseconds: UInt64(time * 1_000_000_000))
                     await stopPlaying()
-                } catch { Logger.error(error.localizedDescription) }
+                } catch {
+                    LogHandler.handleError(.playPartialError(reason: error.localizedDescription))
+                }
             @unknown default: break
         }
     }
@@ -167,19 +174,22 @@ extension AudioHelper {
         makeRecorder()
         let tempURL = makeURL()
         recorderStateSubject.send(true)
-        await recorder?.startRecording(url: tempURL)
-        visualize()
-        Logger.debug("녹음 시작")
         do {
+            try await recorder?.startRecording(url: tempURL)
+            visualize()
+            LogHandler.handleDebug("녹음 시작")
+
             try await Task.sleep(nanoseconds: 6 * 1_000_000_000)
             let recordedData = await stopRecording()
             sendDataThrough(recorderDataSubject, recordedData ?? Data())
-        } catch { Logger.error(error.localizedDescription) }
+        } catch {
+            LogHandler.handleError(.startRecordingError(reason: error.localizedDescription))
+        }
     }
 
     private func stopRecording() async -> Data? {
         let recordedData = await recorder?.stopRecording()
-        Logger.debug("녹음 정지")
+        LogHandler.handleDebug("녹음 정지")
         recorderStateSubject.send(false)
         removeRecorder()
         return recordedData
@@ -261,7 +271,7 @@ extension AudioHelper {
     }
 
     private func calculateAmplitude() {
-        Logger.debug("진폭계산 시작")
+        LogHandler.handleDebug("진폭계산 시작")
         cancellable = Timer.publish(every: 0.125, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in

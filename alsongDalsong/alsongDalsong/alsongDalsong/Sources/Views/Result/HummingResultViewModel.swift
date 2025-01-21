@@ -1,5 +1,4 @@
 import ASEntity
-import ASLogKit
 import ASRepositoryProtocol
 import Combine
 import Foundation
@@ -56,7 +55,7 @@ final class HummingResultViewModel: @unchecked Sendable {
             let records = await mapRecords(displayableResult.records)
             let submit = await mapAnswer(displayableResult.submit)
             result = (answer, records, submit)
-            Logger.debug("updateCurrentResult에서 한번")
+            LogHandler.handleDebug("updateCurrentResult에서 한번")
             updateResultPhase()
         }
     }
@@ -68,21 +67,21 @@ final class HummingResultViewModel: @unchecked Sendable {
         Task {
             switch resultPhase {
                 case .answer:
-                    Logger.debug("Answer Play")
+                    LogHandler.handleDebug("Answer Play")
                     resultPhase = .record(0)
                     await startPlaying()
                 case let .record(count):
-                    Logger.debug("Record \(count) Play")
+                    LogHandler.handleDebug("Record \(count) Play")
                     if result.records.count - 1 == count { resultPhase = .submit }
                     else { resultPhase = .record(count + 1) }
                     await startPlaying()
                 case .submit:
-                    Logger.debug("Submit Play")
+                    LogHandler.handleDebug("Submit Play")
                     resultPhase = .none
                     await startPlaying()
                     if totalResult.isEmpty { canEndGame = true }
                 case .none:
-                    Logger.debug("None")
+                    LogHandler.handleDebug("None")
                     resultPhase = .answer
                     await startPlaying()
             }
@@ -92,9 +91,9 @@ final class HummingResultViewModel: @unchecked Sendable {
     func changeRecordOrder() async {
         do {
             let succeded = try await roomActionRepository.changeRecordOrder(roomNumber: roomNumber)
-            if !succeded { Logger.error("Changing RecordOrder failed") }
+            if !succeded { LogHandler.handleError("Changing RecordOrder failed") }
         } catch {
-            Logger.error(error.localizedDescription)
+            LogHandler.handleError(.changeRecordOrderError(reason: error.localizedDescription))
         }
     }
 
@@ -102,9 +101,9 @@ final class HummingResultViewModel: @unchecked Sendable {
         do {
             guard totalResult.isEmpty else { return }
             let succeded = try await roomActionRepository.resetGame()
-            if !succeded { Logger.error("Game Reset failed") }
+            if !succeded { LogHandler.handleError("Game Reset failed") }
         } catch {
-            Logger.error("Game Reset failed")
+            LogHandler.handleError(.navigateToLobbyError(reason: error.localizedDescription))
         }
     }
 
@@ -128,7 +127,7 @@ final class HummingResultViewModel: @unchecked Sendable {
         for record in records {
             let recordData = await getRecordData(url: record.fileUrl)
             let recordAmplitudes = await AudioHelper.shared.analyze(with: recordData ?? Data())
-            Logger.debug(recordAmplitudes)
+            LogHandler.handleDebug(recordAmplitudes)
             let playerName = record.player?.nickname
             let playerAvatarData = await getAvatarData(url: record.player?.avatarUrl)
             mappedRecords.append(MappedRecord(recordData, recordAmplitudes, playerName, playerAvatarData))
@@ -177,7 +176,7 @@ extension HummingResultViewModel {
             .dropFirst()
             .sink { [weak self] _, recordOrder in
                 guard let self else { return }
-                Logger.debug("recordOrder changed", recordOrder)
+                LogHandler.handleDebug("recordOrder changed \(recordOrder)")
                 updateCurrentResult()
             }
             .store(in: &cancellables)
@@ -187,7 +186,7 @@ extension HummingResultViewModel {
         hummingResultRepository.getResult()
             .receive(on: DispatchQueue.main)
             .map { $0.sorted { $0.answer.player?.order ?? 0 < $1.answer.player?.order ?? 1 } }
-            .sink(receiveCompletion: { Logger.debug($0) },
+            .sink(receiveCompletion: { LogHandler.handleDebug($0) },
                   receiveValue: { [weak self] sortedResult in
                       guard let self, isValidResult(sortedResult) else { return }
 

@@ -113,17 +113,23 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
             do {
                 _ = try await answersRepository.submitMusic(answer: selectedMusic)
             } catch {
-                throw error
+                LogHandler.handleError(.submitMusicError(reason: error.localizedDescription))
+                throw ASErrors.submitMusicError(reason: error.localizedDescription)
             }
         }
     }
  
     func searchMusic(text: String) async throws {
-        if text.isEmpty { return }
-        await updateIsSearching(with: true)
-        let searchList = try await musicAPI.search(for: text)
-        await updateSearchList(with: searchList)
-        await updateIsSearching(with: false)
+        do {
+            if text.isEmpty { return }
+            await updateIsSearching(with: true)
+            let searchList = try await musicAPI.search(for: text)
+            await updateSearchList(with: searchList)
+            await updateIsSearching(with: false)
+        } catch {
+            LogHandler.handleError(.searchMusicOnSelectError(reason: error.localizedDescription))
+            throw ASErrors.searchMusicOnSelectError(reason: error.localizedDescription)
+        }
     }
     
     @MainActor
@@ -131,7 +137,8 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
         do {
             selectedMusic = try await musicAPI.randomSong(from: "pl.u-aZb00o7uPlzMZzr")
         } catch {
-            throw error
+            LogHandler.handleError(.randomMusicError(reason: error.localizedDescription))
+            throw ASErrors.randomMusicError(reason: error.localizedDescription)
         }
     }
     

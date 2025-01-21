@@ -42,7 +42,11 @@ final class OnboardingViewModel: @unchecked Sendable {
     func authorizeAppleMusic() {
         let musicAPI = ASMusicAPI()
         Task {
-            let _ = try await musicAPI.search(for: "뉴진스", 1, 1)
+            do {
+                let _ = try await musicAPI.search(for: "뉴진스", 1, 1)
+            } catch {
+                LogHandler.handleError(.authorizeAppleMusicError(reason: error.localizedDescription))
+            }
         }
     }
 
@@ -55,7 +59,8 @@ final class OnboardingViewModel: @unchecked Sendable {
             return id
         } catch {
             buttonEnabled = true
-            throw error
+            LogHandler.handleError(.joinRoomError(reason: error.localizedDescription))
+            throw ASErrors.joinRoomError(reason: error.localizedDescription)
         }
     }
 
@@ -68,7 +73,8 @@ final class OnboardingViewModel: @unchecked Sendable {
             return try await joinRoom(roomNumber: roomNumber)
         } catch {
             buttonEnabled = true
-            throw error
+            LogHandler.handleError(.createRoomError(reason: error.localizedDescription))
+            throw ASErrors.createRoomError(reason: error.localizedDescription)
         }
     }
 }

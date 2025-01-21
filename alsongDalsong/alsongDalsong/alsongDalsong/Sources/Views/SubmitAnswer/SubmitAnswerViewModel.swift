@@ -136,7 +136,8 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
             await updateSearchList(with: searchList)
             await updateIsSearching(with: false)
         } catch {
-            throw error
+            LogHandler.handleError(.searchMusicOnSubmitError(reason: error.localizedDescription))
+            throw ASErrors.searchMusicOnSubmitError(reason: error.localizedDescription)
         }
     }
 
@@ -153,10 +154,10 @@ final class SubmitAnswerViewModel: ObservableObject, @unchecked Sendable {
     func submitAnswer() async throws {
         guard let selectedMusic else { return }
         do {
-            let response = try await submitsRepository.submitAnswer(answer: selectedMusic)
-
+            let _ = try await submitsRepository.submitAnswer(answer: selectedMusic)
         } catch {
-            throw error
+            LogHandler.handleError(.submitAnswerError(reason: error.localizedDescription))
+            throw ASErrors.submitAnswerError(reason: error.localizedDescription)
         }
     }
 
