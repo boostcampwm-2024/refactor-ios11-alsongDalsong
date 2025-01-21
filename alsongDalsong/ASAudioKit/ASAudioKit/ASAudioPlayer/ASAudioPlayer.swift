@@ -13,28 +13,29 @@ public actor ASAudioPlayer: NSObject {
     public var onPlaybackFinished: (@Sendable () async -> Void)?
 
     /// 녹음파일을 재생하고 옵션에 따라 재생시간을 설정합니다.
-    public func startPlaying(data: Data, option: PlayType = .full) {
-        configureAudioSession()
+    public func startPlaying(data: Data, option: PlayType = .full) throws {
         do {
+            try configureAudioSession()
             audioPlayer = try AVAudioPlayer(data: data)
             audioPlayer?.delegate = self
             audioPlayer?.prepareToPlay()
             audioPlayer?.isMeteringEnabled = true
         } catch {
             // TODO: 오디오 객체생성 실패 시 처리
+            throw ASAudioErrors.startPlayingError(reason: error.localizedDescription)
         }
 
         switch option {
-            case .full:
-                audioPlayer?.play()
-            case let .partial(time):
-                audioPlayer?.currentTime = 0
-                audioPlayer?.play()
-                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(time)) {
-                    Task {
-                        await self.stopPlaying()
-                    }
+        case .full:
+            audioPlayer?.play()
+        case let .partial(time):
+            audioPlayer?.currentTime = 0
+            audioPlayer?.play()
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(time)) {
+                Task {
+                    await self.stopPlaying()
                 }
+            }
         }
     }
 
@@ -51,12 +52,13 @@ public actor ASAudioPlayer: NSObject {
     }
 
     /// 녹음파일의 총 녹음시간을 리턴합니다.
-    public func getDuration(data: Data) -> TimeInterval {
+    public func getDuration(data: Data) throws -> TimeInterval {
         if audioPlayer == nil {
             do {
                 audioPlayer = try AVAudioPlayer(data: data)
             } catch {
                 // TODO: 오디오 객체생성 실패 시 처리
+                throw ASAudioErrors.getDurationError(reason: error.localizedDescription)
             }
         }
         return audioPlayer?.duration ?? 0
@@ -66,13 +68,14 @@ public actor ASAudioPlayer: NSObject {
         onPlaybackFinished = handler
     }
 
-    private func configureAudioSession() {
+    private func configureAudioSession() throws {
         do {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])
             try session.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
             // TODO: 세션 설정 실패에 따른 처리
+            throw ASAudioErrors.configureAudioSessionError(reason: error.localizedDescription)
         }
     }
 }

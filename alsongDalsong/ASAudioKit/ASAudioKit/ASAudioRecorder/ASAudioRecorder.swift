@@ -5,33 +5,34 @@ public actor ASAudioRecorder {
 
     public init() {}
     /// 녹음 후 저장될 파일의 위치를 지정하여 녹음합니다.
-    public func startRecording(url: URL) {
-        configureAudioSession()
-        let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
-        ]
-
+    public func startRecording(url: URL) throws {
         do {
+            try configureAudioSession()
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 12000,
+                AVNumberOfChannelsKey: 1,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
+            ]
             audioRecorder = try AVAudioRecorder(url: url, settings: settings)
             audioRecorder?.prepareToRecord()
             audioRecorder?.isMeteringEnabled = true
             audioRecorder?.record()
         } catch {
             // TODO: AVAudioRecorder 객체 생성 실패 시에 대한 처리
+            throw ASAudioErrors.startRecordingError(reason: error.localizedDescription)
         }
     }
 
     /// 오디오 세션을 설정합니다.
-    private func configureAudioSession() {
+    private func configureAudioSession() throws {
         do {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])
             try session.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
             // TODO: 세션 설정 실패에 따른 처리
+            throw ASAudioErrors.configureAudioSessionError(reason: error.localizedDescription)
         }
     }
 
