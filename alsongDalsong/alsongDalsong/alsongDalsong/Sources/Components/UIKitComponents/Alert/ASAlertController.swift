@@ -73,7 +73,7 @@ class ASAlertController: UIViewController {
     }
 
     func setTitle() {
-        titleLabel.text = titleText?.description
+        titleLabel.text = titleText?.description.localized()
         titleLabel.textAlignment = .center
         titleLabel.font = .font(forTextStyle: .title2)
         titleLabel.numberOfLines = 0
@@ -99,7 +99,7 @@ class ASAlertController: UIViewController {
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.addArrangedSubview(primaryButton)
         primaryButton.setConfiguration(
-            text: primaryButtonText?.description,
+            text: primaryButtonText?.description.localized(),
             textStyle: .title2,
             backgroundColor: reversedColor ? .asLightRed : .asLightSky,
             cornerStyle: .large
@@ -114,7 +114,7 @@ class ASAlertController: UIViewController {
         buttonStackView.addArrangedSubview(secondaryButton)
         secondaryButton.translatesAutoresizingMaskIntoConstraints = false
         secondaryButton.setConfiguration(
-            text: secondaryButtonText?.description,
+            text: secondaryButtonText?.description.localized(),
             textStyle: .title2,
             backgroundColor: reversedColor ? .asLightSky : .asLightRed,
             cornerStyle: .large
@@ -182,6 +182,7 @@ enum ASAlertText {
         case submitHumming
         case nextResult
         case toLobby
+        
         var description: String {
             switch self {
                 case .joinRoom: "방 정보를 가져오는 중..."

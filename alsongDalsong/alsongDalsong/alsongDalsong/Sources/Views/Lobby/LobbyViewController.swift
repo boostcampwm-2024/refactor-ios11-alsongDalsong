@@ -63,13 +63,13 @@ final class LobbyViewController: UIViewController {
 
         inviteButton.setConfiguration(
             systemImageName: "link",
-            text: "초대하기!",
+            text: String(localized: "초대하기!"),
             backgroundColor: .asYellow
         )
 
         startButton.setConfiguration(
             systemImageName: "play.fill",
-            text: "시작하기!",
+            text: String(localized: "시작하기!"),
             backgroundColor: .asMint
         )
 

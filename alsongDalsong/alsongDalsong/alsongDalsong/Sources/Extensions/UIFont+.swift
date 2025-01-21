@@ -2,6 +2,8 @@ import UIKit
 
 enum FontName: String {
     case dohyeon = "Dohyeon-Regular"
+    case neoDunggeunmoPro = "NeoDunggeunmoPro-Regular"
+    case wantedSansBold = "wantedSans-Bold"
 }
 
 extension UIFont {

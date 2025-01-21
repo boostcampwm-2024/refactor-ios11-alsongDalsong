@@ -47,8 +47,11 @@ final class GameNavigationController: @unchecked Sendable {
         navigationController.navigationBar.tintColor = .asBlack
         let defaultFontSize = UIFont.preferredFont(forTextStyle: .headline).pointSize as CGFloat?
         var fontStyle = UIFont()
-        if let defaultFontSize { fontStyle = UIFont.font(ofSize: defaultFontSize)}
-        else { fontStyle = UIFont.font(ofSize: 18) }
+        if let defaultFontSize {
+            fontStyle = .font(setFont(), ofSize: defaultFontSize)
+        } else {
+            fontStyle = .font(setFont(), ofSize: 18)
+        }
         navigationController.navigationBar.titleTextAttributes = [.font: fontStyle]
         let backButtonImage = setImage()
 
@@ -76,23 +79,32 @@ final class GameNavigationController: @unchecked Sendable {
         let viewType = gameInfo.resolveViewType()
         switch viewType {
             case .submitMusic:
-                return "노래 선택"
+                return String(localized: "노래 선택")
             case .humming:
-                return "허밍"
+                return String(localized: "허밍")
             case .rehumming:
                 guard let recordOrder = gameInfo.recordOrder else { return "" }
                 let rounds = gameInfo.players.count - 2
-                return "리허밍 \(recordOrder)/\(rounds)"
+                return String(localized: "리허밍") + "\(recordOrder)/\(rounds)"
             case .submitAnswer:
-                return "정답 맞추기"
+                return String(localized: "정답 맞추기")
             case .result:
                 guard let recordOrder = gameInfo.recordOrder else { return "" }
                 let currentRound = Int(recordOrder) - (gameInfo.players.count - 2)
-                return "결과 확인 \(currentRound)/\(gameInfo.players.count)"
+                return String(localized: "결과 확인") + " \(currentRound)/\(gameInfo.players.count)"
             case .lobby:
                 return "#\(roomNumber)"
             default:
                 return ""
+        }
+    }
+    
+    private func setFont() -> FontName {
+        let viewType = gameInfo?.resolveViewType()
+        if case .lobby = viewType {
+            return .neoDunggeunmoPro
+        } else {
+            return .dohyeon
         }
     }
 

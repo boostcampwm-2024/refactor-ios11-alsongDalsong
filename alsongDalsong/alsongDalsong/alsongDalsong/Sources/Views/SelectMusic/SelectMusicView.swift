@@ -30,7 +30,7 @@ struct SelectMusicView: View {
             }
             .padding(16)
 
-            ASSearchBar(text: $viewModel.searchTerm, placeHolder: "곡 제목을 검색하세요")
+            ASSearchBar(text: $viewModel.searchTerm, placeHolder: String(localized: "곡 제목을 검색하세요"))
                 .padding(.bottom, 8)
 
             if viewModel.searchTerm.isEmpty {

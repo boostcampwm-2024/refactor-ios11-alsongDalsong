@@ -217,8 +217,8 @@ final class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController {
     enum Constants {
-        static let craeteButtonTitle = "방 생성하기!"
-        static let joinButtonTitle = "방 참가하기!"
+        static let craeteButtonTitle = String(localized: "방 생성하기!")
+        static let joinButtonTitle = String(localized: "방 참가하기!")
         static let logoImageName = "logo"
     }
 }

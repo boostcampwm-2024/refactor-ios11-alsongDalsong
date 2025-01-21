@@ -91,6 +91,6 @@ extension NicknamePanel: UITextFieldDelegate {
 
 extension NicknamePanel {
     enum Constants {
-        static let nickNameTitle = "닉네임"
+        static let nickNameTitle = String(localized: "닉네임")
     }
 }

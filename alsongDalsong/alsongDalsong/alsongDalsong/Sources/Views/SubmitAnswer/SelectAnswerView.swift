@@ -36,7 +36,7 @@ struct SelectAnswerView: View {
                     isFocused = false
                 }
 
-                ASSearchBar(text: $viewModel.searchTerm, placeHolder: "노래를 선택하세요")
+                ASSearchBar(text: $viewModel.searchTerm, placeHolder: String(localized: "노래를 선택하세요"))
                     .focused($isFocused)
                 if viewModel.isSearching {
                     VStack {

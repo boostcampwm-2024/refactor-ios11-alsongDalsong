@@ -54,7 +54,7 @@ class HummingResultViewController: UIViewController {
     private func setButton() {
         nextButton.setConfiguration(
             systemImageName: "play.fill",
-            text: "다음으로",
+            text: String(localized: "다음으로"),
             backgroundColor: .asMint
         )
         nextButton.updateButton(.disabled)
@@ -114,7 +114,7 @@ class HummingResultViewController: UIViewController {
         if case .none = phase {
             nextButton.setConfiguration(
                 systemImageName: "play.fill",
-                text: "다음으로",
+                text: String(localized: "다음으로"),
                 backgroundColor: .asMint
             )
             nextButton.isEnabled = true

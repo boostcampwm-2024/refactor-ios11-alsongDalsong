@@ -44,8 +44,8 @@ final class SubmitAnswerViewController: UIViewController {
     }
 
     private func setupUI() {
-        selectAnswerButton.setConfiguration(text: "정답 선택", backgroundColor: .asLightSky)
-        submitButton.setConfiguration(text: "정답 제출", backgroundColor: .asLightGray)
+        selectAnswerButton.setConfiguration(text: String(localized: "정답 선택"), backgroundColor: .asLightSky)
+        submitButton.setConfiguration(text: String(localized: "정답 제출"), backgroundColor: .asLightGray)
         submitButton.updateButton(.disabled)
         buttonStack.axis = .horizontal
         buttonStack.spacing = 16

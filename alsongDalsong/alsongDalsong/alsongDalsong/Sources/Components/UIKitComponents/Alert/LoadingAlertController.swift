@@ -46,7 +46,7 @@ final class LoadingAlertController: ASAlertController {
 
     private func setProgressText() {
         let progressLabel = UILabel()
-        progressLabel.text = progressText?.description
+        progressLabel.text = progressText?.description.localized()
         progressLabel.font = .font(forTextStyle: .title2)
         progressLabel.textColor = .label
         stackView.addArrangedSubview(progressLabel)

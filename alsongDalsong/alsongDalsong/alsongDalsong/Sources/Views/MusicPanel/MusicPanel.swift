@@ -90,7 +90,7 @@ final class MusicPanel: UIView {
         artistLabel.textColor = .secondaryLabel
 
         [titleLabel, artistLabel].forEach { label in
-            label.font = .font(forTextStyle: .title3)
+            label.font = .font(.wantedSansBold, forTextStyle: .title3)
             label.textAlignment = panelType == .large ? .center : .left
             label.numberOfLines = 1
             label.lineBreakMode = .byTruncatingTail
@@ -122,7 +122,7 @@ final class MusicPanel: UIView {
     }
 
     private func setupNoMusicLabel() {
-        noMusicLabel.text = "정답을 선택해 주세요."
+        noMusicLabel.text = String(localized: "정답을 선택해 주세요.")
         noMusicLabel.textColor = .secondaryLabel
         noMusicLabel.font = .font(forTextStyle: .title2)
         noMusicLabel.textAlignment = .center

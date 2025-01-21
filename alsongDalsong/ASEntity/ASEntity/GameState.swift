@@ -22,16 +22,9 @@ public struct GameState {
         guard let mode, let status, let recordOrder, let round else {
             return .lobby
         }
-        switch mode {
-        case .humming:
+        if case .humming = mode {
             return resolveHummingViewType(status: status, recordOrder: recordOrder, round: round)
-        case .harmony:
-            return nil
-        case .sync:
-            return nil
-        case .instant:
-            return nil
-        case .tts:
+        } else {
             return nil
         }
     }
@@ -114,17 +107,11 @@ public enum GameViewType {
 
     public var caution: String? {
         switch self {
-        case .submitMusic:
-            nil
         case .humming:
             "가사나 제목을 직접적으로 전달하지 않도록 주의하세요"
         case .rehumming:
             "가사나 제목을 직접적으로 전달하지 않도록 주의하세요"
-        case .submitAnswer:
-            nil
-        case .result:
-            nil
-        case .lobby:
+        default:
             nil
         }
     }
@@ -139,10 +126,7 @@ public enum GameViewType {
             (systemName: "microphone", color: "FD5050")
         case .submitAnswer:
             (systemName: "music.note.list", color: "508DFD")
-        case .result:
-            nil
-        case .lobby:
-            nil
+        default: nil
         }
     }
 }

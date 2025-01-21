@@ -43,7 +43,7 @@ final class MusicPanelView: UIView {
     private func setupView() {
         backgroundColor = .asSystem
         
-        titleLabel.text = "정답은..."
+        titleLabel.text = String(localized: "정답은...")
         titleLabel.font = .font(ofSize: 24)
         titleLabel.textColor = .asBlack
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -56,12 +56,12 @@ final class MusicPanelView: UIView {
         albumImageView.backgroundColor = .secondarySystemBackground
         addSubview(albumImageView)
 
-        musicNameLabel.font = .font(ofSize: 24)
+        musicNameLabel.font = .font(.wantedSansBold, ofSize: 24)
         musicNameLabel.textColor = .asBlack
         musicNameLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(musicNameLabel)
 
-        singerNameLabel.font = .font(ofSize: 24)
+        singerNameLabel.font = .font(.wantedSansBold, ofSize: 24)
         singerNameLabel.textColor = UIColor.gray
         singerNameLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(singerNameLabel)
