@@ -2,11 +2,15 @@ import Foundation
 
 public enum ASDecoder {
     public static func decode<T: Decodable>(_: T.Type, from data: Data) throws -> T {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .iso8601
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .iso8601
 
-        return try decoder.decode(T.self, from: data)
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            throw ASDecoderErrors.decodeError(reason: error.localizedDescription)
+        }
     }
 
     public static func handleResponse<T: Decodable>(result: Result<Data, Error>) async throws -> T {
