@@ -15,14 +15,12 @@ public final class AnswersMockRepository: AnswersRepositoryProtocol {
 
     public func getAnswersCount() -> AnyPublisher<Int, Never> {
         answersPublisher
-            .receive(on: DispatchQueue.main)
             .map(\.count)
             .eraseToAnyPublisher()
     }
 
     public func getMyAnswer() -> AnyPublisher<Answer?, Never> {
         answersPublisher
-            .receive(on: DispatchQueue.main)
             .map { answers in
                 answers.first { $0.player?.id == Player.playerStub1.id }
             }

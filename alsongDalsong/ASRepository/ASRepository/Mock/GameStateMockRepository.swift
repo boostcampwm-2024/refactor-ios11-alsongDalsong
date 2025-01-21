@@ -16,7 +16,6 @@ public final class GameStateMockRepository: GameStateRepositoryProtocol {
 
     public func getGameState() -> AnyPublisher<ASEntity.GameState?, Never> {
         gameStatePublisher
-            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }

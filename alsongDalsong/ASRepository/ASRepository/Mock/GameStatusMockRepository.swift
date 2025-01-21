@@ -24,20 +24,17 @@ public final class GameStatusMockRepository: GameStatusRepositoryProtocol {
     
     public func getStatus() -> AnyPublisher<Status?, Never> {
         statusPublisher
-            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
     public func getRecordOrder() -> AnyPublisher<UInt8, Never> {
         recordOrderPublisher
-            .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .eraseToAnyPublisher()
     }
     
     public func getDueTime() -> AnyPublisher<Date, Never> {
         dueTimePublisher
-            .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .eraseToAnyPublisher()
     }

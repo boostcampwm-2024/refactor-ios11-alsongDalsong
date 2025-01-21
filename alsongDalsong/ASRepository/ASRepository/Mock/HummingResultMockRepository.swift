@@ -10,16 +10,16 @@ public final class HummingResultMockRepository: HummingResultRepositoryProtocol 
         Answer.answerStub4
     ]
     private let records = [
-        [Record.recordStub1_1, Record.recordStub1_2, Record.recordStub1_3],
-        [Record.recordStub2_1, Record.recordStub2_2, Record.recordStub2_3],
-        [Record.recordStub3_1, Record.recordStub3_2, Record.recordStub3_3],
-        [Record.recordStub4_1, Record.recordStub4_2, Record.recordStub4_3]
+        [Record.recordStub1_1, Record.recordStub2_2, Record.recordStub3_3],
+        [Record.recordStub2_1, Record.recordStub3_2, Record.recordStub4_3],
+        [Record.recordStub3_1, Record.recordStub4_2, Record.recordStub1_3],
+        [Record.recordStub4_1, Record.recordStub1_2, Record.recordStub2_3],
     ]
     private let submits = [
-        Answer.answerStub1,
-        Answer.answerStub2,
+        Answer.answerStub4,
         Answer.answerStub3,
-        Answer.answerStub4
+        Answer.answerStub2,
+        Answer.answerStub1
     ]
     private var recordOrders: UInt8 = 3
     private var index = 0
@@ -43,7 +43,6 @@ public final class HummingResultMockRepository: HummingResultRepositoryProtocol 
             return (answer, records, submit, recordOrder)
         }
         return Just(result)
-            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }

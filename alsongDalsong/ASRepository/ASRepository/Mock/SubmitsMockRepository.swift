@@ -7,7 +7,6 @@ public final class SubmitsMockRepository: SubmitsRepositoryProtocol {
 
     public func getSubmitsCount() -> AnyPublisher<Int, Never> {
         Just(3)
-            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 

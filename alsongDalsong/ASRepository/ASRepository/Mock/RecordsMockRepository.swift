@@ -12,14 +12,12 @@ public final class RecordsMockRepository: RecordsRepositoryProtocol {
 
     public func getRecordsCount(on recordOrder: UInt8) -> AnyPublisher<Int, Never> {
         recordsPublisher
-            .receive(on: DispatchQueue.main)
             .map(\.count)
             .eraseToAnyPublisher()
     }
 
     public func getHumming(on recordOrder: UInt8) -> AnyPublisher<ASEntity.Record?, Never> {
         Just(recordsStub.first)
-            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 
