@@ -3,6 +3,8 @@ import ASRepositoryProtocol
 import Combine
 
 public final class AvatarMockRepository: AvatarRepositoryProtocol {
+    public init() {}
+
     public func getAvatarUrls() async throws -> [URL] {
         [
             Player.playerStub1,

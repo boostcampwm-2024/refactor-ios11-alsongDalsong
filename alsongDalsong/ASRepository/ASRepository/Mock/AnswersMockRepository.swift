@@ -20,15 +20,11 @@ public final class AnswersMockRepository: AnswersRepositoryProtocol {
     }
 
     public func getMyAnswer() -> AnyPublisher<Answer?, Never> {
-        answersPublisher
-            .map { answers in
-                answers.first { $0.player?.id == Player.playerStub1.id }
-            }
+        Just(Answer.answerStub1)
             .eraseToAnyPublisher()
     }
 
     public func submitMusic(answer: ASEntity.Music) async throws -> Bool {
-        answersPublisher.send(answersStub + [Answer.answerStub4])
         return true
     }
 }
