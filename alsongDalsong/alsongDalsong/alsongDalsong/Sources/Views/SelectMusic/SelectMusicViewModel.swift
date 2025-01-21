@@ -44,6 +44,10 @@ final class SelectMusicViewModel: ObservableObject, @unchecked Sendable {
         bindSearchTerm()
     }
     
+    deinit {
+        stopMusic()
+    }
+    
     private func bindGameStatus() {
         gameStatusRepository.getDueTime()
             .receive(on: DispatchQueue.main)
