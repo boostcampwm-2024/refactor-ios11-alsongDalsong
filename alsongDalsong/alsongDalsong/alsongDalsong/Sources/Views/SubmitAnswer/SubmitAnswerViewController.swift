@@ -3,6 +3,7 @@ import SwiftUI
 
 final class SubmitAnswerViewController: UIViewController {
     private var progressBar = ProgressBar()
+    private let scrollView = UIScrollView()
     private var musicPanel = MusicPanel()
     private var selectedMusicPanel = MusicPanel(.compact)
     private var selectAnswerButton = ASButton()
@@ -56,24 +57,32 @@ final class SubmitAnswerViewController: UIViewController {
 
     private func setupLayout() {
         view.addSubview(progressBar)
-        view.addSubview(musicPanel)
-        view.addSubview(selectedMusicPanel)
+        view.addSubview(scrollView)
         view.addSubview(buttonStack)
         view.addSubview(submissionStatus)
+        scrollView.addSubview(musicPanel)
+        scrollView.addSubview(selectedMusicPanel)
 
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         musicPanel.translatesAutoresizingMaskIntoConstraints = false
         selectedMusicPanel.translatesAutoresizingMaskIntoConstraints = false
         submissionStatus.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             progressBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             progressBar.heightAnchor.constraint(equalToConstant: 16),
+            
+            scrollView.topAnchor.constraint(equalTo: progressBar.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: buttonStack.topAnchor),
+            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: selectedMusicPanel.bottomAnchor, constant: 16),
 
-            musicPanel.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 32),
+            musicPanel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 32),
             musicPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             musicPanel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
 
