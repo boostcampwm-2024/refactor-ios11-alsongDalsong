@@ -1,10 +1,7 @@
-import ASCacheKit
 import ASContainer
 import ASLogKit
 import ASNetworkKit
-import ASRepository
 import ASRepositoryProtocol
-import Firebase
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -15,9 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions)
     {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        FirebaseApp.configure()
         ASFirebaseAuth.configure()
-        assembleDependencies()
         var inviteCode = ""
         
         if let url = connectionOptions.urlContexts.first?.url {
@@ -51,9 +46,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 Logger.error(error.localizedDescription)
             }
         }
-    }
-    
-    private func assembleDependencies() {
-        DIContainer.shared.addAssemblies([CacheAssembly(), NetworkAssembly(), RepsotioryAssembly()])
     }
 }

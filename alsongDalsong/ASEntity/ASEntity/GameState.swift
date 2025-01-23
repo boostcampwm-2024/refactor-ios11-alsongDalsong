@@ -130,3 +130,48 @@ public enum GameViewType {
         }
     }
 }
+
+extension GameState {
+    static let submitMusicStub: GameState = GameState(
+        mode: .humming,
+        recordOrder: 0,
+        status: .humming,
+        round: 0,
+        players: [Player.playerStub1, Player.playerStub2, Player.playerStub3, Player.playerStub4]
+    )
+    static let hummingStub: GameState = GameState(
+        mode: .humming,
+        recordOrder: 0,
+        status: .humming,
+        round: 1,
+        players: [Player.playerStub1, Player.playerStub2, Player.playerStub3, Player.playerStub4]
+    )
+    static let rehummingStub: GameState = GameState(
+        mode: .humming,
+        recordOrder: 1,
+        status: .rehumming,
+        round: 1,
+        players: [Player.playerStub1, Player.playerStub2, Player.playerStub3, Player.playerStub4]
+    )
+    static let submitAnswerStub: GameState = GameState(
+        mode: .humming,
+        recordOrder: 3,
+        status: .rehumming,
+        round: 1,
+        players: [Player.playerStub1, Player.playerStub2, Player.playerStub3, Player.playerStub4]
+    )
+    static let resultStub: GameState = GameState(
+        mode: .humming,
+        recordOrder: 3,
+        status: .result,
+        round: 1,
+        players: [Player.playerStub1, Player.playerStub2, Player.playerStub3, Player.playerStub4]
+    )
+    static let lobbyStub: GameState = GameState(
+        mode: .humming,
+        recordOrder: nil,
+        status: nil,
+        round: nil,
+        players: [Player.playerStub1, Player.playerStub2, Player.playerStub3, Player.playerStub4]
+    )
+}
