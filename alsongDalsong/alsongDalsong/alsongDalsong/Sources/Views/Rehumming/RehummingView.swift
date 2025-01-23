@@ -2,6 +2,7 @@ import UIKit
 
 final class RehummingViewController: UIViewController {
     private var progressBar = ProgressBar()
+    private let scrollView = UIScrollView()
     private var musicPanel = MusicPanel()
     private var hummingPanel = RecordingPanel(.asMint)
     private var recordButton = ASButton()
@@ -51,10 +52,11 @@ final class RehummingViewController: UIViewController {
         buttonStack.spacing = 16
         buttonStack.addArrangedSubview(recordButton)
         buttonStack.addArrangedSubview(submitButton)
+        scrollView.addSubview(musicPanel)
+        scrollView.addSubview(hummingPanel)
         view.backgroundColor = .asLightGray
         view.addSubview(progressBar)
-        view.addSubview(musicPanel)
-        view.addSubview(hummingPanel)
+        view.addSubview(scrollView)
         view.addSubview(buttonStack)
         view.addSubview(submissionStatus)
     }
@@ -81,14 +83,21 @@ final class RehummingViewController: UIViewController {
         hummingPanel.translatesAutoresizingMaskIntoConstraints = false
         submissionStatus.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             progressBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             progressBar.heightAnchor.constraint(equalToConstant: 16),
+            
+            scrollView.topAnchor.constraint(equalTo: progressBar.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: buttonStack.topAnchor),
+            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: hummingPanel.bottomAnchor, constant: 16),
 
-            musicPanel.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 32),
+            musicPanel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 32),
             musicPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             musicPanel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
 
@@ -103,7 +112,7 @@ final class RehummingViewController: UIViewController {
             buttonStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             buttonStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             buttonStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            buttonStack.heightAnchor.constraint(equalToConstant: 64),
+            buttonStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 64),
         ])
     }
 

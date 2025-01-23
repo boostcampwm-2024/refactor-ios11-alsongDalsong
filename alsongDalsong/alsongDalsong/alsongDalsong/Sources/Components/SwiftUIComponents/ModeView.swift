@@ -15,17 +15,25 @@ struct ModeView: View {
                 Text(LocalizedStringResource(stringLiteral: modeInfo.title))
                     .font(.doHyeon(size: 32))
                     .padding(.top, 16)
-                Image(modeInfo.imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 300, height: 180)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .padding()
-                Text(LocalizedStringResource(stringLiteral: modeInfo.description))
-                    .font(.doHyeon(size: 20))
-                    .padding(.horizontal)
-                    .minimumScaleFactor(0.01)
-                Spacer()
+                    .layoutPriority(1)
+                GeometryReader { geometry in
+                    VStack {
+                        Image(modeInfo.imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .padding(.horizontal)
+                            .frame(width: width, height: min(geometry.size.height * 0.6, 150))
+                        
+                        Text(LocalizedStringResource(stringLiteral: modeInfo.description))
+                            .font(.doHyeon(size: 20))
+                            .minimumScaleFactor(0.01)
+                            .lineLimit(nil)
+                            .padding(.top, 0)
+                            .padding(.horizontal)
+                            .frame(maxHeight: geometry.size.height * 0.3, alignment: .top)
+                    }
+                }
             }
             
         }
