@@ -8,14 +8,14 @@ struct ASDecoderTests {
         let name: String
     }
 
-    @Test func 디코딩_성공() async throws {
+    @Test("디코딩 성공") func decode() async throws {
         let jsonString = """
                 {
                     "id": 1,
                     "name": "아이유"
                 }
             """
-        let jsonData = jsonString.data(using: .utf8)!
+        let jsonData = try #require(jsonString.data(using: .utf8))
         let result: Result<Data, Error> = .success(jsonData)
 
         let decodedData: SampleData = try await ASDecoder.handleResponse(result: result)

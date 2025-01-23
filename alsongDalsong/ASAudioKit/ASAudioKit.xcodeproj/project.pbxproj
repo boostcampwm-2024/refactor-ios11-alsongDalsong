@@ -64,9 +64,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				ASAudioPlayer/ASAudioPlayer.swift,
-				ASAudioPlayer/README.md,
 				ASAudioRecorder/ASAudioRecorder.swift,
-				ASAudioRecorder/README.md,
 			);
 			target = 4E8907BD2CE2489A00D5B547 /* ASAudioKitTests */;
 		};

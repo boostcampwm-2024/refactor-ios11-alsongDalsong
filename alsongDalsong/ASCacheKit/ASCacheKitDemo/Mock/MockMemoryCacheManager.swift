@@ -1,6 +1,6 @@
 import ASCacheKitProtocol
 
-final class MockMemoryCacheManager: MemoryCacheManagerProtocol {
+final class MockMemoryCacheManager: @unchecked Sendable, MemoryCacheManagerProtocol {
     private var mockStorage: [String: AnyObject] = [:]
 
     func getObject(forKey key: String) -> AnyObject? {

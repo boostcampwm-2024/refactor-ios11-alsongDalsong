@@ -1,7 +1,7 @@
 import ASCacheKitProtocol
 import Foundation
 
-final class MockDiskCacheManager: DiskCacheManagerProtocol {
+final class MockDiskCacheManager: @unchecked Sendable, DiskCacheManagerProtocol {
     private var mockStorage: [String: Data] = [:]
 
     func getData(forKey key: String) -> Data? {

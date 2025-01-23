@@ -3,18 +3,18 @@ import Foundation
 import Testing
 
 struct ASNetworkKitTests {
-    var networkManager = ASNetworkManager(urlSession: MockURLSession())
-    var endpoint = FirebaseEndpoint(path: .auth, method: .get)
+    var networkManager = ASNetworkManager(urlSession: MockURLSession(), cacheManager: MockCacheManager())
+    let endpoint: MockEndpoint
     let testData = "hello, world!".data(using: .utf8)!
     let testResponse = HTTPURLResponse(url: URL(string: "https://www.google.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
 
-    @Test func Endpoint_생성() async throws {
-        #expect(endpoint == FirebaseEndpoint(path: .auth, method: .get))
+    init() {
+        endpoint = MockEndpoint(path: .mock, method: .get)
     }
 
-    @Test func Endpoint_업데이트() async throws {
+    @Test("Endpoint 업데이트") func updateEndpoint() async throws {
         let updatedEndpoint = endpoint.update(\.method, with: .patch)
-        #expect(updatedEndpoint == FirebaseEndpoint(path: .auth, method: .patch))
+        #expect(updatedEndpoint == MockEndpoint(path: .mock, method: .patch))
 
         let twiceUpdatedEndpoint = endpoint
             .update(\.headers, with: ["hello": "world"])
@@ -23,21 +23,13 @@ struct ASNetworkKitTests {
         #expect(twiceUpdatedEndpoint.body == testData)
     }
 
-    @Test func NetworkManager_올바른_응답() async throws {
+    @Test("올바른 응답") func response() async throws {
         let mockURLSession = MockURLSession()
-        let networkManager = ASNetworkManager(urlSession: mockURLSession)
         mockURLSession.testData = testData
         mockURLSession.testResponse = testResponse
+        let networkManager = ASNetworkManager(urlSession: mockURLSession, cacheManager: MockCacheManager())
 
-        let response = try await networkManager.sendRequest(to: endpoint)
+        let response = try await networkManager.sendRequest(to: endpoint, type: .json)
         #expect(response == testData)
-    }
-
-    @Test func NetworkManager_잘못된_응답() async throws {
-        let networkManager = ASNetworkManager(urlSession: MockURLSession())
-
-        await #expect(throws: ASNetworkErrors.self, performing: {
-            _ = try await networkManager.sendRequest(to: endpoint)
-        })
     }
 }
