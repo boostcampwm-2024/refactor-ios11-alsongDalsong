@@ -55,10 +55,10 @@ public struct ASMusicAPI {
                         return music
                     }
                 } catch {
-                    throw ASMusicError.searchError
+                    throw ASMusicErrors(type: .search, reason: error.localizedDescription, file: #file, line: #line)
                 }
             default:
-                throw ASMusicError.notAuthorized
+            throw ASMusicErrors(type: .notAuthorized, reason: "", file: #file, line: #line)
         }
     }
 
@@ -73,7 +73,7 @@ public struct ASMusicAPI {
 
                     let playlistWithTrack = try await playlist.with([.tracks])
                     guard let tracks = playlistWithTrack.tracks else {
-                        throw ASMusicError.playListHasNoSongs
+                        throw ASMusicErrors(type: .playListHasNoSongs, reason: "", file: #file, line: #line)
                     }
 
                     if let song = tracks.randomElement() {
@@ -87,28 +87,11 @@ public struct ASMusicAPI {
                         )
                     }
                 } catch {
-                    throw ASMusicError.playListHasNoSongs
+                    throw ASMusicErrors(type: .search, reason: "", file: #file, line: #line)
                 }
             default:
-                throw ASMusicError.notAuthorized
+            throw ASMusicErrors(type: .notAuthorized, reason: "", file: #file, line: #line)
         }
         return ASEntity.Music(id: "nil", title: nil, artist: nil, artworkUrl: nil, previewUrl: nil, artworkBackgroundColor: nil)
-    }
-}
-
-enum ASMusicError: Error, LocalizedError {
-    case notAuthorized
-    case searchError
-    case playListHasNoSongs
-
-    var errorDescription: String? {
-        switch self {
-            case .notAuthorized:
-                "애플 뮤직에 접근하는 권한이 없습니다."
-            case .searchError:
-                "노래 검색 중 오류가 발생했습니다."
-            case .playListHasNoSongs:
-                "플레이리스트에 노래가 없습니다."
-        }
     }
 }

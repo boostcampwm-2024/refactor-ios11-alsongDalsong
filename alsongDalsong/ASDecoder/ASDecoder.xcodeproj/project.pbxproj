@@ -10,6 +10,7 @@
 		1B06307A2CE64E7C005300BF /* ASDecoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B702E612CE5193F00124F73 /* ASDecoder.framework */; };
 		1B06307B2CE64E7C005300BF /* ASDecoder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B702E612CE5193F00124F73 /* ASDecoder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B702E6A2CE5193F00124F73 /* ASDecoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B702E612CE5193F00124F73 /* ASDecoder.framework */; };
+		8593659A2D3F71E80086C8C4 /* ASDecoderErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859365982D3F71E40086C8C4 /* ASDecoderErrors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		1B06306B2CE64E74005300BF /* ASDecoderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASDecoderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B702E612CE5193F00124F73 /* ASDecoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASDecoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B702E692CE5193F00124F73 /* ASDecoderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ASDecoderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		859365982D3F71E40086C8C4 /* ASDecoderErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASDecoderErrors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -104,6 +106,7 @@
 		1B702E572CE5193F00124F73 = {
 			isa = PBXGroup;
 			children = (
+				859365982D3F71E40086C8C4 /* ASDecoderErrors.swift */,
 				1B702E632CE5193F00124F73 /* ASDecoder */,
 				1B702E6D2CE5193F00124F73 /* ASDecoderTests */,
 				1B06306C2CE64E74005300BF /* ASDecoderDemo */,
@@ -285,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8593659A2D3F71E80086C8C4 /* ASDecoderErrors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -42,7 +42,12 @@ final class OnboardingViewModel: @unchecked Sendable {
     func authorizeAppleMusic() {
         let musicAPI = ASMusicAPI()
         Task {
-            let _ = try await musicAPI.search(for: "뉴진스", 1, 1)
+            do {
+                let _ = try await musicAPI.search(for: "뉴진스", 1, 1)
+            } catch {
+                let error = ASErrors(type: .authorizeAppleMusic, reason: error.localizedDescription, file: #file, line: #line)
+                LogHandler.handleError(error)
+            }
         }
     }
 
@@ -55,6 +60,9 @@ final class OnboardingViewModel: @unchecked Sendable {
             return id
         } catch {
             buttonEnabled = true
+
+            let error = ASErrors(type: .joinRoom, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error)
             throw error
         }
     }
@@ -68,6 +76,9 @@ final class OnboardingViewModel: @unchecked Sendable {
             return try await joinRoom(roomNumber: roomNumber)
         } catch {
             buttonEnabled = true
+
+            let error = ASErrors(type: .createRoom, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error)
             throw error
         }
     }

@@ -1,6 +1,5 @@
 import ASContainer
 import ASEntity
-import ASLogKit
 import ASRepositoryProtocol
 import Combine
 import UIKit
@@ -287,7 +286,8 @@ final class GameNavigationController: @unchecked Sendable {
             do {
                 _ = try await roomActionRepository.leaveRoom()
             } catch {
-                Logger.error(error.localizedDescription)
+                let error = ASErrors(type: .leaveRoom, reason: error.localizedDescription, file: #file, line: #line)
+                LogHandler.handleError(error)
             }
         }
     }
