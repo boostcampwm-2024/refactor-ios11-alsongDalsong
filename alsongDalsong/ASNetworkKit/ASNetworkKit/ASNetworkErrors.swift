@@ -23,7 +23,7 @@ public struct ASNetworkErrors: LocalizedError {
     }
 
     public var errorDescription: String? {
-        return "[\(file):\(line)] \(type) 에러: \(reason)"
+        return "[\(URL(fileURLWithPath: file).lastPathComponent):\(line)] \(type) 에러: \(reason)"
     }
 }
 

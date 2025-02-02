@@ -20,6 +20,6 @@ struct ASErrors: LocalizedError {
     }
 
     var errorDescription: String? {
-        return "[\(file):\(line)] \(type) 에러: \n\(reason)"
+        return "\n[\(URL(fileURLWithPath: file).lastPathComponent):\(line)] \(type) 에러: \n\(reason)"
     }
 }

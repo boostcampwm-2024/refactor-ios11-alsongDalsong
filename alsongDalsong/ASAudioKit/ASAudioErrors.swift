@@ -14,6 +14,6 @@ struct ASAudioErrors: LocalizedError {
     }
 
     var errorDescription: String? {
-        return "[\(file):\(line)] \(type) 에러: \n\(reason)"
+        return "[\(URL(fileURLWithPath: file).lastPathComponent):\(line)] \(type) 에러: \n\(reason)"
     }
 }
