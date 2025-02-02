@@ -31,8 +31,9 @@ final class RehummingViewModel: @unchecked Sendable {
         do {
             let result = try await recordsRepository.uploadRecording(recordedData)
         } catch {
-            LogHandler.handleError(.submitRehummingError(reason: error.localizedDescription))
-            throw ASErrors.submitRehummingError(reason: error.localizedDescription)
+            let error = ASErrors(type: .submitHumming, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error)
+            throw error
         }
     }
 

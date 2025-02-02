@@ -10,7 +10,7 @@ public enum ASEncoder {
 
             return try encoder.encode(value)
         } catch {
-            throw ASEncoderErrors.encodeError(reason: error.localizedDescription)
+            throw ASEncoderErrors(type: .encode, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 }

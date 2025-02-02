@@ -47,7 +47,8 @@ final class HummingViewModel: @unchecked Sendable {
             let result = try await recordsRepository.uploadRecording(recordedData ?? Data())
             if !result { LogHandler.handleError("Humming Did not sent") }
         } catch {
-            LogHandler.handleError(.submitHummingError(reason: error.localizedDescription))
+            let error = ASErrors(type: .submitHumming, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error)
         }
     }
 

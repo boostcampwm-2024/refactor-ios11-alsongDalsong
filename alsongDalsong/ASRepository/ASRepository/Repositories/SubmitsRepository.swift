@@ -36,7 +36,7 @@ final class SubmitsRepository: SubmitsRepositoryProtocol {
             let responseDict = try ASDecoder.decode([String: String].self, from: response)
             return !responseDict.isEmpty
         } catch {
-            throw ASRepositoryErrors.submitAnswerError(reason: error.localizedDescription)
+            throw ASRepositoryErrors(type: .submitAnswer, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 }

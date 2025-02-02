@@ -10,7 +10,7 @@ final class ASFirebaseStorage: ASFirebaseStorageProtocol {
             let result = try await avatarRef.listAll()
             return try await fetchDownloadURLs(from: result.items)
         } catch {
-            throw ASNetworkErrors.getAvatarUrlsError(reason: error.localizedDescription)
+            throw ASNetworkErrors(type: .getAvatarUrls, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
     

@@ -27,11 +27,11 @@ final class RoomActionRepository: RoomActionRepositoryProtocol {
                 requestBody: ["hostID": ASFirebaseAuth.myID]
             )
             guard let roomNumber = response?["number"] as? String else {
-                throw ASNetworkErrors.responseError
+                throw ASNetworkErrors(type: .responseError, reason: "", file: #file, line: #line)
             }
             return roomNumber
         } catch {
-            throw ASRepositoryErrors.createRoomError(reason: error.localizedDescription)
+            throw ASRepositoryErrors(type: .createRoom, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
     
@@ -43,11 +43,11 @@ final class RoomActionRepository: RoomActionRepositoryProtocol {
                 requestBody: ["roomNumber": roomNumber, "userId": ASFirebaseAuth.myID]
             )
             guard let roomNumberResponse = response?["number"] as? String else {
-                throw ASNetworkErrors.responseError
+                throw ASNetworkErrors(type: .responseError, reason: "", file: #file, line: #line)
             }
             return roomNumberResponse == roomNumber
         } catch {
-            throw ASRepositoryErrors.joinRoomError(reason: error.localizedDescription)
+            throw ASRepositoryErrors(type: .joinRoom, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
     
@@ -57,7 +57,7 @@ final class RoomActionRepository: RoomActionRepositoryProtocol {
             try await self.authManager.signOut()
             return true
         } catch {
-            throw ASRepositoryErrors.leaveRoomError(reason: error.localizedDescription)
+            throw ASRepositoryErrors(type: .leaveRoom, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
     
@@ -68,11 +68,11 @@ final class RoomActionRepository: RoomActionRepositoryProtocol {
                 requestBody: ["roomNumber": roomNumber, "userId": ASFirebaseAuth.myID]
             )
             guard let response = response?["success"] as? Bool else {
-                throw ASNetworkErrors.responseError
+                throw ASNetworkErrors(type: .responseError, reason: "", file: #file, line: #line)
             }
             return response
         } catch {
-            throw ASRepositoryErrors.startGameError(reason: error.localizedDescription)
+            throw ASRepositoryErrors(type: .startGame, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
     
@@ -83,11 +83,11 @@ final class RoomActionRepository: RoomActionRepositoryProtocol {
                 requestBody: ["roomNumber": roomNumber, "userId": ASFirebaseAuth.myID, "mode": mode.rawValue]
             )
             guard let isSuccess = response["success"] as? Bool else {
-                throw ASNetworkErrors.responseError
+                throw ASNetworkErrors(type: .responseError, reason: "", file: #file, line: #line)
             }
             return isSuccess
         } catch {
-            throw ASRepositoryErrors.changeModeError(reason: error.localizedDescription)
+            throw ASRepositoryErrors(type: .changeMode, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
     
@@ -98,11 +98,11 @@ final class RoomActionRepository: RoomActionRepositoryProtocol {
                 requestBody: ["roomNumber": roomNumber, "userId": ASFirebaseAuth.myID]
             )
             guard let isSuccess = response["success"] as? Bool else {
-                throw ASNetworkErrors.responseError
+                throw ASNetworkErrors(type: .responseError, reason: "", file: #file, line: #line)
             }
             return isSuccess
         } catch {
-            throw ASRepositoryErrors.changeRecordOrderError(reason: error.localizedDescription)
+            throw ASRepositoryErrors(type: .changeRecordOrder, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
     
@@ -110,7 +110,7 @@ final class RoomActionRepository: RoomActionRepositoryProtocol {
         do {
             return try await mainRepository.postResetGame()
         } catch {
-            throw ASRepositoryErrors.resetGameError(reason: error.localizedDescription)
+            throw ASRepositoryErrors(type: .resetGame, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
     
@@ -122,7 +122,7 @@ final class RoomActionRepository: RoomActionRepositoryProtocol {
             let response = try JSONDecoder().decode(T.self, from: data)
             return response
         } catch {
-            throw ASRepositoryErrors.sendRequestError(reason: error.localizedDescription)
+            throw ASRepositoryErrors(type: .sendRequest, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 }

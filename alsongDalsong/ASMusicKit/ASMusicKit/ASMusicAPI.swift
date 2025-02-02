@@ -55,10 +55,10 @@ public struct ASMusicAPI {
                         return music
                     }
                 } catch {
-                    throw ASMusicErrors.searchError(reason: error.localizedDescription)
+                    throw ASMusicErrors(type: .search, reason: error.localizedDescription, file: #file, line: #line)
                 }
             default:
-                throw ASMusicErrors.notAuthorized
+            throw ASMusicErrors(type: .notAuthorized, reason: "", file: #file, line: #line)
         }
     }
 
@@ -73,7 +73,7 @@ public struct ASMusicAPI {
 
                     let playlistWithTrack = try await playlist.with([.tracks])
                     guard let tracks = playlistWithTrack.tracks else {
-                        throw ASMusicErrors.playListHasNoSongs
+                        throw ASMusicErrors(type: .playListHasNoSongs, reason: "", file: #file, line: #line)
                     }
 
                     if let song = tracks.randomElement() {
@@ -87,10 +87,10 @@ public struct ASMusicAPI {
                         )
                     }
                 } catch {
-                    throw ASMusicErrors.playListHasNoSongs
+                    throw ASMusicErrors(type: .search, reason: "", file: #file, line: #line)
                 }
             default:
-                throw ASMusicErrors.notAuthorized
+            throw ASMusicErrors(type: .notAuthorized, reason: "", file: #file, line: #line)
         }
         return ASEntity.Music(id: "nil", title: nil, artist: nil, artworkUrl: nil, previewUrl: nil, artworkBackgroundColor: nil)
     }

@@ -17,7 +17,9 @@ struct ASNetworkManager: ASNetworkManagerProtocol {
         body: Data? = nil,
         option: CacheOption = .both
     ) async throws -> Data {
-        guard let url = endpoint.url else { throw ASNetworkErrors.urlError }
+        guard let url = endpoint.url else {
+            throw ASNetworkErrors(type: .urlError, reason: "", file: #file, line: #line)
+        }
         if let cache = try await loadCache(from: url, option: option) { return cache }
 
         let updatedEndpoint = updateEndpoint(type: type, endpoint: endpoint, body: body)
@@ -45,7 +47,9 @@ struct ASNetworkManager: ASNetworkManagerProtocol {
     }
 
     private func urlRequest(for endpoint: any Endpoint) throws -> URLRequest {
-        guard let url = endpoint.url else { throw ASNetworkErrors.urlError }
+        guard let url = endpoint.url else {
+            throw ASNetworkErrors(type: .urlError, reason: "", file: #file, line: #line)
+        }
         return RequestBuilder(using: url)
             .setHeader(endpoint.headers)
             .setHttpMethod(endpoint.method)
@@ -55,7 +59,7 @@ struct ASNetworkManager: ASNetworkManagerProtocol {
 
     private func validate(response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw ASNetworkErrors.responseError
+            throw ASNetworkErrors(type: .responseError, reason: "", file: #file, line: #line)
         }
 
         let statusCode = StatusCode(statusCode: httpResponse.statusCode)
@@ -63,7 +67,7 @@ struct ASNetworkManager: ASNetworkManagerProtocol {
             case .success, .noContent:
                 break
             default:
-                throw ASNetworkErrors.serverError(message: statusCode.description)
+            throw ASNetworkErrors(type: .serverError, reason: "", file: #file, line: #line)
         }
     }
 }

@@ -286,7 +286,8 @@ final class GameNavigationController: @unchecked Sendable {
             do {
                 _ = try await roomActionRepository.leaveRoom()
             } catch {
-                LogHandler.handleError(.leaveRoomError(reason: error.localizedDescription))
+                let error = ASErrors(type: .leaveRoom, reason: error.localizedDescription, file: #file, line: #line)
+                LogHandler.handleError(error)
             }
         }
     }

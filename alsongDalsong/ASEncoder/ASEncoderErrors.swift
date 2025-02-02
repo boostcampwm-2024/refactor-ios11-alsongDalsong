@@ -1,12 +1,16 @@
 import Foundation
 
-enum ASEncoderErrors: Error, LocalizedError {
-    case encodeError(reason: String)
+struct ASEncoderErrors: LocalizedError {
+    let type: ErrorType
+    let reason: String
+    let file: String
+    let line: Int
+
+    enum ErrorType {
+        case encode
+    }
 
     var errorDescription: String? {
-        switch self {
-            case .encodeError(let reason):
-                return "ASEncoder.swift encode() 에러: 데이터 인코딩 중 오류가 발생했습니다.\n\(reason)"
-        }
+        return "[\(file):\(line)] \(type) 에러: \n\(reason)"
     }
 }

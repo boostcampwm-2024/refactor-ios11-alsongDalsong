@@ -93,8 +93,9 @@ final class LobbyViewModel: ObservableObject, @unchecked Sendable {
         do {
             _ = try await roomActionRepository.startGame(roomNumber: roomNumber)
         } catch {
-            LogHandler.handleError(.gameStartError(reason: error.localizedDescription))
-            throw ASErrors.gameStartError(reason: error.localizedDescription)
+            let error = ASErrors(type: .gameStart, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error.localizedDescription)
+            throw error
         }
     }
 
@@ -105,7 +106,8 @@ final class LobbyViewModel: ObservableObject, @unchecked Sendable {
                     _ = try await self.roomActionRepository.changeMode(roomNumber: roomNumber, mode: mode)
                 }
             } catch {
-                LogHandler.handleError(.changeModeError(reason: error.localizedDescription))
+                let error = ASErrors(type: .changeMode, reason: error.localizedDescription, file: #file, line: #line)
+                LogHandler.handleError(error)
             }
         }
     }

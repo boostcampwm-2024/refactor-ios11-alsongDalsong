@@ -49,7 +49,7 @@ final class AnswersRepository: AnswersRepositoryProtocol {
             let responseDict = try ASDecoder.decode([String: String].self, from: response)
             return !responseDict.isEmpty
         } catch {
-            throw ASRepositoryErrors.submitMusicError(reason: error.localizedDescription)
+            throw ASRepositoryErrors(type: .submitMusic, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 }

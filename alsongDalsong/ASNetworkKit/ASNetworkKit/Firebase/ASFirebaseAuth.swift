@@ -11,7 +11,7 @@ public final class ASFirebaseAuth: ASFirebaseAuthProtocol {
     public func signIn(nickname: String, avatarURL: URL?) async throws {
         do {
             guard let myID = ASFirebaseAuth.myID else {
-                throw ASNetworkErrors.FirebaseSignInError(reason: "ASFirebaseAuth.myID is nil")
+                throw ASNetworkErrors(type: .firebaseSignIn, reason: "ASFirebaseAuth.myID is nil", file: #file, line: #line)
             }
             let player = Player(id: myID, avatarUrl: avatarURL, nickname: nickname, order: 0)
             let playerData = try ASEncoder.encode(player)
@@ -26,19 +26,19 @@ public final class ASFirebaseAuth: ASFirebaseAuthProtocol {
                 }
             }
         } catch {
-            throw ASNetworkErrors.FirebaseSignInError(reason: error.localizedDescription)
+            throw ASNetworkErrors(type: .firebaseSignIn, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 
     public func signOut() async throws {
         do {
             guard let userID = ASFirebaseAuth.myID else {
-                throw ASNetworkErrors.FirebaseSignOutError(reason: "ASFirebaseAuth.myID is nil")
+                throw ASNetworkErrors(type: .firebaseSignOut, reason: "ASFirebaseAuth.myID is nil", file: #file, line: #line)
             }
             try await databaseRef.child("players").child(userID).removeValue()
             try Auth.auth().signOut()
         } catch {
-            throw ASNetworkErrors.FirebaseSignOutError(reason: error.localizedDescription)
+            throw ASNetworkErrors(type: .firebaseSignOut, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 

@@ -44,7 +44,7 @@ public enum ASAudioAnalyzer {
 
             return result
         } catch {
-            throw ASAudioErrors.analyzeError(reason: error.localizedDescription)
+            throw ASAudioErrors(type: .analyze, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 }

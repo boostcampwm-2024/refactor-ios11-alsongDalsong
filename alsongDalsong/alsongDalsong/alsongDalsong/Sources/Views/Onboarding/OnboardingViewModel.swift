@@ -45,7 +45,8 @@ final class OnboardingViewModel: @unchecked Sendable {
             do {
                 let _ = try await musicAPI.search(for: "뉴진스", 1, 1)
             } catch {
-                LogHandler.handleError(.authorizeAppleMusicError(reason: error.localizedDescription))
+                let error = ASErrors(type: .authorizeAppleMusic, reason: error.localizedDescription, file: #file, line: #line)
+                LogHandler.handleError(error)
             }
         }
     }
@@ -59,8 +60,10 @@ final class OnboardingViewModel: @unchecked Sendable {
             return id
         } catch {
             buttonEnabled = true
-            LogHandler.handleError(.joinRoomError(reason: error.localizedDescription))
-            throw ASErrors.joinRoomError(reason: error.localizedDescription)
+
+            let error = ASErrors(type: .joinRoom, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error)
+            throw error
         }
     }
 
@@ -73,8 +76,10 @@ final class OnboardingViewModel: @unchecked Sendable {
             return try await joinRoom(roomNumber: roomNumber)
         } catch {
             buttonEnabled = true
-            LogHandler.handleError(.createRoomError(reason: error.localizedDescription))
-            throw ASErrors.createRoomError(reason: error.localizedDescription)
+
+            let error = ASErrors(type: .createRoom, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error)
+            throw error
         }
     }
 }

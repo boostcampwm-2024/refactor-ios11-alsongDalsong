@@ -22,7 +22,7 @@ public actor ASAudioPlayer: NSObject {
             audioPlayer?.isMeteringEnabled = true
         } catch {
             // TODO: 오디오 객체생성 실패 시 처리
-            throw ASAudioErrors.startPlayingError(reason: error.localizedDescription)
+            throw ASAudioErrors(type: .startPlaying, reason: error.localizedDescription, file: #file, line: #line)
         }
 
         switch option {
@@ -58,7 +58,7 @@ public actor ASAudioPlayer: NSObject {
                 audioPlayer = try AVAudioPlayer(data: data)
             } catch {
                 // TODO: 오디오 객체생성 실패 시 처리
-                throw ASAudioErrors.getDurationError(reason: error.localizedDescription)
+                throw ASAudioErrors(type: .getDuration, reason: error.localizedDescription, file: #file, line: #line)
             }
         }
         return audioPlayer?.duration ?? 0
@@ -75,7 +75,7 @@ public actor ASAudioPlayer: NSObject {
             try session.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
             // TODO: 세션 설정 실패에 따른 처리
-            throw ASAudioErrors.configureAudioSessionError(reason: error.localizedDescription)
+            throw ASAudioErrors(type: .configureAudioSession, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 }

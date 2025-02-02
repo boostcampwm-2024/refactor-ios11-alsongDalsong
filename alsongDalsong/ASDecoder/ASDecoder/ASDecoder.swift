@@ -9,7 +9,7 @@ public enum ASDecoder {
 
             return try decoder.decode(T.self, from: data)
         } catch {
-            throw ASDecoderErrors.decodeError(reason: error.localizedDescription)
+            throw ASDecoderErrors(type: .decode, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 

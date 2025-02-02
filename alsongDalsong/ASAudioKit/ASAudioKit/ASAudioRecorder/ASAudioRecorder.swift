@@ -20,7 +20,7 @@ public actor ASAudioRecorder {
             audioRecorder?.record()
         } catch {
             // TODO: AVAudioRecorder 객체 생성 실패 시에 대한 처리
-            throw ASAudioErrors.startRecordingError(reason: error.localizedDescription)
+            throw ASAudioErrors(type: .startRecording, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 
@@ -32,7 +32,7 @@ public actor ASAudioRecorder {
             try session.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
             // TODO: 세션 설정 실패에 따른 처리
-            throw ASAudioErrors.configureAudioSessionError(reason: error.localizedDescription)
+            throw ASAudioErrors(type: .configureAudioSession, reason: error.localizedDescription, file: #file, line: #line)
         }
     }
 

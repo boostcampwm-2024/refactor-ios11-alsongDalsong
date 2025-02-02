@@ -93,7 +93,8 @@ final class HummingResultViewModel: @unchecked Sendable {
             let succeded = try await roomActionRepository.changeRecordOrder(roomNumber: roomNumber)
             if !succeded { LogHandler.handleError("Changing RecordOrder failed") }
         } catch {
-            LogHandler.handleError(.changeRecordOrderError(reason: error.localizedDescription))
+            let error = ASErrors(type: .changeRecordOrder, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error)
         }
     }
 
@@ -103,7 +104,8 @@ final class HummingResultViewModel: @unchecked Sendable {
             let succeded = try await roomActionRepository.resetGame()
             if !succeded { LogHandler.handleError("Game Reset failed") }
         } catch {
-            LogHandler.handleError(.navigateToLobbyError(reason: error.localizedDescription))
+            let error = ASErrors(type: .navigateToLobby, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error)
         }
     }
 

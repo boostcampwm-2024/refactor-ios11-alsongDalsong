@@ -39,7 +39,8 @@ final class LoadingViewModel: @unchecked Sendable {
 
                 avatarData = await dataDownloadRepository.downloadData(url: randomAvatarUrl)
             } catch {
-                LogHandler.handleError(.fetchAvatarsError(reason: error.localizedDescription))
+                let error = ASErrors(type: .fetchAvatars, reason: error.localizedDescription, file: #file, line: #line)
+                LogHandler.handleError(error)
             }
         }
     }

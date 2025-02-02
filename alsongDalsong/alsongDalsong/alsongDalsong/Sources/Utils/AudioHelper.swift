@@ -74,7 +74,8 @@ actor AudioHelper {
             LogHandler.handleDebug(columns)
             return columns
         } catch {
-            LogHandler.handleError(.analyzeError(reason: error.localizedDescription))
+            let error = ASErrors(type: .analyze, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error)
             return []
         }
     }
@@ -116,7 +117,8 @@ extension AudioHelper {
                 do {
                     try await player?.startPlaying(data: file)
                 } catch {
-                    LogHandler.handleError(.playFullError(reason: error.localizedDescription))
+                    let error = ASErrors(type: .playFull, reason: error.localizedDescription, file: #file, line: #line)
+                    LogHandler.handleError(error)
                 }
             case let .partial(time):
                 do {
@@ -124,7 +126,8 @@ extension AudioHelper {
                     try await Task.sleep(nanoseconds: UInt64(time * 1_000_000_000))
                     await stopPlaying()
                 } catch {
-                    LogHandler.handleError(.playPartialError(reason: error.localizedDescription))
+                    let error = ASErrors(type: .playPartial, reason: error.localizedDescription, file: #file, line: #line)
+                    LogHandler.handleError(error)
                 }
             @unknown default: break
         }
@@ -183,7 +186,8 @@ extension AudioHelper {
             let recordedData = await stopRecording()
             sendDataThrough(recorderDataSubject, recordedData ?? Data())
         } catch {
-            LogHandler.handleError(.startRecordingError(reason: error.localizedDescription))
+            let error = ASErrors(type: .startRecording, reason: error.localizedDescription, file: #file, line: #line)
+            LogHandler.handleError(error)
         }
     }
 
