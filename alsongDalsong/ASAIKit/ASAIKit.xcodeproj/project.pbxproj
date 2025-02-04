@@ -6,11 +6,37 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		29AEA6A42D51FD46004774DC /* ASAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29AEA6A32D51FD46004774DC /* ASAudioKit.framework */; };
+		29AEA6A52D51FD46004774DC /* ASAudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29AEA6A32D51FD46004774DC /* ASAudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		29AEA6A82D51FD4F004774DC /* ASMusicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29AEA6A72D51FD4F004774DC /* ASMusicKit.framework */; };
+		29AEA6A92D51FD4F004774DC /* ASMusicKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29AEA6A72D51FD4F004774DC /* ASMusicKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		29AEA6AC2D51FE4D004774DC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 29AEA6AB2D51FE4D004774DC /* FirebaseAuth */; };
+		29AEA6AE2D51FE4D004774DC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 29AEA6AD2D51FE4D004774DC /* FirebaseStorage */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		29AEA6A62D51FD46004774DC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				29AEA6A52D51FD46004774DC /* ASAudioKit.framework in Embed Frameworks */,
+				29AEA6A92D51FD4F004774DC /* ASMusicKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		29AEA67E2D51FB7D004774DC /* ASAIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29AEA68D2D51FB9C004774DC /* ASAIKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAIKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29AEA69C2D51FCDA004774DC /* ASAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29AEA6A02D51FCE7004774DC /* ASMusicKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASMusicKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		29AEA6A32D51FD46004774DC /* ASAudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASAudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		29AEA6A72D51FD4F004774DC /* ASMusicKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASMusicKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -51,6 +77,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29AEA6A42D51FD46004774DC /* ASAudioKit.framework in Frameworks */,
+				29AEA6AE2D51FE4D004774DC /* FirebaseStorage in Frameworks */,
+				29AEA6AC2D51FE4D004774DC /* FirebaseAuth in Frameworks */,
+				29AEA6A82D51FD4F004774DC /* ASMusicKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +109,8 @@
 		29AEA69B2D51FCDA004774DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				29AEA6A72D51FD4F004774DC /* ASMusicKit.framework */,
+				29AEA6A32D51FD46004774DC /* ASAudioKit.framework */,
 				29AEA6A02D51FCE7004774DC /* ASMusicKit.framework */,
 				29AEA69C2D51FCDA004774DC /* ASAudioKit.framework */,
 			);
@@ -128,6 +160,7 @@
 				29AEA6892D51FB9C004774DC /* Sources */,
 				29AEA68A2D51FB9C004774DC /* Frameworks */,
 				29AEA68B2D51FB9C004774DC /* Resources */,
+				29AEA6A62D51FD46004774DC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -138,6 +171,8 @@
 			);
 			name = ASAIKitDemo;
 			packageProductDependencies = (
+				29AEA6AB2D51FE4D004774DC /* FirebaseAuth */,
+				29AEA6AD2D51FE4D004774DC /* FirebaseStorage */,
 			);
 			productName = ASAIKitDemo;
 			productReference = 29AEA68D2D51FB9C004774DC /* ASAIKitDemo.app */;
@@ -170,6 +205,9 @@
 			);
 			mainGroup = 29AEA6742D51FB7D004774DC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				29AEA6AA2D51FE4D004774DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 29AEA67F2D51FB7D004774DC /* Products */;
 			projectDirPath = "";
@@ -494,6 +532,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		29AEA6AA2D51FE4D004774DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		29AEA6AB2D51FE4D004774DC /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29AEA6AA2D51FE4D004774DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		29AEA6AD2D51FE4D004774DC /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29AEA6AA2D51FE4D004774DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 29AEA6752D51FB7D004774DC /* Project object */;
 }
