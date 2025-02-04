@@ -75,6 +75,11 @@ struct ASAIKitDemoView: View {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .stroke(lineWidth: 4)
             }
+            .background {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .foregroundStyle(.black)
+                    .offset(x: 4, y: 4)
+            }
             
             Spacer()
             

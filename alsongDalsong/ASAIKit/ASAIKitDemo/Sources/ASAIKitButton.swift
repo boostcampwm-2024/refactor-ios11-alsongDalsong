@@ -24,13 +24,21 @@ struct ASAIKitButton: View {
         }
         .disabled(isDisabled)
         .buttonStyle(ASAIKitButtonStyle())
+        .background {
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .foregroundStyle(.black)
+                .offset(x: 4, y: 4)
+        }
     }
 }
 
 struct ASAIKitButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.97 : 1)
+            .offset(
+                x: configuration.isPressed ? 3 : 0,
+                y: configuration.isPressed ? 3 : 0
+            )
     }
 }
 
