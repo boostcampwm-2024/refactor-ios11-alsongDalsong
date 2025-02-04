@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ASAIKitButton: View {
     var title: String
-    var fontSize: CGFloat = 24
+    var fontSize: CGFloat = 28
     var color: Color
     var isSelected: Bool = true
     var isDisabled: Bool = false
