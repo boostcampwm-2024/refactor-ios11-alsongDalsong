@@ -60,10 +60,9 @@ struct ASAIKitDemoView: View {
                 .disabled(vm.isRecording)
                 .frame(width: 36)
                 
-                
-                ForEach(vm.amplitudes, id: \.self) { amplitude in
+                ForEach(vm.amplitudes.indices, id: \.self) { index in
                     RoundedRectangle(cornerRadius: 2)
-                        .frame(width: 2, height: min(100, amplitude * 100 + 4))
+                        .frame(width: 2, height: min(100, vm.amplitudes[index] * 100 + 4))
                 }
             }
             .frame(maxWidth: .infinity)
@@ -102,7 +101,7 @@ struct ASAIKitDemoView: View {
         .overlay {
             if vm.isPresented {
                 Color.black.opacity(0.2).ignoresSafeArea()
-                ASAIKitMessage(isPresented: $vm.isPresented, message: $vm.message, fractionCompleted: vm.fractionCompleted)
+                ASAIKitMessage(isPresented: $vm.isPresented, message: $vm.message)
             }
         }
     }

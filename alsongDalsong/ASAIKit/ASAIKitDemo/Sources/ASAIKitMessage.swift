@@ -10,7 +10,6 @@ import SwiftUI
 struct ASAIKitMessage: View {
     @Binding var isPresented: Bool
     @Binding var message: String
-    var fractionCompleted: Double = 0.0
     
     var body: some View {
         VStack {
@@ -19,7 +18,7 @@ struct ASAIKitMessage: View {
                 .padding(.bottom)
             
             if message.contains("업로드 중...") {
-                ProgressView(value: fractionCompleted)
+                ProgressView()
                     .progressViewStyle(.circular)
                     .controlSize(.extraLarge)
             } else {
@@ -52,5 +51,5 @@ struct ASAIKitMessage: View {
     @Previewable @State var isPresented = true
     @Previewable @State var message = "업로드 중..."
     
-    ASAIKitMessage(isPresented: $isPresented, message: $message, fractionCompleted: 0.55)
+    ASAIKitMessage(isPresented: $isPresented, message: $message)
 }

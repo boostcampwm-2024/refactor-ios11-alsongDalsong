@@ -14,11 +14,8 @@ final class ASAIKitDemoViewModel: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var isPlaying: Bool = false
     @Published var message = ""
-    @Published var fractionCompleted = 0.0
     @Published var isPresented = false
-    
-    @ObservationIgnored var id = ""
-    
+        
     var submitButtonDisabled: Bool {
         recordedData == nil || name.isEmpty || song.isEmpty
     }
@@ -26,6 +23,7 @@ final class ASAIKitDemoViewModel: ObservableObject {
     let testers = ["민하", "숲", "승재", "인예", "현준"]
     let songs = ["NewJeans - Super Shy", "BIGBANG - LOSER"]
     
+    private var uuidString = ""
     private var recordingTask: Task<Void, Never>?
     private var playingTask: Task<Void, Never>?
     private var cancellable: AnyCancellable?
@@ -35,7 +33,7 @@ final class ASAIKitDemoViewModel: ObservableObject {
     private let audioRecorder = ASAudioRecorder()
     
     private var url: URL {
-        FileManager.default.temporaryDirectory.appendingPathComponent(id, conformingTo: .mpeg4Audio)
+        FileManager.default.temporaryDirectory.appendingPathComponent(uuidString, conformingTo: .mpeg4Audio)
     }
     
     func toggleRecording() {
@@ -49,12 +47,12 @@ final class ASAIKitDemoViewModel: ObservableObject {
     func submitData() {
         guard let data = recordedData else { return }
         
-        let storageRef = Storage.storage().reference()
-        let bucketRef = storageRef.child("data/\(song)/\(name)-\(id.prefix(8)).m4a")
+        let storageReference = Storage.storage().reference()
+        let bucketReference = storageReference.child("data/\(song)/\(name)-\(uuidString.prefix(8)).m4a")
         
         message = "업로드 중..."
         
-        let uploadTask = bucketRef.putData(data, metadata: nil) { [weak self] metadata, error in
+        bucketReference.putData(data, metadata: nil) { [weak self] _, error in
             Task { @MainActor in
                 if let error {
                     self?.message = "업로드 도중 오류가 발생했습니다. Error: \(error)"
@@ -63,18 +61,12 @@ final class ASAIKitDemoViewModel: ObservableObject {
                 
                 self?.submitCount += 1
                 self?.message = "성공적으로 업로드 되었습니다. 당신의 노고에 감사드립니다."
+                
+                self?.recordedData = nil
+                self?.amplitudes = Array(repeating: 0, count: 48)
+                self?.addedAmplitudeCount = 0
             }
         }
-        
-        uploadTask.observe(.progress) { [weak self] snapshot in
-            Task { @MainActor in
-                self?.fractionCompleted = snapshot.progress?.fractionCompleted ?? 0.0
-            }
-        }
-        
-        recordedData = nil
-        amplitudes = Array(repeating: 0, count: 48)
-        addedAmplitudeCount = 0
     }
 }
 
@@ -90,7 +82,7 @@ extension ASAIKitDemoViewModel {
         recordingTask = Task { @MainActor in
             isRecording = true
             recordedData = nil
-            id = UUID().uuidString
+            uuidString = UUID().uuidString
             
             do {
                 try await audioRecorder.startRecording(url: url)
@@ -116,7 +108,7 @@ extension ASAIKitDemoViewModel {
                 recordedData = await audioRecorder.stopRecording()
                 try FileManager.default.removeItem(at: url)
             } catch is CancellationError {
-                // 취소된 경우는 메시지를 표시하지 않음
+                // 녹음이 CancelRecording 으로 취소된 경우는 메시지를 표시하지 않음
             } catch {
                 message = "녹음 중 오류가 발생했습니다. Error: \(error)"
             }
