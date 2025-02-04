@@ -47,6 +47,13 @@
 			);
 			target = 29AEA67D2D51FB7D004774DC /* ASAIKit */;
 		};
+		29AEA6B42D5202C3004774DC /* Exceptions for "ASAIKitDemo" folder in "ASAIKitDemo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = 29AEA68C2D51FB9C004774DC /* ASAIKitDemo */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -60,6 +67,9 @@
 		};
 		29AEA68E2D51FB9C004774DC /* ASAIKitDemo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				29AEA6B42D5202C3004774DC /* Exceptions for "ASAIKitDemo" folder in "ASAIKitDemo" target */,
+			);
 			path = ASAIKitDemo;
 			sourceTree = "<group>";
 		};
@@ -455,6 +465,7 @@
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ASAIKitDemo/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -483,6 +494,7 @@
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ASAIKitDemo/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
