@@ -1,4 +1,5 @@
 import ASAudioKit
+import Combine
 import SwiftUI
 import FirebaseStorage
 import Foundation
@@ -9,7 +10,7 @@ final class ASAIKitDemoViewModel: ObservableObject {
     @AppStorage("song") var song = ""
     
     @Published var recordedData: Data?
-    @Published var amplitudes: [CGFloat] = []
+    @Published var amplitudes: [CGFloat] = Array(repeating: 0.0, count: 48)
     @Published var isRecording: Bool = false
     @Published var isPlaying: Bool = false
     @Published var message = ""
@@ -27,6 +28,8 @@ final class ASAIKitDemoViewModel: ObservableObject {
     
     private var recordingTask: Task<Void, Never>?
     private var playingTask: Task<Void, Never>?
+    private var cancellable: AnyCancellable?
+    private var addedAmplitudeCount = 0
     
     private let audioPlayer = ASAudioPlayer()
     private let audioRecorder = ASAudioRecorder()
@@ -70,6 +73,8 @@ final class ASAIKitDemoViewModel: ObservableObject {
         }
         
         recordedData = nil
+        amplitudes = Array(repeating: 0, count: 48)
+        addedAmplitudeCount = 0
     }
 }
 
@@ -78,6 +83,8 @@ final class ASAIKitDemoViewModel: ObservableObject {
 extension ASAIKitDemoViewModel {
     private func startRecording() {
         stopPlaying()
+        amplitudes = Array(repeating: 0, count: 48)
+        addedAmplitudeCount = 0
         recordingTask?.cancel()
         
         recordingTask = Task { @MainActor in
@@ -87,6 +94,23 @@ extension ASAIKitDemoViewModel {
             
             do {
                 try await audioRecorder.startRecording(url: url)
+                
+                cancellable = Timer.publish(every: 0.125, on: .main, in: .common)
+                    .autoconnect()
+                    .sink { [weak self] _ in
+                        Task {
+                            await self?.audioRecorder.updateMeters()
+                            
+                            guard let averagePower = await self?.audioRecorder.getAveragePower(),
+                                  let index = self?.addedAmplitudeCount, index < 48 else { return }
+                            
+                            let newAmplitude = 1.8 * pow(10.0, averagePower / 20.0)
+                            let clampedAmplitude = min(max(newAmplitude, 0), 1)
+                            self?.amplitudes[index] = CGFloat(clampedAmplitude)
+                            self?.addedAmplitudeCount += 1
+                        }
+                    }
+                
                 try await Task.sleep(for: .seconds(6))
                 
                 recordedData = await audioRecorder.stopRecording()
@@ -98,11 +122,13 @@ extension ASAIKitDemoViewModel {
             }
             
             isRecording = false
+            cancellable?.cancel()
         }
     }
     
     private func cancelRecording() {
         recordingTask?.cancel()
+        cancellable?.cancel()
         
         recordingTask = Task { @MainActor in
             isRecording = false
@@ -110,6 +136,9 @@ extension ASAIKitDemoViewModel {
             await audioRecorder.stopRecording()
             try? FileManager.default.removeItem(at: url)
         }
+        
+        amplitudes = Array(repeating: 0, count: 48)
+        addedAmplitudeCount = 0
     }
     
     private func startPlaying() {

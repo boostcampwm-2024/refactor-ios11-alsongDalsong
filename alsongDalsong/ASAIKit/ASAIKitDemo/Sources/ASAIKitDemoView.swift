@@ -9,8 +9,8 @@ struct ASAIKitDemoView: View {
                 .font(.custom("DoHyeon-Regular", size: 36))
                 .padding(.top)
             
-            Text("허밍해주세요.. 당신의 소중한 데이터를 기다리고 있습니다.")
-                .font(.custom("DoHyeon-Regular", size: 18))
+            Text("허밍해주세요.. 당신의 소중한 데이터를 기다리고 있습니다. - From.AI")
+                .font(.custom("DoHyeon-Regular", size: 16))
                 .foregroundStyle(.secondary)
                 .padding(.bottom)
             
@@ -21,12 +21,12 @@ struct ASAIKitDemoView: View {
             
             VStack(alignment: .leading) {
                 Text("이름 선택")
-                    .font(.custom("DoHyeon-Regular", size: 18))
+                    .font(.custom("DoHyeon-Regular", size: 16))
                     .foregroundStyle(.secondary)
                 
                 HStack {
                     ForEach(vm.testers, id: \.self) { tester in
-                        ASAIKitButton(title: tester, fontSize: 18, color: .orange, isSelected: vm.name == tester) {
+                        ASAIKitButton(title: tester, fontSize: 20, color: .mint, isSelected: vm.name == tester) {
                             vm.name == tester ? (vm.name = "") : (vm.name = tester)
                         }
                     }
@@ -36,7 +36,7 @@ struct ASAIKitDemoView: View {
             
             VStack(alignment: .leading) {
                 Text("노래 선택")
-                    .font(.custom("DoHyeon-Regular", size: 18))
+                    .font(.custom("DoHyeon-Regular", size: 16))
                     .foregroundStyle(.secondary)
                 
                 ForEach(vm.songs, id: \.self) { song in
@@ -49,19 +49,42 @@ struct ASAIKitDemoView: View {
             
             Spacer()
             
-            Button(action: vm.togglePlaying) {
-                Image(systemName: vm.isRecording ? "circle.fill" : vm.isPlaying ? "stop.fill" : "play.fill")
-                    .font(.largeTitle)
-                    .fontWeight(.black)
-                    .foregroundStyle(vm.isRecording ? .red : .primary)
-                    .contentTransition(.symbolEffect(.replace))
+            HStack(spacing: 4) {
+                Button(action: vm.togglePlaying) {
+                    Image(systemName: vm.isRecording ? "circle.fill" : vm.isPlaying ? "stop.fill" : "play.fill")
+                        .font(.largeTitle)
+                        .fontWeight(.black)
+                        .foregroundStyle(vm.isRecording ? .red : .primary)
+                        .contentTransition(.symbolEffect(.replace))
+                }
+                .disabled(vm.isRecording)
+                .frame(width: 36)
+                
+                
+                ForEach(vm.amplitudes, id: \.self) { amplitude in
+                    RoundedRectangle(cornerRadius: 2)
+                        .frame(width: 2, height: min(100, amplitude * 100 + 4))
+                }
             }
-            .disabled(vm.isRecording)
+            .frame(maxWidth: .infinity)
+            .frame(height: 100)
+            .padding()
+            .background(Color.orange)
+            .cornerRadius(12)
+            .background {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(lineWidth: 4)
+            }
             
             Spacer()
             
+            Text("플레이 버튼을 눌러 녹음을 확인해보세요.")
+                .font(.custom("DoHyeon-Regular", size: 18))
+                .foregroundStyle(vm.recordedData == nil ? .clear : .secondary)
+                .padding(.bottom, 8)
+            
             HStack {
-                ASAIKitButton(title: vm.isRecording ? "녹음 취소" : "녹음 하기", color: .red, action: vm.toggleRecording)
+                ASAIKitButton(title: vm.isRecording ? "녹음 취소" : "녹음 시작", color: .red, action: vm.toggleRecording)
                 
                 ASAIKitButton(title: "제출 하기", color: .green, isDisabled: vm.submitButtonDisabled, action: vm.submitData)
             }

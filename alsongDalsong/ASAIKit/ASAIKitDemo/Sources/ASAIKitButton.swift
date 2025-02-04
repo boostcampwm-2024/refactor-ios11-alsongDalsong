@@ -14,16 +14,13 @@ struct ASAIKitButton: View {
             Text(title)
                 .font(.custom("DoHyeon-Regular", size: fontSize))
                 .frame(maxWidth: .infinity)
-                .padding()
+                .padding(.vertical)
                 .background {
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .stroke(lineWidth: 4)
                 }
-                .background(isDisabled ? Color(.systemGray5) : isSelected ? color : Color(.systemGray6))
+                .background(isDisabled ? Color(.systemGray4) : isSelected ? color : Color(.systemGray6))
                 .cornerRadius(12)
-                .background {
-                    
-                }
         }
         .disabled(isDisabled)
         .buttonStyle(ASAIKitButtonStyle())

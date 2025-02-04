@@ -20,13 +20,16 @@ struct ASAIKitMessage: View {
             
             if message.contains("업로드 중...") {
                 ProgressView(value: fractionCompleted)
-                    .tint(.gray)
+                    .progressViewStyle(.circular)
+                    .controlSize(.extraLarge)
             } else {
                 ASAIKitButton(title: "확인", fontSize: 22, color: .green) {
                     isPresented = false
+                    message = ""
                 }
             }
         }
+        .frame(maxWidth: .infinity)
         .padding()
         .background(Color(.systemBackground))
         .cornerRadius(12)
@@ -35,9 +38,6 @@ struct ASAIKitMessage: View {
                 .stroke(lineWidth: 4)
         }
         .padding(.horizontal, 40)
-        .onDisappear {
-            message = ""
-        }
     }
 }
 
