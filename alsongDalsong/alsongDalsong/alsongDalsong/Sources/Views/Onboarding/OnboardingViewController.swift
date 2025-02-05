@@ -100,8 +100,7 @@ final class OnboardingViewController: UIViewController {
     private func setAction() {
         createRoomButton.addAction(
             UIAction { [weak self] _ in
-                //self?.showCreateRoomLoading()
-                self?.showStartTutorial()
+                self?.showCreateRoomLoading()
             },
             for: .touchUpInside
         )
