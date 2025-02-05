@@ -828,6 +828,26 @@
         }
       }
     },
+    "튜토리얼" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial"
+          }
+        }
+      }
+    },
+    "튜토리얼 시작!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Tutorial"
+          }
+        }
+      }
+    },
     "틀틀보" : {
       "extractionState" : "manual",
       "localizations" : {
