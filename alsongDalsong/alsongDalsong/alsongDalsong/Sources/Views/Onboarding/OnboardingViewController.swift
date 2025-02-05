@@ -1,4 +1,5 @@
 import ASContainer
+import ASEntity
 import ASRepositoryProtocol
 import Combine
 import UIKit
@@ -99,7 +100,8 @@ final class OnboardingViewController: UIViewController {
     private func setAction() {
         createRoomButton.addAction(
             UIAction { [weak self] _ in
-                self?.showCreateRoomLoading()
+                //self?.showCreateRoomLoading()
+                self?.showStartTutorial()
             },
             for: .touchUpInside
         )
@@ -155,13 +157,28 @@ final class OnboardingViewController: UIViewController {
         let roomActionRepository = DIContainer.shared.resolve(RoomActionRepositoryProtocol.self)
         guard let navigationController else { return }
 
-        gameNavigationController = GameNavigationController(
+        gameNavigationController = GeneralGameNavigationController(
             navigationController: navigationController,
             gameStateRepository: gameStateRepository,
             roomActionRepository: roomActionRepository,
             roomNumber: roomNumber
         )
 
+        gameNavigationController?.setConfiguration()
+    }
+    
+    private func navigateToTutorial() {
+        if let nickname = nickNamePanel.text, !nickname.isEmpty {
+            viewModel?.setNickname(with: nickname)
+        }
+        viewModel?.saveNickname()
+        
+        guard let navigationController else { return }
+        gameNavigationController = AIGameNavigationController(
+            navigationController: navigationController,
+            aiImageURL: viewModel?.randomAvatarURL() ?? []
+        )
+        
         gameNavigationController?.setConfiguration()
     }
 
@@ -255,6 +272,16 @@ extension OnboardingViewController {
             },
             errorCompletion: { [weak self] error in
                 self?.showRoomFailedAlert(error)
+            }
+        )
+        presentAlert(alert)
+    }
+    
+    private func showStartTutorial() {
+        let alert = LoadingAlertController(
+            progressText: .startTutorial,
+            loadAction: { [weak self] in
+                self?.navigateToTutorial()
             }
         )
         presentAlert(alert)

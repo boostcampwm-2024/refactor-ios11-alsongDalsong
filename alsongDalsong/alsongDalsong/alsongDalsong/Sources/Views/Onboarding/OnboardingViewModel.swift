@@ -1,3 +1,4 @@
+import ASEntity
 import ASMusicKit
 import ASRepositoryProtocol
 import Foundation
@@ -30,6 +31,16 @@ final class OnboardingViewModel: @unchecked Sendable {
 
     func setNickname(with nickname: String) {
         self.nickname = nickname
+    }
+    
+    func randomAvatarURL() -> [URL?] {
+        [avatars.randomElement(), avatars.randomElement()]
+    }
+    
+    func saveNickname() {
+        saveDataRepository.savePlayer(
+            tutorialPlayer: Player(id: "2", avatarUrl: selectedAvatar, nickname: nickname)
+        )
     }
 
     func refreshAvatars() {

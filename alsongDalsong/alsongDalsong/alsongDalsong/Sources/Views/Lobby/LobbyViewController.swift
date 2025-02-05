@@ -4,6 +4,8 @@ import SwiftUI
 final class LobbyViewController: UIViewController {
     private let inviteButton = ASButton()
     private let startButton = ASButton()
+    private let nextButton = ASButton()
+    private lazy var buttonStack = UIStackView(arrangedSubviews: [inviteButton, startButton, nextButton])
     private var lobbyView = UIViewController()
     private let viewmodel: LobbyViewModel
     private var cancellables: Set<AnyCancellable> = []
@@ -72,12 +74,26 @@ final class LobbyViewController: UIViewController {
             text: String(localized: "시작하기!"),
             backgroundColor: .asMint
         )
+        
+        nextButton.setConfiguration(
+            systemImageName: "play.fill",
+            text: String(localized: "튜토리얼 시작!"),
+            backgroundColor: .asMint
+        )
 
         lobbyView = UIHostingController(rootView: LobbyView(viewModel: viewmodel))
 
         view.addSubview(lobbyView.view)
-        view.addSubview(startButton)
-        view.addSubview(inviteButton)
+        view.addSubview(buttonStack)
+        buttonStack.axis = .vertical
+        buttonStack.spacing = 24
+        
+        if viewmodel as? AILobbyViewModel != nil {
+            inviteButton.isHidden = true
+            startButton.isHidden = true
+        } else {
+            nextButton.isHidden = true
+        }
     }
 
     private func setAction() {
@@ -95,32 +111,39 @@ final class LobbyViewController: UIViewController {
                 guard let playerCount = self?.viewmodel.players.count else { return }
                 playerCount < 3 ?
                     self?.showNeedMorePlayers() :
-                    self?.showStartGameLoading()
+                self?.showStartGameLoading(with: .startGame)
             },
             for: .touchUpInside
         )
+        
+        nextButton.addAction(
+            UIAction { _ in
+                
+            }
+            , for: .touchUpInside)
     }
 
     private func setupLayout() {
+        lobbyView.view.translatesAutoresizingMaskIntoConstraints = false
+        buttonStack.translatesAutoresizingMaskIntoConstraints = false
+        
         inviteButton.translatesAutoresizingMaskIntoConstraints = false
         startButton.translatesAutoresizingMaskIntoConstraints = false
-        lobbyView.view.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             lobbyView.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            lobbyView.view.bottomAnchor.constraint(equalTo: inviteButton.topAnchor, constant: -20),
+            lobbyView.view.bottomAnchor.constraint(equalTo: buttonStack.topAnchor, constant: -20),
             lobbyView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             lobbyView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            inviteButton.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -25),
-            inviteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            inviteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            
+            buttonStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            buttonStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            buttonStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
             inviteButton.heightAnchor.constraint(equalToConstant: 64),
-
-            startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             startButton.heightAnchor.constraint(equalToConstant: 64),
+            nextButton.heightAnchor.constraint(equalToConstant: 64)
         ])
     }
 
@@ -132,9 +155,9 @@ final class LobbyViewController: UIViewController {
 // MARK: - Alert
 
 extension LobbyViewController {
-    func showStartGameLoading() {
+    func showStartGameLoading(with progressText: ASAlertText.ProgressText) {
         let alert = LoadingAlertController(
-            progressText: .startGame,
+            progressText: progressText,
             loadAction: { [weak self] in
                 try await self?.gameStart()
             },
@@ -151,7 +174,7 @@ extension LobbyViewController {
             primaryButtonText: .keep,
             secondaryButtonText: .cancel
         ) { [weak self] _ in
-            self?.showStartGameLoading()
+            self?.showStartGameLoading(with: .startGame)
         }
         presentAlert(alert)
     }
