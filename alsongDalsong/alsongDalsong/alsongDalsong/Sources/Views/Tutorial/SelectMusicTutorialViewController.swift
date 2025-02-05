@@ -2,7 +2,7 @@ import ASEntity
 import UIKit
 import SwiftUI
 
-class SelectMusicTutorialViewController: UIViewController {
+final class SelectMusicTutorialViewController: UIViewController {
     private let progressBar = ProgressBar()
     private let submitButton = ASButton()
     
@@ -16,7 +16,7 @@ class SelectMusicTutorialViewController: UIViewController {
         setupLayout()
     }
     
-    func setupUI() {
+    private func setupUI() {
         view.backgroundColor = .asLightGray
         title = "노래 선택"
         
@@ -45,7 +45,7 @@ class SelectMusicTutorialViewController: UIViewController {
         view.addSubview(submitButton)
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         selectMusicView.view.translatesAutoresizingMaskIntoConstraints = false
         submitButton.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +68,7 @@ class SelectMusicTutorialViewController: UIViewController {
         ])
     }
     
-    func setupAction() {
+    private func setupAction() {
         submitButton.addAction(UIAction { [weak self] _ in
             /// 다음 화면
         }, for: .touchUpInside)
