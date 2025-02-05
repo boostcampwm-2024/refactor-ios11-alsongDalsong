@@ -1,7 +1,7 @@
 import ASEntity
 import Foundation
 
-enum TutorialMusic {
+enum TutorialData {
     static let superShy = Music(
         id: "1692686518",
         title: "Super Shy",
