@@ -1,10 +1,3 @@
-//
-//  ASAIKitMessage.swift
-//  ASAIKitDemo
-//
-//  Created by hyunjun on 2/4/25.
-//
-
 import SwiftUI
 
 struct ASAIKitMessage: View {

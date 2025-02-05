@@ -44,7 +44,7 @@ final class ASAIKitDemoViewModel: ObservableObject {
         isPlaying ? stopPlaying() : startPlaying()
     }
     
-    func submitData() {
+    func uploadData() {
         guard let data = recordedData else { return }
         
         let storageReference = Storage.storage().reference()

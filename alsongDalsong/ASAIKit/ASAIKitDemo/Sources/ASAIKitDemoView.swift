@@ -90,7 +90,7 @@ struct ASAIKitDemoView: View {
             HStack {
                 ASAIKitButton(title: vm.isRecording ? "녹음 취소" : "녹음 시작", color: .red, action: vm.toggleRecording)
                 
-                ASAIKitButton(title: "제출 하기", color: .green, isDisabled: vm.submitButtonDisabled, action: vm.submitData)
+                ASAIKitButton(title: "제출 하기", color: .green, isDisabled: vm.submitButtonDisabled, action: vm.uploadData)
             }
         }
         .onChange(of: vm.message) { _, newValue in
