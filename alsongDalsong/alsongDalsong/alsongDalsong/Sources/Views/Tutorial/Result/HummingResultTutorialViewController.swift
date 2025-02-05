@@ -19,12 +19,12 @@ final class HummingResultTutorialViewController: UIViewController {
         setupUI()
         setupLayout()
         
-        viewModel.bindAudio()
         viewModel.updateResult()
     }
     
     private func setupBind() {
         answerView.bind(to: viewModel.$result)
+        viewModel.bindAudio()
         
         viewModel.$resultPhase
             .combineLatest(viewModel.$result)

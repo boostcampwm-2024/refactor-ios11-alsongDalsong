@@ -13,13 +13,13 @@ final class HummingTutorialViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBind()
         setupAction()
         setupUI()
         setupLayout()
-        bindToComponents()
     }
     
-    private func bindToComponents() {
+    private func setupBind() {
         musicPanel.bind(to: viewModel.$panelData)
         hummingPanel.bind(to: viewModel.$isRecording)
         hummingPanel.onRecordingFinished = { [weak self] data in
