@@ -5,6 +5,7 @@ import Foundation
 final class OnboardingViewModel: @unchecked Sendable {
     private var roomActionRepository: RoomActionRepositoryProtocol
     private var dataDownloadRepository: DataDownloadRepositoryProtocol
+    private var saveDataRepository: SaveDataRepositoryProtocol
     private var avatars: [URL] = []
     private var selectedAvatar: URL?
 
@@ -14,12 +15,14 @@ final class OnboardingViewModel: @unchecked Sendable {
 
     init(roomActionRepository: RoomActionRepositoryProtocol,
          dataDownloadRepository: DataDownloadRepositoryProtocol,
+         saveDataRepository: SaveDataRepositoryProtocol,
          avatars: [URL],
          selectedAvatar: URL?,
          avatarData: Data?
     ) {
         self.roomActionRepository = roomActionRepository
         self.dataDownloadRepository = dataDownloadRepository
+        self.saveDataRepository = saveDataRepository
         self.avatars = avatars
         self.selectedAvatar = selectedAvatar
         self.avatarData = avatarData

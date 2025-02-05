@@ -79,10 +79,12 @@ final class LoadingViewController: UIViewController {
     private func navigateOnboarding(avatars: [URL], selectedAvatar: URL, avatarData: Data) {
         let roomActionRepository = DIContainer.shared.resolve(RoomActionRepositoryProtocol.self)
         let dataDownloadRepository = DIContainer.shared.resolve(DataDownloadRepositoryProtocol.self)
+        let saveDataRepository = DIContainer.shared.resolve(SaveDataRepositoryProtocol.self)
         
         let onboardingVM = OnboardingViewModel(
             roomActionRepository: roomActionRepository,
             dataDownloadRepository: dataDownloadRepository,
+            saveDataRepository: saveDataRepository,
             avatars: avatars,
             selectedAvatar: selectedAvatar,
             avatarData: avatarData
