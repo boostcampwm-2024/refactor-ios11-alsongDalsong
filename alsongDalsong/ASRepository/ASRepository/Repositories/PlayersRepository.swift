@@ -6,7 +6,8 @@ import ASRepositoryProtocol
 
 final class PlayersRepository: PlayersRepositoryProtocol {
     private var mainRepository: MainRepositoryProtocol
-    
+    private let defaults = UserDefaults.standard
+
     init(mainRepository: MainRepositoryProtocol) {
         self.mainRepository = mainRepository
     }
@@ -16,6 +17,16 @@ final class PlayersRepository: PlayersRepositoryProtocol {
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .eraseToAnyPublisher()
+    }
+    
+    func getTutorialPlayer() -> Player? {
+        if let savedData = defaults.object(forKey: "tutorialPlayer") as? Data {
+            let decoder = JSONDecoder()
+            if let savedPlayer = try? decoder.decode(Player.self, from: savedData) {
+                return savedPlayer
+            }
+        }
+        return nil
     }
     
     func getPlayersCount() -> AnyPublisher<Int, Never> {

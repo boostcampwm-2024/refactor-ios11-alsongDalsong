@@ -21,6 +21,10 @@ public final class PlayersMockRepository: PlayersRepositoryProtocol {
             .eraseToAnyPublisher()
     }
     
+    public func getTutorialPlayer() -> ASEntity.Player? {
+        Player.playerStub1
+    }
+    
     public func getPlayersCount() -> AnyPublisher<Int, Never> {
         playersPublisher
             .compactMap { $0 }

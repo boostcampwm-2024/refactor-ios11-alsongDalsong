@@ -97,5 +97,9 @@ public struct RepsotioryAssembly: Assembly {
                 networkManager: networkManager
             )
         }
+        
+        container.register(SaveDataRepositoryProtocol.self) { r in
+            SaveDataRepository()
+        }
     }
 }

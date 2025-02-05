@@ -16,6 +16,7 @@ public protocol GameStatusRepositoryProtocol {
 
 public protocol PlayersRepositoryProtocol {
     func getPlayers() -> AnyPublisher<[Player], Never>
+    func getTutorialPlayer() -> Player?
     func getHost() -> AnyPublisher<Player, Never>
     func isHost() -> AnyPublisher<Bool, Never>
     func getPlayersCount() -> AnyPublisher<Int, Never>
@@ -61,4 +62,8 @@ public protocol HummingResultRepositoryProtocol {
 
 public protocol DataDownloadRepositoryProtocol {
     func downloadData(url: URL) async -> Data?
+}
+
+public protocol SaveDataRepositoryProtocol  {
+    func savePlayer(tutorialPlayer: Player)
 }
