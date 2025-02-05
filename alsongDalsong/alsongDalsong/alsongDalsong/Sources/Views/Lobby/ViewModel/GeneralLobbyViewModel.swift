@@ -1,28 +1,10 @@
-import ASEntity
 import ASRepositoryProtocol
 import Combine
-import Foundation
 
-final class LobbyViewModel: ObservableObject, @unchecked Sendable {
+final class GeneralLobbyViewModel: LobbyViewModel, @unchecked Sendable {
     private var playersRepository: PlayersRepositoryProtocol
     private var roomInfoRepository: RoomInfoRepositoryProtocol
     private var roomActionRepository: RoomActionRepositoryProtocol
-    private var dataDownloadRepository: DataDownloadRepositoryProtocol
-
-    let playerMaxCount = 4
-    private(set) var roomNumber: String = ""
-    @Published var players: [Player] = []
-    @Published var host: Player?
-    @Published var isHost: Bool = false
-    @Published var canBeginGame: Bool = false
-    @Published var mode: Mode = .humming {
-        didSet {
-            if mode != oldValue {
-                changeMode()
-            }
-        }
-    }
-
     private var cancellables: Set<AnyCancellable> = []
 
     init(playersRepository: PlayersRepositoryProtocol,
@@ -33,16 +15,11 @@ final class LobbyViewModel: ObservableObject, @unchecked Sendable {
         self.playersRepository = playersRepository
         self.roomActionRepository = roomActionRepository
         self.roomInfoRepository = roomInfoRepository
-        self.dataDownloadRepository = dataDownloadRepository
+        super.init(dataDownloadRepository: dataDownloadRepository)
         fetchData()
     }
 
-    func getAvatarData(url: URL?) async -> Data? {
-        guard let url else { return nil }
-        return await dataDownloadRepository.downloadData(url: url)
-    }
-
-    func fetchData() {
+    override func fetchData() {
         playersRepository.getPlayers()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] players in
@@ -89,7 +66,7 @@ final class LobbyViewModel: ObservableObject, @unchecked Sendable {
             .store(in: &cancellables)
     }
 
-    func gameStart() async throws {
+    override func gameStart() async throws {
         do {
             _ = try await roomActionRepository.startGame(roomNumber: roomNumber)
         } catch {
@@ -99,7 +76,7 @@ final class LobbyViewModel: ObservableObject, @unchecked Sendable {
         }
     }
 
-    func changeMode() {
+    override func changeMode() {
         Task {
             do {
                 if isHost {

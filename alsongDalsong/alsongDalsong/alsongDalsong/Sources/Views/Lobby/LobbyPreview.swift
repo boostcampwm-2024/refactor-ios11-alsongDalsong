@@ -11,7 +11,7 @@ struct LobbyPreview: PreviewProvider {
         let roomActionRepository = RoomActionMockRepository()
         let dataDownloadRepository = DIContainer.shared.resolve(DataDownloadRepositoryProtocol.self)
 
-        let lobbyViewModel = LobbyViewModel(
+        let lobbyViewModel = GeneralLobbyViewModel(
             playersRepository: playerRepository,
             roomInfoRepository: roomInfoRepository,
             roomActionRepository: roomActionRepository,
