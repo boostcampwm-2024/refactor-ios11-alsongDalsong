@@ -16,13 +16,13 @@ public enum ASAIAnalyzer {
     public static func analzeAudioFile(audioData: Data, mode: SoundAnlayerMode) async -> AudioAnalyeResult? {
         switch mode {
         case let .overlap(overlapFactor, windowDuration):
-            return await analyzeAudioFile(audioData: audioData, overlapFactor: overlapFactor, windowDuration: windowDuration)
+            return await overlapAnalyze(audioData: audioData, overlapFactor: overlapFactor, windowDuration: windowDuration)
         case let .full(sampleRate):
-            return await analzeAudioFile(audioData: audioData, sampleRate: sampleRate)
+            return await fullAnalyze(audioData: audioData, sampleRate: sampleRate)
         }
     }
 
-    private static func analzeAudioFile(
+    private static func fullAnalyze(
         audioData: Data,
         sampleRate: Int32
     ) async -> AudioAnalyeResult? {
@@ -52,7 +52,7 @@ public enum ASAIAnalyzer {
         return nil
     }
 
-    private static func analyzeAudioFile(
+    private static func overlapAnalyze(
         audioData: Data,
         overlapFactor: Double,
         windowDuration: CMTime
