@@ -121,9 +121,13 @@ final class LoadingViewController: UIViewController {
             inviteCode: inviteCode
         )
 
+        let navigationController = UINavigationController(rootViewController: tutorialGuideViewController)
+        navigationController.navigationBar.isHidden = true
+        navigationController.interactivePopGestureRecognizer?.isEnabled = false
+
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {
-            window.rootViewController = tutorialGuideViewController
+            window.rootViewController = navigationController
             window.makeKeyAndVisible()
         }
     }
