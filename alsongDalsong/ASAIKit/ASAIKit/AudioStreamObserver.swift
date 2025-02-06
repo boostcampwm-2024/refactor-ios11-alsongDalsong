@@ -37,5 +37,7 @@ final class AudioStreamObserver: NSObject, SNResultsObserving, ObservableObject 
         let sumConfidence = totalConfidence[identifier] ?? 0.0
         let avgConfidence = sumConfidence / Double(count)
         completion?((identifier, avgConfidence))
+        predictCount = [:]
+        totalConfidence = [:]
     }
 }
