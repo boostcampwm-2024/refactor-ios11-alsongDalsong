@@ -11,6 +11,8 @@
 		169725692CE5F863005B4953 /* ASNetworkKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 169725632CE5F859005B4953 /* ASNetworkKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		169C069D2CECE8860084B082 /* ASCacheKitProtocol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 169C06882CEC9FE60084B082 /* ASCacheKitProtocol.framework */; };
 		169C069E2CECE8860084B082 /* ASCacheKitProtocol.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 169C06882CEC9FE60084B082 /* ASCacheKitProtocol.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		16D1CF012D54A044005A5936 /* ASAIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16D1CF002D54A044005A5936 /* ASAIKit.framework */; };
+		16D1CF022D54A044005A5936 /* ASAIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 16D1CF002D54A044005A5936 /* ASAIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		16DE64562CEE249300DFC48F /* ASContainer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16DE64552CEE248F00DFC48F /* ASContainer.framework */; };
 		16DE64572CEE249300DFC48F /* ASContainer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 16DE64552CEE248F00DFC48F /* ASContainer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B7EA8412CFA9FBE00B2BE2A /* ASLogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7EA8402CFA9FBE00B2BE2A /* ASLogKit.framework */; };
@@ -110,6 +112,7 @@
 				169725692CE5F863005B4953 /* ASNetworkKit.framework in Embed Frameworks */,
 				8D95AF222CEB8BC000C211AD /* ASRepository.framework in Embed Frameworks */,
 				8D64F9422CEB1D6C0069B77F /* ASEntity.framework in Embed Frameworks */,
+				16D1CF022D54A044005A5936 /* ASAIKit.framework in Embed Frameworks */,
 				8D7F5F022CFAAC63002EAB0F /* ASRepositoryProtocol.framework in Embed Frameworks */,
 				169C069E2CECE8860084B082 /* ASCacheKitProtocol.framework in Embed Frameworks */,
 			);
@@ -120,6 +123,7 @@
 
 /* Begin PBXFileReference section */
 		1697255C2CE5F859005B4953 /* ASNetworkKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASNetworkKit.xcodeproj; path = ../ASNetworkKit/ASNetworkKit.xcodeproj; sourceTree = "<group>"; };
+		16D1CF002D54A044005A5936 /* ASAIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASAIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		16DE64502CEE248F00DFC48F /* ASContainer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASContainer.xcodeproj; path = ../ASContainer/ASContainer.xcodeproj; sourceTree = "<group>"; };
 		16F8B7772CE59B7F0059F22A /* alsongDalsong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = alsongDalsong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B7EA8402CFA9FBE00B2BE2A /* ASLogKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASLogKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +170,7 @@
 				169725682CE5F863005B4953 /* ASNetworkKit.framework in Frameworks */,
 				8D95AF212CEB8BC000C211AD /* ASRepository.framework in Frameworks */,
 				8D64F9412CEB1D6C0069B77F /* ASEntity.framework in Frameworks */,
+				16D1CF012D54A044005A5936 /* ASAIKit.framework in Frameworks */,
 				8D7F5F012CFAAC63002EAB0F /* ASRepositoryProtocol.framework in Frameworks */,
 				169C069D2CECE8860084B082 /* ASCacheKitProtocol.framework in Frameworks */,
 			);
@@ -177,6 +182,7 @@
 		169725572CE5F82F005B4953 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				16D1CF002D54A044005A5936 /* ASAIKit.framework */,
 				1B7EA8402CFA9FBE00B2BE2A /* ASLogKit.framework */,
 				16DE64502CEE248F00DFC48F /* ASContainer.xcodeproj */,
 				8D37A21E2CEF22EE0015DC56 /* ASAudioKit.xcodeproj */,
