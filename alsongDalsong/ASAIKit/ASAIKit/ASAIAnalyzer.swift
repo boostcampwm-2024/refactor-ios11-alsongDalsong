@@ -5,7 +5,7 @@ import SoundAnalysis
 
 public typealias AudioAnalyeResult = (bestClassification: String, confidence: Double)
 
-public enum ASAIAnlayer {
+public enum ASAIAnalyzer {
     static let model = try? ASmlModel(configuration: MLModelConfiguration())
 
     public enum SoundAnlayerMode {
@@ -71,7 +71,7 @@ public enum ASAIAnlayer {
 
 // MARK: 부가적인 Method
 
-extension ASAIAnlayer {
+extension ASAIAnalyzer {
     private static func decodeAudioFile(url: URL, targetSampleCount: Int? = nil) -> [Float] {
         guard let audioFile = try? AVAudioFile(forReading: url) else { return [] }
         let format = audioFile.processingFormat
