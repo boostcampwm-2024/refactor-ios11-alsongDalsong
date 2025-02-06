@@ -1,3 +1,4 @@
+import ASEntity
 import Combine
 import UIKit
 
@@ -10,8 +11,41 @@ final class HummingResultTutorialViewController: UIViewController {
     
     private lazy var resultTableViewDiffableDataSource = HummingResultTableViewDiffableDataSource(tableView: resultTableView)
     
-    private let viewModel = HummingResultTutorialViewModel()
-    
+    private let viewModel: HummingResultTutorialViewModel
+    private let avatars: [URL]?
+    private let selectedAvatar: URL?
+    private let avatarData: Data?
+    private let inviteCode: String?
+    private var selectedMusic: Music?
+    private var recordedData: Data?
+
+    init(
+        avatars: [URL]?,
+        selectedAvatar: URL?,
+        avatarData: Data?,
+        inviteCode: String?,
+        selectedMusic: Music?,
+        recordedData: Data?
+    ) {
+        self.avatars = avatars
+        self.selectedAvatar = selectedAvatar
+        self.avatarData = avatarData
+        self.inviteCode = inviteCode
+        self.selectedMusic = selectedMusic
+        self.recordedData = recordedData
+        self.viewModel = HummingResultTutorialViewModel(
+            avatars: avatars,
+            selectedMusic: selectedMusic,
+            recordedData: recordedData
+        )
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBind()
@@ -105,7 +139,14 @@ final class HummingResultTutorialViewController: UIViewController {
     
     private func setupAction() {
         nextButton.addAction(UIAction { [weak self] _ in
-            /// 튜토리얼 종료
+            let tutorialViewController = TutorialGuideViewController(
+                type: .finished,
+                avatars: self?.avatars,
+                selectedAvatar: self?.selectedAvatar,
+                avatarData: self?.avatarData,
+                inviteCode: self?.inviteCode
+            )
+            self?.navigationController?.pushViewController(tutorialViewController, animated: true)
         }, for: .touchUpInside)
     }
     
@@ -130,5 +171,12 @@ final class HummingResultTutorialViewController: UIViewController {
 
 @available(iOS 17, *)
 #Preview {
-    UINavigationController(rootViewController: HummingResultTutorialViewController())
+    UINavigationController(rootViewController: HummingResultTutorialViewController(
+        avatars: nil,
+        selectedAvatar: nil,
+        avatarData: nil,
+        inviteCode: nil,
+        selectedMusic: nil,
+        recordedData: nil
+    ))
 }

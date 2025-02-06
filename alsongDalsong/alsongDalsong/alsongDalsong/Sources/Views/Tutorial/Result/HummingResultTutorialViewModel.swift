@@ -6,14 +6,23 @@ final class HummingResultTutorialViewModel: ObservableObject {
     @Published var result: Result = (nil, [], nil)
     @Published var resultPhase: ResultPhase = .none
     @Published var isTutorialFinished = false
-    
+
+    private var avatars: [URL]?
+    private var selectedMusic: Music?
+    private var recordedData: Data?
     private var cancellables = Set<AnyCancellable>()
-    
+
+    init(avatars: [URL]?, selectedMusic: Music?, recordedData: Data?) {
+        self.avatars = avatars
+        self.selectedMusic = selectedMusic
+        self.recordedData = recordedData
+    }
+
     @MainActor
     func updateResult() {
         Task {
-            let answer = Answer(player: .playerStub1, music: TutorialData.superShy)
-            let records: [ASEntity.Record] = [.recordStub1_1]
+            let answer = Answer(player: .playerStub1, music: selectedMusic)
+            let records: [Data?] = [recordedData]
             let submit = Answer(player: .playerStub2, music: TutorialData.loser)
             
             let mappedAnswer = await mapAnswer(answer)
@@ -76,8 +85,8 @@ final class HummingResultTutorialViewModel: ObservableObject {
         let previewData = await getPreviewData(answer.music)
         let title = answer.music?.title
         let artist = answer.music?.artist
-        let playerName = answer.player?.nickname
-        let playerAvatarData = await getAvatarData(url: answer.player?.avatarUrl)
+        let playerName = "알쏭이"
+        let playerAvatarData = await getAvatarData(url: avatars?.first)
         return MappedAnswer(artworkData, previewData, title, artist, playerName, playerAvatarData)
     }
 
@@ -88,14 +97,29 @@ final class HummingResultTutorialViewModel: ObservableObject {
             let recordData = await getRecordData(url: record.fileUrl)
             let recordAmplitudes = await AudioHelper.shared.analyze(with: recordData ?? Data())
             LogHandler.handleDebug(recordAmplitudes)
-            let playerName = record.player?.nickname
-            let playerAvatarData = await getAvatarData(url: record.player?.avatarUrl)
+            let playerName = "나"
+            let playerAvatarData = await getAvatarData(url: avatars?.last)
             mappedRecords.append(MappedRecord(recordData, recordAmplitudes, playerName, playerAvatarData))
         }
 
         return mappedRecords
     }
-    
+
+    private func mapRecords(_ records: [Data?]) async -> [MappedRecord] {
+        var mappedRecords = [MappedRecord]()
+
+        for record in records {
+            let recordData = record
+            let recordAmplitudes = await AudioHelper.shared.analyze(with: recordData ?? Data())
+            LogHandler.handleDebug(recordAmplitudes)
+            let playerName = "나"
+            let playerAvatarData = await getAvatarData(url: avatars?.last)
+            mappedRecords.append(MappedRecord(recordData, recordAmplitudes, playerName, playerAvatarData))
+        }
+
+        return mappedRecords
+    }
+
     private func getAvatarData(url: URL?) async -> Data? {
         guard let url else { return nil }
         return try? await URLSession.shared.data(from: url).0
