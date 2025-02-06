@@ -8,12 +8,12 @@ public typealias AudioAnalyeResult = (bestClassification: String, confidence: Do
 public enum ASAIAnalyzer {
     static let model = try? ASmlModel(configuration: MLModelConfiguration())
 
-    public enum SoundAnlayerMode {
+    public enum SoundAnalyzerMode {
         case overlap(overlapFactor: Double = 0.5, windowDuration: CMTime = .init(seconds: 2, preferredTimescale: 12000))
         case full(sampleRate: Int32 = 12000)
     }
 
-    public static func analzeAudioFile(audioData: Data, mode: SoundAnlayerMode) async -> AudioAnalyeResult? {
+    public static func analzeAudioFile(audioData: Data, mode: SoundAnalyzerMode) async -> AudioAnalyeResult? {
         switch mode {
         case let .overlap(overlapFactor, windowDuration):
             return await overlapAnalyze(audioData: audioData, overlapFactor: overlapFactor, windowDuration: windowDuration)
