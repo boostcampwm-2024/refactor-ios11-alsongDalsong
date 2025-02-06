@@ -38,7 +38,7 @@ public enum TutorialViewType {
         }
     }
 
-    public var caution: String? {
+    public var guide: String {
         switch self {
             case .lobby:
                 """
@@ -101,6 +101,45 @@ public enum TutorialViewType {
         }
     }
 
+    public var caution: String? {
+        switch self {
+            case .lobby:
+                nil
+            case .selectMusic:
+                """
+                ** 주의 **
+                ⚠️ 튜토리얼에서는 선택할 수 있는 노래가 제한됩니다.
+                
+                ** 조작 Tip **
+                ✅ 다음 화면 상단 검색창에서 선택 후 하단 제출 버튼을 누르시면 됩니다.
+                """
+            case .humming:
+                """
+                ** 조작 Tip **
+                ✅ 상단 앨범을 누르면 노래를 다시 들을 수 있습니다.
+                
+                ✅ 하단 좌측 버튼을 누르면 녹음이 시작되고 녹음한 목소리는 화면 중앙의 노란 부분을 통해 다시 들을 수 있습니다.
+                
+                ✅ 하단 좌측 버튼을 다시 누르면 재녹음이 가능하고 하단 우측 버튼을 누르면 제출이 완료 됩니다.
+                """
+            case .submitAnswer:
+                """
+                ** 주의 **
+                ⚠️ 튜토리얼에서 알쏭이의 허밍은 더미 데이터를 사용하기 때문에 해당 정답 맞추기 과정은 생략됩니다.
+                """
+            case .result:
+                """
+                ** 주의 **
+                ⚠️ 결과는 순서에 맞춰 자동으로 화면에 출력됩니다.
+                
+                ** 조작 Tip **
+                ✅ 순서에 맞춰 결과가 모두 출력되고 나면 하단의 버튼이 활성화됩니다.
+                """
+            case .finished:
+                nil
+        }
+    }
+
     public var symbol: (systemName: String, color: String)? {
         switch self {
             case .lobby:
@@ -131,7 +170,15 @@ public enum TutorialViewType {
         switch self {
             case .lobby:
                 (isHidden: false, imageName: "figure.play", text: "튜토리얼 탈출!", backgroundColor: "asMint")
-            default:
+            case .selectMusic:
+                (isHidden: false, imageName: "play.fill", text: "선택하기!", backgroundColor: "asYellow")
+            case .humming:
+                (isHidden: false, imageName: "play.fill", text: "녹음하기!", backgroundColor: "asYellow")
+            case .submitAnswer:
+                (isHidden: false, imageName: "play.fill", text: "다음으로!", backgroundColor: "asYellow")
+            case .result:
+                (isHidden: false, imageName: "play.fill", text: "결과보기!", backgroundColor: "asYellow")
+            case .finished:
                 (isHidden: false, imageName: "play.fill", text: "시작하기!", backgroundColor: "asYellow")
         }
     }
