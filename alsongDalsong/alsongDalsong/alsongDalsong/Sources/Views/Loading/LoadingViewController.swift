@@ -57,7 +57,17 @@ final class LoadingViewController: UIViewController {
             guard let avatarData,
                   let avatars = self?.viewModel?.avatars,
                   let selectedAvatar = self?.viewModel?.selectedAvatar else { return }
-            self?.navigateOnboarding(avatars: avatars, selectedAvatar: selectedAvatar, avatarData: avatarData)
+
+            let userDefaults = UserDefaults.standard
+            let isFirstLaunchKey = "isFirstLaunch"
+            let isfirstLaunch = !userDefaults.bool(forKey: isFirstLaunchKey)
+
+            if isfirstLaunch {
+                self?.navigateToTutorial(avatars: avatars, selectedAvatar: selectedAvatar, avatarData: avatarData)
+                userDefaults.set(true, forKey: isFirstLaunchKey)
+            } else {
+                self?.navigateToOnboarding(avatars: avatars, selectedAvatar: selectedAvatar, avatarData: avatarData)
+            }
         }
         
         bind(viewModel?.$loadingStatus) { [weak self] status in
@@ -76,7 +86,7 @@ final class LoadingViewController: UIViewController {
             .store(in: &cancellables)
     }
     
-    private func navigateOnboarding(avatars: [URL], selectedAvatar: URL, avatarData: Data) {
+    private func navigateToOnboarding(avatars: [URL], selectedAvatar: URL, avatarData: Data) {
         let roomActionRepository = DIContainer.shared.resolve(RoomActionRepositoryProtocol.self)
         let dataDownloadRepository = DIContainer.shared.resolve(DataDownloadRepositoryProtocol.self)
         
@@ -98,6 +108,22 @@ final class LoadingViewController: UIViewController {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {
             window.rootViewController = navigationController
+            window.makeKeyAndVisible()
+        }
+    }
+
+    private func navigateToTutorial(avatars: [URL], selectedAvatar: URL, avatarData: Data) {
+        let tutorialGuideViewController = TutorialGuideViewController(
+            type: .lobby,
+            avatars: avatars,
+            selectedAvatar: selectedAvatar,
+            avatarData: avatarData,
+            inviteCode: inviteCode
+        )
+
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = tutorialGuideViewController
             window.makeKeyAndVisible()
         }
     }
