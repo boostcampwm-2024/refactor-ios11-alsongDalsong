@@ -1,4 +1,7 @@
+import ASAIKit
 import ASEntity
+import ASLogKit
+import ASMusicKit
 import Combine
 import Foundation
 
@@ -14,7 +17,7 @@ final class HummingResultTutorialViewModel: ObservableObject {
         Task {
             let answer = Answer(player: .playerStub1, music: TutorialData.superShy)
             let records: [ASEntity.Record] = [.recordStub1_1]
-            let submit = Answer(player: .playerStub2, music: TutorialData.loser)
+            let submit = await makeAISubmit(data: getRecordData(url: records.first?.fileUrl))
             
             let mappedAnswer = await mapAnswer(answer)
             let mappedRecords = await mapRecords(records)
@@ -114,5 +117,15 @@ final class HummingResultTutorialViewModel: ObservableObject {
     private func getRecordData(url: URL?) async -> Data? {
         guard let url else { return nil }
         return try? await URLSession.shared.data(from: url).0
+    }
+    
+    private func makeAISubmit(data: Data?) async -> Answer {
+        guard let data else { return Answer(player: .playerStub2, music: TutorialData.loser) }
+        if let answer = await ASAIAnlayer.analzeAudioFile(audioData: data, mode: .full()) {
+            let music = try? await ASMusicAPI().search(for: answer.bestClassification).first
+            Logger.debug(answer)
+            return Answer(player: .playerStub1, music: music)
+        }
+        return Answer(player: .playerStub2, music: TutorialData.loser)
     }
 }
