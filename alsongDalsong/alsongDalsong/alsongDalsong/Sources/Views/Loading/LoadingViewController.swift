@@ -122,8 +122,6 @@ final class LoadingViewController: UIViewController {
         )
 
         let navigationController = UINavigationController(rootViewController: tutorialGuideViewController)
-        navigationController.navigationBar.isHidden = true
-        navigationController.interactivePopGestureRecognizer?.isEnabled = false
 
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {

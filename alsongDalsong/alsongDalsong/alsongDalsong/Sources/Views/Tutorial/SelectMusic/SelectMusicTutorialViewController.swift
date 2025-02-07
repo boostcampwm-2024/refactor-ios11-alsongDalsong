@@ -36,7 +36,8 @@ final class SelectMusicTutorialViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .asLightGray
         title = "노래 선택"
-        
+
+        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = .asBlack
         let defaultFontSize = UIFont.preferredFont(forTextStyle: .headline).pointSize as CGFloat?
         var fontStyle = UIFont()
@@ -46,7 +47,22 @@ final class SelectMusicTutorialViewController: UIViewController {
             fontStyle = .font(.dohyeon, ofSize: 18)
         }
         navigationController?.navigationBar.titleTextAttributes = [.font: fontStyle]
-        
+
+        let backButtonImage = UIImage(systemName: "chevron.left")
+        let backButtonAction = UIAction { [weak self] _ in
+            let alert = DefaultAlertController(
+                titleText: .back,
+                primaryButtonText: .back,
+                secondaryButtonText: .cancel
+            ) { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            self?.navigationController?.presentAlert(alert)
+        }
+        let backButton = UIBarButtonItem(image: backButtonImage, primaryAction: backButtonAction)
+
+        navigationItem.leftBarButtonItem = backButton
+
         let musicView = SelectMusicTutorialView { [weak self] music in
             self?.selectedMusic = music
             self?.submitButton.updateButton(.submit)

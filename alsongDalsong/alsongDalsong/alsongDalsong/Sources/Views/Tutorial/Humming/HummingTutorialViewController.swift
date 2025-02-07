@@ -59,7 +59,7 @@ final class HummingTutorialViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .asLightGray
         title = "허밍"
-        
+
         recordButton.updateButton(.startRecord)
         submitButton.updateButton(.submit)
         submitButton.updateButton(.disabled)
@@ -75,7 +75,8 @@ final class HummingTutorialViewController: UIViewController {
         view.addSubview(progressBar)
         view.addSubview(scrollView)
         view.addSubview(buttonStack)
-                
+
+        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = .asBlack
         let defaultFontSize = UIFont.preferredFont(forTextStyle: .headline).pointSize as CGFloat?
         var fontStyle = UIFont()
@@ -85,6 +86,21 @@ final class HummingTutorialViewController: UIViewController {
             fontStyle = .font(.dohyeon, ofSize: 18)
         }
         navigationController?.navigationBar.titleTextAttributes = [.font: fontStyle]
+
+        let backButtonImage = UIImage(systemName: "chevron.left")
+        let backButtonAction = UIAction { [weak self] _ in
+            let alert = DefaultAlertController(
+                titleText: .back,
+                primaryButtonText: .back,
+                secondaryButtonText: .cancel
+            ) { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            self?.navigationController?.presentAlert(alert)
+        }
+        let backButton = UIBarButtonItem(image: backButtonImage, primaryAction: backButtonAction)
+
+        navigationItem.leftBarButtonItem = backButton
     }
     
     private func setupLayout() {

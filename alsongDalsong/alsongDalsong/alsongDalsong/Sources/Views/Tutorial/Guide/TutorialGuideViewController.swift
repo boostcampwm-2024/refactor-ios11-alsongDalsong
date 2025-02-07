@@ -64,8 +64,31 @@ final class TutorialGuideViewController: UIViewController {
     }
 
     private func setupUI() {
-        self.navigationController?.navigationBar.isHidden = true
+        if type == .lobby || type == .finished {
+            self.navigationController?.navigationBar.isHidden = true
+        } else {
+            self.navigationController?.navigationBar.isHidden = false
+        }
         view.backgroundColor = .asLightGray
+
+        let backButtonImage = UIImage(systemName: "chevron.left")
+        let backButtonAction = UIAction { [weak self] _ in
+            let alert = DefaultAlertController(
+                titleText: .back,
+                primaryButtonText: .back,
+                secondaryButtonText: .cancel
+            ) { [weak self] _ in
+                if self?.type == .selectMusic || self?.type == .finished {
+                    self?.navigationController?.navigationBar.isHidden = true
+                }
+                self?.navigationController?.popViewController(animated: true)
+            }
+            self?.navigationController?.presentAlert(alert)
+        }
+        let backButton = UIBarButtonItem(image: backButtonImage, primaryAction: backButtonAction)
+
+        navigationItem.leftBarButtonItem = backButton
+
         titleLabel.text = type.title.localized()
         descriptionLabel.text = type.description.localized()
         guideLabel.text = type.guide.localized()

@@ -135,6 +135,7 @@ enum ASAlertText {
         case joinFailed
         case error(Error)
         case needMorePlayer
+        case back
 
         var description: String {
             switch self {
@@ -143,6 +144,7 @@ enum ASAlertText {
                 case .joinFailed: "참가에 실패하였습니다."
                 case let .error(error): "\(error.localizedDescription)\n 잠시후에 다시 시도해주세요"
                 case .needMorePlayer: "알쏭달쏭은 여럿이서 할 수록\n재미있는 게임이에요!\n그래도 하시겠어요?"
+                case .back: "이전 화면으로 돌아가시겠습니까?"
             }
         }
     }
@@ -153,6 +155,7 @@ enum ASAlertText {
         case done
         case confirm
         case keep
+        case back
 
         var description: String {
             switch self {
@@ -161,6 +164,7 @@ enum ASAlertText {
                 case .done: "완료"
                 case .confirm: "확인"
                 case .keep: "계속 하기"
+                case .back: "뒤로가기"
             }
         }
     }

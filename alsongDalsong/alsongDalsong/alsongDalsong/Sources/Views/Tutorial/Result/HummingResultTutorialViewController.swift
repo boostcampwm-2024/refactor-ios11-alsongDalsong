@@ -86,7 +86,8 @@ final class HummingResultTutorialViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .asLightGray
         title = "결과 확인"
-        
+
+        navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.tintColor = .asBlack
         let defaultFontSize = UIFont.preferredFont(forTextStyle: .headline).pointSize as CGFloat?
         var fontStyle = UIFont()
@@ -96,7 +97,7 @@ final class HummingResultTutorialViewController: UIViewController {
             fontStyle = .font(.dohyeon, ofSize: 18)
         }
         navigationController?.navigationBar.titleTextAttributes = [.font: fontStyle]
-        
+
         resultTableViewDiffableDataSource = HummingResultTableViewDiffableDataSource(tableView: resultTableView)
         resultTableView.separatorStyle = .none
         resultTableView.allowsSelection = false
