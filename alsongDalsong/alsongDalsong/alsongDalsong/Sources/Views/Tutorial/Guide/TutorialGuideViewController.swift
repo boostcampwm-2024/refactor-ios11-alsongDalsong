@@ -7,6 +7,7 @@ final class TutorialGuideViewController: UIViewController {
     private let type: TutorialViewType
     private let titleLabel = GuideLabel(style: .largeTitle)
     private let descriptionLabel = GuideLabel(style: .title2)
+    private let guideLabel = GuideLabel(style: .callout)
     private let cautionLabel = GuideLabel(style: .callout)
     private var imageContainerView: GuideIconView?
     private let topButton = ASButton()
@@ -16,6 +17,8 @@ final class TutorialGuideViewController: UIViewController {
     private let selectedAvatar: URL?
     private let avatarData: Data?
     private let inviteCode: String?
+    private let selectedMusic: Music?
+    private let recordedData: Data?
 
     init(type: TutorialViewType) {
         self.type = type
@@ -23,15 +26,27 @@ final class TutorialGuideViewController: UIViewController {
         self.selectedAvatar = nil
         self.avatarData = nil
         self.inviteCode = nil
+        self.selectedMusic = nil
+        self.recordedData = nil
         super.init(nibName: nil, bundle: nil)
     }
 
-    init(type: TutorialViewType, avatars: [URL], selectedAvatar: URL, avatarData: Data, inviteCode: String?) {
+    init(
+        type: TutorialViewType,
+        avatars: [URL]?,
+        selectedAvatar: URL?,
+        avatarData: Data?,
+        inviteCode: String?,
+        selectedMusic: Music? = nil,
+        recordedData: Data? = nil
+    ) {
         self.type = type
         self.avatars = avatars
         self.selectedAvatar = selectedAvatar
         self.avatarData = avatarData
         self.inviteCode = inviteCode
+        self.selectedMusic = selectedMusic
+        self.recordedData = recordedData
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -49,15 +64,42 @@ final class TutorialGuideViewController: UIViewController {
     }
 
     private func setupUI() {
-        self.navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.tintColor = .asBlack
+
+        if type == .lobby || type == .finished {
+            self.navigationController?.navigationBar.isHidden = true
+        } else {
+            self.navigationController?.navigationBar.isHidden = false
+        }
         view.backgroundColor = .asLightGray
+
+        let backButtonImage = UIImage(systemName: "chevron.left")
+        let backButtonAction = UIAction { [weak self] _ in
+            let alert = DefaultAlertController(
+                titleText: .back,
+                primaryButtonText: .back,
+                secondaryButtonText: .cancel
+            ) { [weak self] _ in
+                if self?.type == .selectMusic || self?.type == .finished {
+                    self?.navigationController?.navigationBar.isHidden = true
+                }
+                self?.navigationController?.popViewController(animated: true)
+            }
+            self?.navigationController?.presentAlert(alert)
+        }
+        let backButton = UIBarButtonItem(image: backButtonImage, primaryAction: backButtonAction)
+
+        navigationItem.leftBarButtonItem = backButton
+
         titleLabel.text = type.title.localized()
         descriptionLabel.text = type.description.localized()
+        guideLabel.text = type.guide.localized()
+        guideLabel.textColor = .darkGray
         cautionLabel.isHidden = true
 
         if let caution = type.caution {
             cautionLabel.isHidden = false
-            cautionLabel.text = "* " + caution.localized()
+            cautionLabel.text = caution.localized()
             cautionLabel.textColor = .systemRed
         }
 
@@ -91,12 +133,14 @@ final class TutorialGuideViewController: UIViewController {
     private func setupLayout() {
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
+        view.addSubview(guideLabel)
         view.addSubview(cautionLabel)
         view.addSubview(topButton)
         view.addSubview(bottomButton)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        guideLabel.translatesAutoresizingMaskIntoConstraints = false
         cautionLabel.translatesAutoresizingMaskIntoConstraints = false
         topButton.translatesAutoresizingMaskIntoConstraints = false
         bottomButton.translatesAutoresizingMaskIntoConstraints = false
@@ -110,7 +154,11 @@ final class TutorialGuideViewController: UIViewController {
             descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
 
-            cautionLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
+            guideLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
+            guideLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            guideLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+
+            cautionLabel.topAnchor.constraint(equalTo: guideLabel.bottomAnchor, constant: 8),
             cautionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             cautionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
 
@@ -145,7 +193,7 @@ final class TutorialGuideViewController: UIViewController {
 
             switch type {
                 case .lobby:
-                    navigateToLobby()
+                    navigateToSelectMusicGuide()
                 default:
                     return
             }
@@ -159,17 +207,15 @@ final class TutorialGuideViewController: UIViewController {
                 case .lobby:
                     navigateToOnboarding()
                 case .selectMusic:
-                    return
+                    navigateToSelectMusic()
                 case .humming:
-                    return
+                    navigateToHumming()
                 case .submitAnswer:
-                    return
+                    navigateToResultGuide()
                 case .result:
-                    return
+                    navigateToResult()
                 case .finished:
                     navigateToOnboarding()
-                default:
-                    return
             }
         }, for: .touchUpInside)
     }
@@ -208,7 +254,60 @@ private extension TutorialGuideViewController {
         }
     }
 
-    func navigateToLobby() {
+    func navigateToSelectMusicGuide() {
+        let tutorialViewController = TutorialGuideViewController(
+            type: .selectMusic,
+            avatars: avatars,
+            selectedAvatar: selectedAvatar,
+            avatarData: avatarData,
+            inviteCode: inviteCode
+        )
+        self.navigationController?.pushViewController(tutorialViewController, animated: true)
+    }
 
+    func navigateToSelectMusic() {
+        let selectMusicViewController = SelectMusicTutorialViewController(
+            avatars: avatars,
+            selectedAvatar: selectedAvatar,
+            avatarData: avatarData,
+            inviteCode: inviteCode
+        )
+        self.navigationController?.pushViewController(selectMusicViewController, animated: true)
+    }
+
+    func navigateToHumming() {
+        let hummingViewController = HummingTutorialViewController(
+            avatars: avatars,
+            selectedAvatar: selectedAvatar,
+            avatarData: avatarData,
+            inviteCode: inviteCode,
+            selectedMusic: selectedMusic
+        )
+        self.navigationController?.pushViewController(hummingViewController, animated: true)
+    }
+
+    func navigateToResultGuide() {
+        let tutorialViewController = TutorialGuideViewController(
+            type: .result,
+            avatars: avatars,
+            selectedAvatar: selectedAvatar,
+            avatarData: avatarData,
+            inviteCode: inviteCode,
+            selectedMusic: selectedMusic,
+            recordedData: recordedData
+        )
+        self.navigationController?.pushViewController(tutorialViewController, animated: true)
+    }
+
+    func navigateToResult() {
+        let hummingResultViewController = HummingResultTutorialViewController(
+            avatars: avatars,
+            selectedAvatar: selectedAvatar,
+            avatarData: avatarData,
+            inviteCode: inviteCode,
+            selectedMusic: selectedMusic,
+            recordedData: recordedData
+        )
+        self.navigationController?.pushViewController(hummingResultViewController, animated: true)
     }
 }

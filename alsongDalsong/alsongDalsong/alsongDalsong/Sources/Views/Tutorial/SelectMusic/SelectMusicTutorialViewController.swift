@@ -7,7 +7,25 @@ final class SelectMusicTutorialViewController: UIViewController {
     
     private var selectMusicView = UIViewController()
     private var selectedMusic: Music?
-    
+
+    private let avatars: [URL]?
+    private let selectedAvatar: URL?
+    private let avatarData: Data?
+    private let inviteCode: String?
+
+    init(avatars: [URL]?, selectedAvatar: URL?, avatarData: Data?, inviteCode: String?) {
+        self.avatars = avatars
+        self.selectedAvatar = selectedAvatar
+        self.avatarData = avatarData
+        self.inviteCode = inviteCode
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAction()
@@ -18,7 +36,8 @@ final class SelectMusicTutorialViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .asLightGray
         title = "노래 선택"
-        
+
+        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = .asBlack
         let defaultFontSize = UIFont.preferredFont(forTextStyle: .headline).pointSize as CGFloat?
         var fontStyle = UIFont()
@@ -28,7 +47,22 @@ final class SelectMusicTutorialViewController: UIViewController {
             fontStyle = .font(.dohyeon, ofSize: 18)
         }
         navigationController?.navigationBar.titleTextAttributes = [.font: fontStyle]
-        
+
+        let backButtonImage = UIImage(systemName: "chevron.left")
+        let backButtonAction = UIAction { [weak self] _ in
+            let alert = DefaultAlertController(
+                titleText: .back,
+                primaryButtonText: .back,
+                secondaryButtonText: .cancel
+            ) { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            self?.navigationController?.presentAlert(alert)
+        }
+        let backButton = UIBarButtonItem(image: backButtonImage, primaryAction: backButtonAction)
+
+        navigationItem.leftBarButtonItem = backButton
+
         let musicView = SelectMusicTutorialView { [weak self] music in
             self?.selectedMusic = music
             self?.submitButton.updateButton(.submit)
@@ -69,12 +103,29 @@ final class SelectMusicTutorialViewController: UIViewController {
     
     private func setupAction() {
         submitButton.addAction(UIAction { [weak self] _ in
-            /// 다음 화면
+            Task {
+                await AudioHelper.shared.stopPlaying()
+            }
+
+            let tutorialViewController = TutorialGuideViewController(
+                type: .humming,
+                avatars: self?.avatars,
+                selectedAvatar: self?.selectedAvatar,
+                avatarData: self?.avatarData,
+                inviteCode: self?.inviteCode,
+                selectedMusic: self?.selectedMusic
+            )
+            self?.navigationController?.pushViewController(tutorialViewController, animated: true)
         }, for: .touchUpInside)
     }
 }
 
 @available(iOS 17, *)
 #Preview {
-    UINavigationController(rootViewController: SelectMusicTutorialViewController())
+    UINavigationController(rootViewController: SelectMusicTutorialViewController(
+        avatars: nil,
+        selectedAvatar: nil,
+        avatarData: nil,
+        inviteCode: nil
+    ))
 }

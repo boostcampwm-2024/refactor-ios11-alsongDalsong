@@ -1,8 +1,8 @@
-public enum TutorialState {
+enum TutorialState {
     case start
 }
 
-public enum TutorialViewType {
+enum TutorialViewType {
     case lobby
     case selectMusic
     case humming
@@ -10,7 +10,7 @@ public enum TutorialViewType {
     case result
     case finished
 
-    public var title: String {
+    var title: String {
         switch self {
             case .lobby:
                 "튜토리얼"
@@ -27,7 +27,7 @@ public enum TutorialViewType {
         }
     }
 
-    public var description: String {
+    var description: String {
         switch self {
             case .lobby: "알쏭달쏭에 오신걸 환영합니다~🎉"
             case .selectMusic: "문제로 제출할 노래를 고르세요."
@@ -38,7 +38,7 @@ public enum TutorialViewType {
         }
     }
 
-    public var caution: String? {
+    var guide: String {
         switch self {
             case .lobby:
                 """
@@ -101,7 +101,46 @@ public enum TutorialViewType {
         }
     }
 
-    public var symbol: (systemName: String, color: String)? {
+    var caution: String? {
+        switch self {
+            case .lobby:
+                nil
+            case .selectMusic:
+                """
+                ** 주의 **
+                ⚠️ 튜토리얼에서는 선택할 수 있는 노래가 제한됩니다.
+                
+                ** 조작 Tip **
+                ✅ 다음 화면 상단 검색창에서 선택 후 하단 제출 버튼을 누르시면 됩니다.
+                """
+            case .humming:
+                """
+                ** 조작 Tip **
+                ✅ 상단 앨범을 누르면 노래를 다시 들을 수 있습니다.
+                
+                ✅ 하단 좌측 버튼을 누르면 녹음이 시작되고 녹음한 목소리는 화면 중앙의 노란 부분을 통해 다시 들을 수 있습니다.
+                
+                ✅ 하단 좌측 버튼을 다시 누르면 재녹음이 가능하고 하단 우측 버튼을 누르면 제출이 완료 됩니다.
+                """
+            case .submitAnswer:
+                """
+                ** 주의 **
+                ⚠️ 튜토리얼에서 알쏭이의 허밍은 더미 데이터를 사용하기 때문에 해당 정답 맞추기 과정은 생략됩니다.
+                """
+            case .result:
+                """
+                ** 주의 **
+                ⚠️ 결과는 순서에 맞춰 자동으로 화면에 출력됩니다.
+                
+                ** 조작 Tip **
+                ✅ 순서에 맞춰 결과가 모두 출력되고 나면 하단의 버튼이 활성화됩니다.
+                """
+            case .finished:
+                nil
+        }
+    }
+
+    var symbol: (systemName: String, color: String)? {
         switch self {
             case .lobby:
                 (systemName: "lightbulb.max", color: "FFCC00")
@@ -118,22 +157,36 @@ public enum TutorialViewType {
         }
     }
 
-    public var topButton: (isHidden: Bool, imageName: String, text: String, backgroundColor: String) {
+    var topButton: TutorialButtonStyle {
         switch self {
             case .lobby:
-                (isHidden: false, imageName: "play.fill", text: "튜토리얼 시작!", backgroundColor: "asYellow")
+                TutorialButtonStyle(text: "튜토리얼 시작!")
             default:
-                (isHidden: true, imageName: "", text: "", backgroundColor: "")
+                TutorialButtonStyle(isHidden: true)
         }
     }
 
-    public var bottomButton: (isHidden: Bool, imageName: String?, text: String, backgroundColor: String) {
+    var bottomButton: TutorialButtonStyle {
         switch self {
             case .lobby:
-                (isHidden: false, imageName: "figure.play", text: "튜토리얼 탈출!", backgroundColor: "asMint")
-            default:
-                (isHidden: false, imageName: "play.fill", text: "시작하기!", backgroundColor: "asYellow")
+                TutorialButtonStyle(imageName: "figure.play", text: "튜토리얼 탈출!", backgroundColor: "asMint")
+            case .selectMusic:
+                TutorialButtonStyle(text: "선택하기!")
+            case .humming:
+                TutorialButtonStyle(text: "녹음하기!")
+            case .submitAnswer:
+                TutorialButtonStyle(text: "다음으로!")
+            case .result:
+                TutorialButtonStyle(text: "결과보기!")
+            case .finished:
+                TutorialButtonStyle(text: "시작하기!")
         }
     }
 
+    struct TutorialButtonStyle {
+        var isHidden: Bool = false
+        var imageName: String? = "play.fill"
+        var text: String = ""
+        var backgroundColor: String = "asYellow"
+    }
 }

@@ -64,7 +64,7 @@ final class LoadingViewController: UIViewController {
 
             if isfirstLaunch {
                 self?.navigateToTutorial(avatars: avatars, selectedAvatar: selectedAvatar, avatarData: avatarData)
-                userDefaults.set(true, forKey: isFirstLaunchKey)
+//                userDefaults.set(true, forKey: isFirstLaunchKey)
             } else {
                 self?.navigateToOnboarding(avatars: avatars, selectedAvatar: selectedAvatar, avatarData: avatarData)
             }
@@ -121,9 +121,11 @@ final class LoadingViewController: UIViewController {
             inviteCode: inviteCode
         )
 
+        let navigationController = UINavigationController(rootViewController: tutorialGuideViewController)
+
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {
-            window.rootViewController = tutorialGuideViewController
+            window.rootViewController = navigationController
             window.makeKeyAndVisible()
         }
     }

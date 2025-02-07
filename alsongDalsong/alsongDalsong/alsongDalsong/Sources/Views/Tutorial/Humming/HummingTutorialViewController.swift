@@ -1,3 +1,4 @@
+import ASEntity
 import UIKit
 
 final class HummingTutorialViewController: UIViewController {
@@ -9,8 +10,34 @@ final class HummingTutorialViewController: UIViewController {
     private let submitButton = ASButton()
     private let buttonStack = UIStackView()
     
-    private let viewModel = HummingTutorialViewModel()
-        
+    private let viewModel: HummingTutorialViewModel
+    private let avatars: [URL]?
+    private let selectedAvatar: URL?
+    private let avatarData: Data?
+    private let inviteCode: String?
+    private let selectedMusic: Music?
+
+    init(
+        avatars: [URL]?,
+        selectedAvatar: URL?,
+        avatarData: Data?,
+        inviteCode: String?,
+        selectedMusic: Music?
+    ) {
+        self.avatars = avatars
+        self.selectedAvatar = selectedAvatar
+        self.avatarData = avatarData
+        self.inviteCode = inviteCode
+        self.selectedMusic = selectedMusic
+        self.viewModel = HummingTutorialViewModel(selectedMusic: selectedMusic)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBind()
@@ -32,7 +59,7 @@ final class HummingTutorialViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .asLightGray
         title = "허밍"
-        
+
         recordButton.updateButton(.startRecord)
         submitButton.updateButton(.submit)
         submitButton.updateButton(.disabled)
@@ -48,7 +75,8 @@ final class HummingTutorialViewController: UIViewController {
         view.addSubview(progressBar)
         view.addSubview(scrollView)
         view.addSubview(buttonStack)
-                
+
+        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = .asBlack
         let defaultFontSize = UIFont.preferredFont(forTextStyle: .headline).pointSize as CGFloat?
         var fontStyle = UIFont()
@@ -58,6 +86,21 @@ final class HummingTutorialViewController: UIViewController {
             fontStyle = .font(.dohyeon, ofSize: 18)
         }
         navigationController?.navigationBar.titleTextAttributes = [.font: fontStyle]
+
+        let backButtonImage = UIImage(systemName: "chevron.left")
+        let backButtonAction = UIAction { [weak self] _ in
+            let alert = DefaultAlertController(
+                titleText: .back,
+                primaryButtonText: .back,
+                secondaryButtonText: .cancel
+            ) { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            self?.navigationController?.presentAlert(alert)
+        }
+        let backButton = UIBarButtonItem(image: backButtonImage, primaryAction: backButtonAction)
+
+        navigationItem.leftBarButtonItem = backButton
     }
     
     private func setupLayout() {
@@ -102,12 +145,27 @@ final class HummingTutorialViewController: UIViewController {
         }, for: .touchUpInside)
 
         submitButton.addAction(UIAction { [weak self] _ in
-            // 다음 화면 네비게이션
+            let tutorialViewController = TutorialGuideViewController(
+                type: .submitAnswer,
+                avatars: self?.avatars,
+                selectedAvatar: self?.selectedAvatar,
+                avatarData: self?.avatarData,
+                inviteCode: self?.inviteCode,
+                selectedMusic: self?.selectedMusic,
+                recordedData: self?.viewModel.recordedData
+            )
+            self?.navigationController?.pushViewController(tutorialViewController, animated: true)
         }, for: .touchUpInside)
     }
 }
 
 @available(iOS 17, *)
 #Preview {
-    UINavigationController(rootViewController: HummingTutorialViewController())
+    UINavigationController(rootViewController: HummingTutorialViewController(
+        avatars: nil,
+        selectedAvatar: nil,
+        avatarData: nil,
+        inviteCode: nil,
+        selectedMusic: nil
+    ))
 }
