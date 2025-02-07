@@ -87,7 +87,7 @@ final class HummingResultTutorialViewController: UIViewController {
         view.backgroundColor = .asLightGray
         title = "결과 확인"
 
-        navigationController?.navigationBar.isHidden = true
+        navigationItem.hidesBackButton = true
         navigationController?.navigationBar.tintColor = .asBlack
         let defaultFontSize = UIFont.preferredFont(forTextStyle: .headline).pointSize as CGFloat?
         var fontStyle = UIFont()

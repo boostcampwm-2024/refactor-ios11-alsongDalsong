@@ -64,6 +64,8 @@ final class TutorialGuideViewController: UIViewController {
     }
 
     private func setupUI() {
+        navigationController?.navigationBar.tintColor = .asBlack
+
         if type == .lobby || type == .finished {
             self.navigationController?.navigationBar.isHidden = true
         } else {
