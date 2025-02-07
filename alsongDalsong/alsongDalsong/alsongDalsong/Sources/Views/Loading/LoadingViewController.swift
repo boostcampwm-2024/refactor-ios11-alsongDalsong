@@ -64,7 +64,7 @@ final class LoadingViewController: UIViewController {
 
             if isfirstLaunch {
                 self?.navigateToTutorial(avatars: avatars, selectedAvatar: selectedAvatar, avatarData: avatarData)
-//                userDefaults.set(true, forKey: isFirstLaunchKey)
+                userDefaults.set(true, forKey: isFirstLaunchKey)
             } else {
                 self?.navigateToOnboarding(avatars: avatars, selectedAvatar: selectedAvatar, avatarData: avatarData)
             }

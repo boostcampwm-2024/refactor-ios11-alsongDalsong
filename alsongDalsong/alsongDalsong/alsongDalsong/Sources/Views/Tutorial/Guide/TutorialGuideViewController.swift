@@ -61,6 +61,7 @@ final class TutorialGuideViewController: UIViewController {
         setupLayout()
         setupImageView()
         setAction()
+        startAnimation()
     }
 
     private func setupUI() {
@@ -185,12 +186,14 @@ final class TutorialGuideViewController: UIViewController {
             ])
         }
     }
-    // TODO: -
+
+    private func startAnimation() {
+        imageContainerView?.animateBounces()
+    }
+
     private func setAction() {
         topButton.addAction(UIAction { [weak self] _ in
             guard let self else { return }
-            imageContainerView?.animateBounces()
-
             switch type {
                 case .lobby:
                     navigateToSelectMusicGuide()
@@ -201,8 +204,6 @@ final class TutorialGuideViewController: UIViewController {
 
         bottomButton.addAction(UIAction { [weak self] _ in
             guard let self else { return }
-            imageContainerView?.animateBounces()
-
             switch type {
                 case .lobby:
                     navigateToOnboarding()
