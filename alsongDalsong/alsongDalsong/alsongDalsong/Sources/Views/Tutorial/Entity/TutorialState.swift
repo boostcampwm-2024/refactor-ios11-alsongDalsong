@@ -1,8 +1,8 @@
-public enum TutorialState {
+enum TutorialState {
     case start
 }
 
-public enum TutorialViewType {
+enum TutorialViewType {
     case lobby
     case selectMusic
     case humming
@@ -10,7 +10,7 @@ public enum TutorialViewType {
     case result
     case finished
 
-    public var title: String {
+    var title: String {
         switch self {
             case .lobby:
                 "튜토리얼"
@@ -27,7 +27,7 @@ public enum TutorialViewType {
         }
     }
 
-    public var description: String {
+    var description: String {
         switch self {
             case .lobby: "알쏭달쏭에 오신걸 환영합니다~🎉"
             case .selectMusic: "문제로 제출할 노래를 고르세요."
@@ -38,7 +38,7 @@ public enum TutorialViewType {
         }
     }
 
-    public var guide: String {
+    var guide: String {
         switch self {
             case .lobby:
                 """
@@ -101,7 +101,7 @@ public enum TutorialViewType {
         }
     }
 
-    public var caution: String? {
+    var caution: String? {
         switch self {
             case .lobby:
                 nil
@@ -140,7 +140,7 @@ public enum TutorialViewType {
         }
     }
 
-    public var symbol: (systemName: String, color: String)? {
+    var symbol: (systemName: String, color: String)? {
         switch self {
             case .lobby:
                 (systemName: "lightbulb.max", color: "FFCC00")
@@ -157,30 +157,36 @@ public enum TutorialViewType {
         }
     }
 
-    public var topButton: (isHidden: Bool, imageName: String, text: String, backgroundColor: String) {
+    var topButton: TutorialButtonStyle {
         switch self {
             case .lobby:
-                (isHidden: false, imageName: "play.fill", text: "튜토리얼 시작!", backgroundColor: "asYellow")
+                TutorialButtonStyle(text: "튜토리얼 시작!")
             default:
-                (isHidden: true, imageName: "", text: "", backgroundColor: "")
+                TutorialButtonStyle(isHidden: true)
         }
     }
 
-    public var bottomButton: (isHidden: Bool, imageName: String?, text: String, backgroundColor: String) {
+    var bottomButton: TutorialButtonStyle {
         switch self {
             case .lobby:
-                (isHidden: false, imageName: "figure.play", text: "튜토리얼 탈출!", backgroundColor: "asMint")
+                TutorialButtonStyle(imageName: "figure.play", text: "튜토리얼 탈출!", backgroundColor: "asMint")
             case .selectMusic:
-                (isHidden: false, imageName: "play.fill", text: "선택하기!", backgroundColor: "asYellow")
+                TutorialButtonStyle(text: "선택하기!")
             case .humming:
-                (isHidden: false, imageName: "play.fill", text: "녹음하기!", backgroundColor: "asYellow")
+                TutorialButtonStyle(text: "녹음하기!")
             case .submitAnswer:
-                (isHidden: false, imageName: "play.fill", text: "다음으로!", backgroundColor: "asYellow")
+                TutorialButtonStyle(text: "다음으로!")
             case .result:
-                (isHidden: false, imageName: "play.fill", text: "결과보기!", backgroundColor: "asYellow")
+                TutorialButtonStyle(text: "결과보기!")
             case .finished:
-                (isHidden: false, imageName: "play.fill", text: "시작하기!", backgroundColor: "asYellow")
+                TutorialButtonStyle(text: "시작하기!")
         }
     }
 
+    struct TutorialButtonStyle {
+        var isHidden: Bool = false
+        var imageName: String? = "play.fill"
+        var text: String = ""
+        var backgroundColor: String = "asYellow"
+    }
 }
