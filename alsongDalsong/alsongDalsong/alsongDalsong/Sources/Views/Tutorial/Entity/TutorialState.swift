@@ -169,7 +169,7 @@ enum TutorialViewType {
     var bottomButton: TutorialButtonStyle {
         switch self {
             case .lobby:
-                TutorialButtonStyle(imageName: "figure.play", text: "튜토리얼 탈출!", backgroundColor: "asMint")
+                TutorialButtonStyle(imageName: nil, text: "나는 이 게임을 해봤어요!", backgroundColor: "asMint")
             case .selectMusic:
                 TutorialButtonStyle(text: "선택하기!")
             case .humming:
