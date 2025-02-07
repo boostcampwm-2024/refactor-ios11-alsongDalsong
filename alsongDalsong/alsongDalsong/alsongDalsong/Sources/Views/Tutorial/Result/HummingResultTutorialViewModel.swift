@@ -26,7 +26,7 @@ final class HummingResultTutorialViewModel: ObservableObject {
         Task {
             let answer = Answer(player: .playerStub1, music: selectedMusic)
             let records: [Data?] = [recordedData]
-            let submit = await makeAISubmit(data: getRecordData(url: records.first?.fileUrl))
+            let submit = await makeAISubmit(data: records[0])
             
             let mappedAnswer = await mapAnswer(answer)
             let mappedRecords = await mapRecords(records)
