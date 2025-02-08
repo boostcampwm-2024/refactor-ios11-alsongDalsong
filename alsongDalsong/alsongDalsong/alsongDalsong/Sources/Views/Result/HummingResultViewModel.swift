@@ -64,6 +64,7 @@ final class HummingResultViewModel: @unchecked Sendable {
     /// 변경 후 바로 오디오 재생 시작
     /// submit -> answer의 경우에는 recordOrder만 변경
     private func updateResultPhase() {
+        guard !canEndGame else { return }
         Task {
             switch resultPhase {
                 case .answer:
