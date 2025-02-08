@@ -4,7 +4,7 @@ import SwiftUI
 final class LobbyViewController: UIViewController {
     private let inviteButton = ASButton()
     private let startButton = ASButton()
-    private var lobbyView = UIViewController()
+    private lazy var lobbyUIHostingController = UIHostingController(rootView: LobbyView(viewModel: viewmodel))
     private let viewmodel: LobbyViewModel
     private var cancellables: Set<AnyCancellable> = []
 
@@ -20,7 +20,8 @@ final class LobbyViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lobbyView = UIHostingController(rootView: LobbyView(viewModel: viewmodel))
+
+        lobbyUIHostingController.view.isHidden = false
     }
 
     override func viewDidLoad() {
@@ -33,7 +34,7 @@ final class LobbyViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        lobbyView.view = nil
+        lobbyUIHostingController.view.isHidden = true
     }
 
     private func bindToComponents() {
@@ -73,9 +74,7 @@ final class LobbyViewController: UIViewController {
             backgroundColor: .asMint
         )
 
-        lobbyView = UIHostingController(rootView: LobbyView(viewModel: viewmodel))
-
-        view.addSubview(lobbyView.view)
+        view.addSubview(lobbyUIHostingController.view)
         view.addSubview(startButton)
         view.addSubview(inviteButton)
     }
@@ -104,13 +103,13 @@ final class LobbyViewController: UIViewController {
     private func setupLayout() {
         inviteButton.translatesAutoresizingMaskIntoConstraints = false
         startButton.translatesAutoresizingMaskIntoConstraints = false
-        lobbyView.view.translatesAutoresizingMaskIntoConstraints = false
+        lobbyUIHostingController.view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            lobbyView.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            lobbyView.view.bottomAnchor.constraint(equalTo: inviteButton.topAnchor, constant: -20),
-            lobbyView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            lobbyView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            lobbyUIHostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            lobbyUIHostingController.view.bottomAnchor.constraint(equalTo: inviteButton.topAnchor, constant: -20),
+            lobbyUIHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            lobbyUIHostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             inviteButton.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -25),
             inviteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
