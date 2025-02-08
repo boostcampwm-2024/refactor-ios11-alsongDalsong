@@ -3,6 +3,9 @@ import Combine
 import SwiftUI
 
 class HummingResultViewController: UIViewController {
+    deinit {
+        Logger.debug("HummingResultViewController deinit")
+    }
     private let answerView = MusicPanelView()
     private let resultTableView = UITableView()
     private let nextButton = ASButton()
@@ -137,10 +140,9 @@ class HummingResultViewController: UIViewController {
             .combineLatest(viewModel.$result, viewModel.$isHost)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] phase, result, isHost in
-                guard let self else { return }
-                addDataSource(phase, result: result)
+                self?.addDataSource(phase, result: result)
                 if result.answer != nil, isHost {
-                    changeButton(phase)
+                    self?.changeButton(phase)
                 }
             }
             .store(in: &cancellables)
@@ -148,16 +150,15 @@ class HummingResultViewController: UIViewController {
         viewModel.$canEndGame
             .receive(on: DispatchQueue.main)
             .sink { [weak self] canEndGame in
-                guard let self else { return }
                 if canEndGame {
-                    nextButton.updateButton(.complete)
-                    nextButton.isEnabled = true
-                    nextButton.removeTarget(nil, action: nil, for: .touchUpInside)
-                    nextButton.addAction(UIAction { _ in
-                        self.showLobbyLoading()
+                    self?.nextButton.updateButton(.complete)
+                    self?.nextButton.isEnabled = true
+                    self?.nextButton.removeTarget(nil, action: nil, for: .touchUpInside)
+                    self?.nextButton.addAction(UIAction { _ in
+                        self?.showLobbyLoading()
                     }, for: .touchUpInside)
                 } else {
-                    nextButton.updateButton(.disabled)
+                    self?.nextButton.updateButton(.disabled)
                 }
             }
             .store(in: &cancellables)
