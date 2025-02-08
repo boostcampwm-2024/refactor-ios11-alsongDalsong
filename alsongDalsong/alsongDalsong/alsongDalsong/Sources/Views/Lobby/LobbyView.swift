@@ -8,7 +8,7 @@ struct LobbyView: View {
         VStack {
             ScrollView(.horizontal) {
                 HStack(alignment: .top, spacing: 16) {
-                    ForEach(0 ..< viewModel.playerMaxCount) { index in
+                    ForEach(0..<viewModel.playerMaxCount) { index in
                         if index < viewModel.players.count {
                             let player = viewModel.players[index]
                             ProfileView(
