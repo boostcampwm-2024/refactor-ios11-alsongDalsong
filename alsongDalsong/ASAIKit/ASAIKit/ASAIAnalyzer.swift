@@ -1,5 +1,5 @@
-import BasicPitch
-import MIDIKitSMF
+internal import BasicPitch
+internal import MIDIKitSMF
 
 public enum ASAIAnalyzer {
     private struct ActiveNote {
@@ -41,8 +41,8 @@ public enum ASAIAnalyzer {
                             let timedNote = TimedNote(
                                 startTime: activeNote.startTime,
                                 endTime: totalTime,
-                                pitch: noteOn.note.number,
-                                velocity: activeNote.velocity
+                                pitch: UInt8(noteOn.note.number),
+                                velocity: UInt8(activeNote.velocity)
                             )
                             timedNoteArr.append(timedNote)
                             activeNotes[noteOn.note.number] = nil

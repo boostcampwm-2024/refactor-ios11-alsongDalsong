@@ -1,8 +1,6 @@
-import MIDIKitCore
-
 public struct TimedNote: Sendable {
     let startTime: Double
     let endTime: Double
-    let pitch: UInt7
-    let velocity: UInt7
+    let pitch: UInt8
+    let velocity: UInt8
 }
