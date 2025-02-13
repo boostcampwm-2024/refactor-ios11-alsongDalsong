@@ -1,5 +1,5 @@
 {
-  "originHash" : "10eae67dde24489b80f4b4af7e074afabd37dc2acb948219135a230e9bf50210",
+  "originHash" : "9a9971c71c4825204fefbe96bfe9f81b79f6a45fd71ff8d28e964fd40ac3eb9d",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "61b85103a1aeed8218f17c794687781505fbbef5",
         "version" : "11.2.0"
+      }
+    },
+    {
+      "identity" : "basicpitchswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zhangyufei49/BasicPitchSwift",
+      "state" : {
+        "revision" : "21b1d5dcf58af4cde2d5198fcb017dd3476d8368",
+        "version" : "1.0.5"
       }
     },
     {
@@ -92,6 +101,15 @@
       }
     },
     {
+      "identity" : "midikit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/orchetect/MIDIKit.git",
+      "state" : {
+        "revision" : "6902607ec98a4b8b54cac6d2a4d89fd860284819",
+        "version" : "0.10.1"
+      }
+    },
+    {
       "identity" : "nanopb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/nanopb.git",
@@ -116,6 +134,15 @@
       "state" : {
         "revision" : "ebc7251dd5b37f627c93698e4374084d98409633",
         "version" : "1.28.2"
+      }
+    },
+    {
+      "identity" : "timecodekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/orchetect/TimecodeKit",
+      "state" : {
+        "revision" : "1014b5723a7eaa93eeb2ea2f52dfd9ea6eb6be0d",
+        "version" : "2.3.3"
       }
     }
   ],

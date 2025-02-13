@@ -217,6 +217,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				29AEA6AA2D51FE4D004774DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CB7E21F52D5DC6D500AEAD2B /* XCRemoteSwiftPackageReference "BasicPitchSwift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 29AEA67F2D51FB7D004774DC /* Products */;
@@ -554,6 +555,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 11.8.0;
+			};
+		};
+		CB7E21F52D5DC6D500AEAD2B /* XCRemoteSwiftPackageReference "BasicPitchSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/zhangyufei49/BasicPitchSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.5;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
