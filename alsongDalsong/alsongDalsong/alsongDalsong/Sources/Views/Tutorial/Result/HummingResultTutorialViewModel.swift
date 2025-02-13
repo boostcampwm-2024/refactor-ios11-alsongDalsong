@@ -145,11 +145,9 @@ final class HummingResultTutorialViewModel: ObservableObject {
     
     private func makeAISubmit(data: Data?) async -> Answer {
         guard let data else { return Answer(player: .playerStub2, music: TutorialData.loser) }
-        if let answer = await ASAIAnalyzer.analzeAudioFile(audioData: data, mode: .full()) {
-            let music = try? await ASMusicAPI().search(for: answer.bestClassification).first
-            Logger.debug(answer)
-            return Answer(player: .playerStub2, music: music)
-        }
+        let result = await ASAIAnalyzer.analyzeAudioFile(audioData: data)
+        Logger.debug(result)
+        // 현준, 숲님 작업 부분 합쳐야함 (현재는 임시)
         return Answer(player: .playerStub2, music: TutorialData.loser)
     }
 }
