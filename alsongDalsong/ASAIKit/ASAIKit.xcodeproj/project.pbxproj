@@ -13,6 +13,7 @@
 		29AEA6A92D51FD4F004774DC /* ASMusicKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29AEA6A72D51FD4F004774DC /* ASMusicKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29AEA6AC2D51FE4D004774DC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 29AEA6AB2D51FE4D004774DC /* FirebaseAuth */; };
 		29AEA6AE2D51FE4D004774DC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 29AEA6AD2D51FE4D004774DC /* FirebaseStorage */; };
+		CB7E30472D5DCB6800C985BA /* BasicPitch in Frameworks */ = {isa = PBXBuildFile; productRef = CB7E30462D5DCB6800C985BA /* BasicPitch */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -80,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB7E30472D5DCB6800C985BA /* BasicPitch in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +160,7 @@
 			);
 			name = ASAIKit;
 			packageProductDependencies = (
+				CB7E30462D5DCB6800C985BA /* BasicPitch */,
 			);
 			productName = ASAIKit;
 			productReference = 29AEA67E2D51FB7D004774DC /* ASAIKit.framework */;
@@ -217,7 +220,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				29AEA6AA2D51FE4D004774DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				CB7E21F52D5DC6D500AEAD2B /* XCRemoteSwiftPackageReference "BasicPitchSwift" */,
+				CB7E30452D5DCB6800C985BA /* XCRemoteSwiftPackageReference "BasicPitchSwift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 29AEA67F2D51FB7D004774DC /* Products */;
@@ -280,6 +283,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -313,6 +317,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -557,7 +562,7 @@
 				minimumVersion = 11.8.0;
 			};
 		};
-		CB7E21F52D5DC6D500AEAD2B /* XCRemoteSwiftPackageReference "BasicPitchSwift" */ = {
+		CB7E30452D5DCB6800C985BA /* XCRemoteSwiftPackageReference "BasicPitchSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zhangyufei49/BasicPitchSwift";
 			requirement = {
@@ -577,6 +582,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 29AEA6AA2D51FE4D004774DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		CB7E30462D5DCB6800C985BA /* BasicPitch */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB7E30452D5DCB6800C985BA /* XCRemoteSwiftPackageReference "BasicPitchSwift" */;
+			productName = BasicPitch;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
