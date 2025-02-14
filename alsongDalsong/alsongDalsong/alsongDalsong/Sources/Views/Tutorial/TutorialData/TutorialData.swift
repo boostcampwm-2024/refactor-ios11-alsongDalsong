@@ -19,4 +19,7 @@ enum TutorialData {
         previewUrl: URL(string: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/dc/2f/21/dc2f21a7-b30a-2056-751b-76927ae9b3bb/mzaf_12471769798914044064.plus.aac.p.m4a"),
         artworkBackgroundColor: "#BA1718"
     )
+    
+    static let aiLoser = Music(id: "aiLoser", title: "AI의 허밍을 듣고 따라 불러보세요", artist: "", artworkUrl: URL(string: "https://blog.kakaocdn.net/dn/bxdtFz/btqAfmWl2Zl/anXjXtfAfFUC0OOgkIcMWk/img.jpg"), previewUrl: Record.AIRecord.loser.fileUrl, artworkBackgroundColor: nil)
+    static let aiSuperShy = Music(Record.AIRecord.superShy)
 }
