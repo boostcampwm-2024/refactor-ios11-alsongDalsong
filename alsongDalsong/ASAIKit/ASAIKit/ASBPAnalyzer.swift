@@ -15,7 +15,7 @@ public struct ASBPAnalyzer {
         let bVector = convertToVector(timedNotes: targetTimedNote)
         
         let distance = dtwDistance(sequence1: aVector, sequence2: bVector)
-        let maxDistance = 3407.3450074801567 // 30초의 음원과 가장 먼 거리....
+        let maxDistance = 383.2346332942436
         let simularity = (1 - (distance / maxDistance)) * 100
         
         return simularity.rounded()
@@ -26,14 +26,14 @@ extension ASBPAnalyzer {
     // MARK: - 피치를 Piano Roll 벡터로 변환하는 함수
 
     private func convertToVector(timedNotes: [TimedNote]) -> [[Int]] {
-        let endTime = timedNotes.max(by: { $0.endTime > $1.endTime })?.endTime ?? 30 // 29.716
+        let endTime = timedNotes.map { $0.endTime }.max() ?? 30
         var result = [[Int]]()
         
         for time in stride(from: 0, to: endTime, by: 0.1) {
-            var pitches = Array(repeating: 0, count: 129) /// [0,0,0,0,0,0,0,0,0,0..]
+            var pitches = Array(repeating: 0, count: 128)
             
             for timedNote in timedNotes {
-                if timedNote.startTime <= time && timedNote.endTime >= time {
+                if timedNote.startTime...timedNote.endTime ~= time {
                     pitches[timedNote.pitch] = 1
                 }
             }
@@ -41,7 +41,7 @@ extension ASBPAnalyzer {
             result.append(pitches)
         }
         
-        return result // 297 * 128
+        return result
     }
 
     // MARK: - DTW 거리 계산 함수 (다차원 시계열)
