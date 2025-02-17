@@ -21,7 +21,7 @@ final class ASAIKitDemoViewModel: ObservableObject {
     }
     
     let testers = ["민하", "숲", "승재", "인예", "현준"]
-    let songs = ["NewJeans - Super Shy", "BIGBANG - LOSER"]
+    let songs = ["NewJeans - Super Shy", "BIGBANG - LOSER", "김건모 - 서울의 달"]
     
     private var uuidString = ""
     private var recordingTask: Task<Void, Never>?
