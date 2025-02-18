@@ -9,30 +9,71 @@ final class HummingResultTutorialViewModel: ObservableObject {
     @Published var result: Result = (nil, [], nil)
     @Published var resultPhase: ResultPhase = .none
     @Published var isTutorialFinished = false
-
-    private var avatars: [URL]?
-    private var selectedMusic: Music?
-    private var recordedData: Data?
+    
     private var cancellables = Set<AnyCancellable>()
 
-    init(avatars: [URL]?, selectedMusic: Music?, recordedData: Data?) {
-        self.avatars = avatars
-        self.selectedMusic = selectedMusic
-        self.recordedData = recordedData
+    private var totalResult: [Result] = []
+    
+    private let tutorialPlayers: [TutorialPlayer]
+    private lazy var players: [Player] = tutorialPlayers.map {
+        Player(
+            id: UUID().uuidString,
+            avatarUrl: $0.avatarURL,
+            nickname: $0.name,
+            order: nil
+        )
+    }
+    
+    init(player: TutorialPlayer, aiPlayer1: TutorialPlayer, aiPlayer2: TutorialPlayer) {
+        self.tutorialPlayers = [player, aiPlayer1, aiPlayer2]
+    }
+    
+    @MainActor
+    func setDatasource() {
+        Task {
+            let count = tutorialPlayers.count
+            for i in 0 ..< count {
+                let previousIndex = (i - 1 + count) % count
+                let beforePreviousIndex = (i - 2 + count) % count
+                
+                let answer = ASEntity.Answer(
+                    player: players[i],
+                    music: tutorialPlayers[i].selectedMusic
+                )
+                let humming = ASEntity.Record(
+                    player: players[i],
+                    recordOrder: nil,
+                    fileUrl: tutorialPlayers[i].hummingURL
+                )
+                
+                let rehumming = ASEntity.Record(
+                    player: players[previousIndex],
+                    recordOrder: nil,
+                    fileUrl: tutorialPlayers[previousIndex].rehummingURL
+                )
+                
+                let submit = ASEntity.Answer(
+                    player: players[beforePreviousIndex],
+                    music: tutorialPlayers[beforePreviousIndex].submittedMusic
+                )
+                let mappedAnswer: MappedAnswer = await mapAnswer(answer)
+                let mappedRecords: [MappedRecord] = await mapRecords([humming, rehumming])
+                let mappedSubmit: MappedAnswer = await mapAnswer(submit)
+                
+                totalResult.append((mappedAnswer, mappedRecords, mappedSubmit))
+            }
+            updateResult()
+        }
     }
 
     @MainActor
     func updateResult() {
         Task {
-            let answer = Answer(player: .playerStub1, music: selectedMusic)
-            let records: [Data?] = [recordedData]
-            let submit = await makeAISubmit(data: records[0])
-            
-            let mappedAnswer = await mapAnswer(answer)
-            let mappedRecords = await mapRecords(records)
-            let mappedSubmit = await mapAnswer(submit)
-            
-            result = (mappedAnswer, mappedRecords, mappedSubmit)
+            guard !totalResult.isEmpty else {
+                return
+            }
+            let currentResult = totalResult.removeFirst()
+            result = currentResult
             updateResultPhase()
         }
     }
@@ -53,8 +94,7 @@ final class HummingResultTutorialViewModel: ObservableObject {
             case .submit:
                 resultPhase = .none
                 await startPlaying()
-                isTutorialFinished = true
-                
+                if totalResult.isEmpty { isTutorialFinished = true }
             case .none:
                 resultPhase = .answer
                 await startPlaying()
@@ -70,7 +110,7 @@ final class HummingResultTutorialViewModel: ObservableObject {
                 .sink { [weak self] _, isPlaying in
                     guard let self else { return }
                     if !isPlaying {
-                        self.updateResultPhase()
+                        updateResultPhase()
                     }
                 }
                 .store(in: &cancellables)
@@ -78,8 +118,17 @@ final class HummingResultTutorialViewModel: ObservableObject {
     }
     
     private func startPlaying() async {
-        let audioData = resultPhase.audioData(result)
         let playOption = resultPhase.playOption
+        guard let audioData = resultPhase.audioData(result) else {
+            // Data가 nil인 경우, MIDI 파일로 간주하여 재생
+            guard let url = resultPhase.getMIDIURL(result) else {
+                // MIDI 파일이 아닌 경우, 오디오 데이터가 이상 한 경우로 간주하고 재생하지 않음.
+                // 에러처리가 필요할 듯?
+                return
+            }
+            await AudioHelper.shared.startPlayingMIDI(url, option: playOption)
+            return
+        }
         await AudioHelper.shared.startPlaying(audioData, option: playOption)
     }
     
@@ -88,8 +137,8 @@ final class HummingResultTutorialViewModel: ObservableObject {
         let previewData = await getPreviewData(answer.music)
         let title = answer.music?.title
         let artist = answer.music?.artist
-        let playerName = "알쏭이"
-        let playerAvatarData = await getAvatarData(url: avatars?.first)
+        let playerName = answer.player?.nickname
+        let playerAvatarData = await getAvatarData(url: answer.player?.avatarUrl)
         return MappedAnswer(artworkData, previewData, title, artist, playerName, playerAvatarData)
     }
 
@@ -98,26 +147,17 @@ final class HummingResultTutorialViewModel: ObservableObject {
 
         for record in records {
             let recordData = await getRecordData(url: record.fileUrl)
-            let recordAmplitudes = await AudioHelper.shared.analyze(with: recordData ?? Data())
-            LogHandler.handleDebug(recordAmplitudes)
-            let playerName = "나"
-            let playerAvatarData = await getAvatarData(url: avatars?.last)
-            mappedRecords.append(MappedRecord(recordData, recordAmplitudes, playerName, playerAvatarData))
-        }
-
-        return mappedRecords
-    }
-
-    private func mapRecords(_ records: [Data?]) async -> [MappedRecord] {
-        var mappedRecords = [MappedRecord]()
-
-        for record in records {
-            let recordData = record
-            let recordAmplitudes = await AudioHelper.shared.analyze(with: recordData ?? Data())
-            LogHandler.handleDebug(recordAmplitudes)
-            let playerName = "나"
-            let playerAvatarData = await getAvatarData(url: avatars?.last)
-            mappedRecords.append(MappedRecord(recordData, recordAmplitudes, playerName, playerAvatarData))
+            let playerName = record.player?.nickname
+            let playerAvatarData = await getAvatarData(url: record.player?.avatarUrl)
+            // MIDI 파일인지 에 따라 파형 함수 및 MappedRecord 생성이 달라짐.
+            // 이후 노래를 재생할 때, MIDI 파일인지 검사하는 로직을 추가하여 재생 방식을 다르게 해야함.
+            if let url = record.fileUrl, url.pathExtension == "mid" {
+                let recordAmplitudes = await AudioHelper.shared.analyze(with: url)
+                mappedRecords.append(MappedRecord(url, recordAmplitudes, playerName, playerAvatarData))
+            } else {
+                let recordAmplitudes = await AudioHelper.shared.analyze(with: recordData ?? Data())
+                mappedRecords.append(MappedRecord(recordData, recordAmplitudes, playerName, playerAvatarData))
+            }
         }
 
         return mappedRecords
@@ -146,8 +186,55 @@ final class HummingResultTutorialViewModel: ObservableObject {
     private func makeAISubmit(data: Data?) async -> Answer {
         guard let data else { return Answer(player: .playerStub2, music: TutorialData.loser) }
         let result = await ASAIAnalyzer.analyzeAudioFile(audioData: data)
-        Logger.debug(result)
+//        Logger.debug(result)
         // 현준, 숲님 작업 부분 합쳐야함 (현재는 임시)
         return Answer(player: .playerStub2, music: TutorialData.loser)
     }
+}
+
+private extension ResultPhase {
+    func getMIDIURL(_ result: Result) -> URL? {
+        switch self {
+        case .answer: nil
+        case let .record(count): result.records[count].midiURL
+        case .submit: nil
+        case .none: nil
+        }
+    }
+}
+
+struct TutorialPlayer {
+    var name: String?
+    var avatarURL: URL?
+    var selectedMusic: Music?
+    var hummingURL: URL?
+    var rehummingURL: URL?
+    var submittedMusic: Music?
+    
+    static let playerStub1 = TutorialPlayer(
+        name: "Player1",
+        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
+        selectedMusic: TutorialData.superShy,
+        hummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
+        rehummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
+        submittedMusic: TutorialData.loser
+    )
+    
+    static let playerStub2 = TutorialPlayer(
+        name: "AI1",
+        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
+        selectedMusic: TutorialData.loser,
+        hummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
+        rehummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
+        submittedMusic: TutorialData.superShy
+    )
+    
+    static let playerStub3 = TutorialPlayer(
+        name: "AI2",
+        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
+        selectedMusic: TutorialData.loser,
+        hummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
+        rehummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
+        submittedMusic: TutorialData.superShy
+    )
 }
