@@ -15,21 +15,28 @@ final class HummingTutorialViewController: UIViewController {
     private let selectedAvatar: URL?
     private let avatarData: Data?
     private let inviteCode: String?
-    private let selectedMusic: Music?
+
+    private var player: TutorialPlayer?
+    private var aiPlayer1: TutorialPlayer?
+    private var aiPlayer2: TutorialPlayer?
 
     init(
         avatars: [URL]?,
         selectedAvatar: URL?,
         avatarData: Data?,
         inviteCode: String?,
-        selectedMusic: Music?
+        player: TutorialPlayer?,
+        aiPlayer1: TutorialPlayer?,
+        aiPlayer2: TutorialPlayer?
     ) {
         self.avatars = avatars
         self.selectedAvatar = selectedAvatar
         self.avatarData = avatarData
         self.inviteCode = inviteCode
-        self.selectedMusic = selectedMusic
-        self.viewModel = HummingTutorialViewModel(selectedMusic: selectedMusic)
+        self.player = player
+        self.aiPlayer1 = aiPlayer1
+        self.aiPlayer2 = aiPlayer2
+        self.viewModel = HummingTutorialViewModel(selectedMusic: player?.selectedMusic)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -144,6 +151,8 @@ final class HummingTutorialViewController: UIViewController {
             self?.viewModel.isRecording = true
         }, for: .touchUpInside)
 
+        // TODO: - updatePlayers
+
         submitButton.addAction(UIAction { [weak self] _ in
             let tutorialViewController = TutorialGuideViewController(
                 type: .submitAnswer,
@@ -151,11 +160,18 @@ final class HummingTutorialViewController: UIViewController {
                 selectedAvatar: self?.selectedAvatar,
                 avatarData: self?.avatarData,
                 inviteCode: self?.inviteCode,
-                selectedMusic: self?.selectedMusic,
-                recordedData: self?.viewModel.recordedData
+                player: self?.player,
+                aiPlayer1: self?.aiPlayer1,
+                aiPlayer2: self?.aiPlayer2
             )
             self?.navigationController?.pushViewController(tutorialViewController, animated: true)
         }, for: .touchUpInside)
+    }
+}
+
+private extension HummingTutorialViewController {
+    func updatePlayers() {
+
     }
 }
 
@@ -166,6 +182,8 @@ final class HummingTutorialViewController: UIViewController {
         selectedAvatar: nil,
         avatarData: nil,
         inviteCode: nil,
-        selectedMusic: nil
+        player: TutorialPlayer(),
+        aiPlayer1: TutorialPlayer(),
+        aiPlayer2: TutorialPlayer()
     ))
 }
