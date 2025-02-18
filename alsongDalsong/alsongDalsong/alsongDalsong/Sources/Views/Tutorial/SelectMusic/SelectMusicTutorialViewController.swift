@@ -4,7 +4,7 @@ import SwiftUI
 final class SelectMusicTutorialViewController: UIViewController {
     private let progressBar = ProgressBar()
     private let submitButton = ASButton()
-    
+
     private var selectMusicView = UIViewController()
     private var selectedMusic: Music?
 
@@ -32,7 +32,7 @@ final class SelectMusicTutorialViewController: UIViewController {
         setupUI()
         setupLayout()
     }
-    
+
     private func setupUI() {
         view.backgroundColor = .asLightGray
         title = "노래 선택"
@@ -69,26 +69,26 @@ final class SelectMusicTutorialViewController: UIViewController {
             self?.submitButton.isEnabled = true
         }
         selectMusicView = UIHostingController(rootView: musicView)
-        
+
         submitButton.setConfiguration(text: String(localized: "선택 완료"), backgroundColor: .asGreen)
         submitButton.updateButton(.disabled)
-        
+
         view.addSubview(progressBar)
         view.addSubview(selectMusicView.view)
         view.addSubview(submitButton)
     }
-    
+
     private func setupLayout() {
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         selectMusicView.view.translatesAutoresizingMaskIntoConstraints = false
         submitButton.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             progressBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             progressBar.heightAnchor.constraint(equalToConstant: 16),
-            
+
             selectMusicView.view.topAnchor.constraint(equalTo: progressBar.bottomAnchor),
             selectMusicView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             selectMusicView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -100,7 +100,7 @@ final class SelectMusicTutorialViewController: UIViewController {
             submitButton.heightAnchor.constraint(equalToConstant: 64),
         ])
     }
-    
+
     private func setupAction() {
         submitButton.addAction(UIAction { [weak self] _ in
             Task {

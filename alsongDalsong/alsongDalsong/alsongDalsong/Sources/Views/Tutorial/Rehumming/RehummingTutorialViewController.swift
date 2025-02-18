@@ -1,7 +1,7 @@
 import ASEntity
 import UIKit
 
-final class HummingTutorialViewController: UIViewController {
+final class RehummingTutorialViewController: UIViewController {
     private let progressBar = ProgressBar()
     private let scrollView = UIScrollView()
     private let musicPanel = MusicPanel()
@@ -10,7 +10,7 @@ final class HummingTutorialViewController: UIViewController {
     private let submitButton = ASButton()
     private let buttonStack = UIStackView()
 
-    private let viewModel: HummingTutorialViewModel
+    private let viewModel: RehummingTutorialViewModel
     private let avatars: [URL]?
     private let selectedAvatar: URL?
     private let avatarData: Data?
@@ -29,7 +29,7 @@ final class HummingTutorialViewController: UIViewController {
         self.avatarData = avatarData
         self.inviteCode = inviteCode
         self.selectedMusic = selectedMusic
-        self.viewModel = HummingTutorialViewModel(selectedMusic: selectedMusic)
+        self.viewModel = RehummingTutorialViewModel(selectedMusic: Music(id: "", title: nil, artist: nil, artworkUrl: Bundle.main.url(forResource: "AreYouCrazyHuman", withExtension: "png"), previewUrl: Bundle.main.url(forResource: "Super Shy", withExtension: "mid"), artworkBackgroundColor: nil))
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -58,7 +58,7 @@ final class HummingTutorialViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = .asLightGray
-        title = "허밍"
+        title = "리허밍"
 
         recordButton.updateButton(.startRecord)
         submitButton.updateButton(.submit)
@@ -146,7 +146,7 @@ final class HummingTutorialViewController: UIViewController {
 
         submitButton.addAction(UIAction { [weak self] _ in
             let tutorialViewController = TutorialGuideViewController(
-                type: .rehumming,
+                type: .submitAnswer,
                 avatars: self?.avatars,
                 selectedAvatar: self?.selectedAvatar,
                 avatarData: self?.avatarData,
@@ -161,7 +161,7 @@ final class HummingTutorialViewController: UIViewController {
 
 @available(iOS 17, *)
 #Preview {
-    UINavigationController(rootViewController: HummingTutorialViewController(
+    UINavigationController(rootViewController: RehummingTutorialViewController(
         avatars: nil,
         selectedAvatar: nil,
         avatarData: nil,
