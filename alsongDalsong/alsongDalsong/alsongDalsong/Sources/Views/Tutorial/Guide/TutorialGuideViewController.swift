@@ -16,36 +16,29 @@ final class TutorialGuideViewController: UIViewController {
     private let selectedAvatar: URL?
     private let avatarData: Data?
     private let inviteCode: String?
-    private let selectedMusic: Music?
-    private let recordedData: Data?
 
-    init(type: TutorialViewType) {
-        self.type = type
-        self.avatars = nil
-        self.selectedAvatar = nil
-        self.avatarData = nil
-        self.inviteCode = nil
-        self.selectedMusic = nil
-        self.recordedData = nil
-        super.init(nibName: nil, bundle: nil)
-    }
+    private let player: TutorialPlayer?
+    private let aiPlayer1: TutorialPlayer?
+    private let aiPlayer2: TutorialPlayer?
 
     init(
         type: TutorialViewType,
-        avatars: [URL]?,
-        selectedAvatar: URL?,
-        avatarData: Data?,
-        inviteCode: String?,
-        selectedMusic: Music? = nil,
-        recordedData: Data? = nil
+        avatars: [URL]? = nil,
+        selectedAvatar: URL? = nil,
+        avatarData: Data? = nil,
+        inviteCode: String? = nil,
+        player: TutorialPlayer? = .init(),
+        aiPlayer1: TutorialPlayer? = .init(),
+        aiPlayer2: TutorialPlayer? = .init()
     ) {
         self.type = type
         self.avatars = avatars
         self.selectedAvatar = selectedAvatar
         self.avatarData = avatarData
         self.inviteCode = inviteCode
-        self.selectedMusic = selectedMusic
-        self.recordedData = recordedData
+        self.player = player
+        self.aiPlayer1 = aiPlayer1
+        self.aiPlayer2 = aiPlayer2
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -273,10 +266,14 @@ private extension TutorialGuideViewController {
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
             inviteCode: inviteCode,
-            selectedMusic: selectedMusic
+            player: player,
+            aiPlayer1: aiPlayer1,
+            aiPlayer2: aiPlayer2
         )
         self.navigationController?.pushViewController(hummingViewController, animated: true)
     }
+
+    // TODO: -
 
     func navigateToResultGuide() {
         let tutorialViewController = TutorialGuideViewController(
@@ -284,9 +281,7 @@ private extension TutorialGuideViewController {
             avatars: avatars,
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
-            inviteCode: inviteCode,
-            selectedMusic: selectedMusic,
-            recordedData: recordedData
+            inviteCode: inviteCode
         )
         self.navigationController?.pushViewController(tutorialViewController, animated: true)
     }
@@ -297,8 +292,8 @@ private extension TutorialGuideViewController {
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
             inviteCode: inviteCode,
-            selectedMusic: selectedMusic,
-            recordedData: recordedData
+            selectedMusic: Music(),
+            recordedData: Data()
         )
         self.navigationController?.pushViewController(hummingResultViewController, animated: true)
     }
