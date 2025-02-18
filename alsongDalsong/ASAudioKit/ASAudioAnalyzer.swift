@@ -71,7 +71,7 @@ public enum ASAudioAnalyzer {
         
         engine.stop()
         
-        return processSamples(renderedSamples, samplesCount: samplesCount)
+        return processSamples(renderedSamples.map { $0 * 10 }, samplesCount: samplesCount)
     }
     
     private static func processSamples(_ samples: [Float], samplesCount: Int) -> [CGFloat] {
