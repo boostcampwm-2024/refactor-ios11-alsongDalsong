@@ -57,6 +57,7 @@ public actor ASMIDIPlayer {
     }
     
     public func stopPlaying() async {
+        audioEngine.stop()
         sequencer?.stop()
         Logger.debug("MIDI 재생 중지")
     }
