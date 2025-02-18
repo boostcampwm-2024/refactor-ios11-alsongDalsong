@@ -133,7 +133,11 @@ private extension SelectMusicTutorialViewController {
         var availableAvatars: [URL]
 
         if let selectedAvatar = selectedAvatar {
-            availableAvatars = avatars?.filter { $0 != selectedAvatar } ?? []
+            availableAvatars = avatars?.filter {
+                $0 != player.avatarURL &&
+                $0 != aiPlayer1.avatarURL &&
+                $0 != aiPlayer2.avatarURL
+            } ?? []
         } else {
             availableAvatars = avatars ?? []
         }
@@ -146,7 +150,11 @@ private extension SelectMusicTutorialViewController {
         var availableMusic: [Music]
 
         if let selectedMusic = selectedMusic {
-            availableMusic = allMusic.filter { $0 != selectedMusic }
+            availableMusic = allMusic.filter {
+                $0 != player.selectedMusic &&
+                $0 != aiPlayer1.selectedMusic &&
+                $0 != aiPlayer2.selectedMusic
+            }
         } else {
             availableMusic = allMusic
         }
