@@ -75,10 +75,7 @@ actor AudioHelper {
 
     func analyze(with data: Data) async -> [CGFloat] {
         do {
-            LogHandler.handleDebug("파형분석 시작")
             let columns = try await ASAudioAnalyzer.analyze(data: data, samplesCount: 24)
-            LogHandler.handleDebug("파형분석 완료")
-            LogHandler.handleDebug(columns)
             return columns
         } catch {
             let error = ASErrors(type: .analyze, reason: error.localizedDescription, file: #file, line: #line)
@@ -89,10 +86,7 @@ actor AudioHelper {
     
     func analyze(with url: URL) async -> [CGFloat] {
         do {
-            LogHandler.handleDebug("파형분석 시작")
             let columns = try await ASAudioAnalyzer.analyzeMIDI(url: url, samplesCount: 24)
-            LogHandler.handleDebug("파형분석 완료")
-            LogHandler.handleDebug(columns)
             return columns
         } catch {
             let error = ASErrors(type: .analyze, reason: error.localizedDescription, file: #file, line: #line)
