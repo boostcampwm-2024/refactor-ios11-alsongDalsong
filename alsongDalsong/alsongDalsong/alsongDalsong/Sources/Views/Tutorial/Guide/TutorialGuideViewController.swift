@@ -7,7 +7,6 @@ final class TutorialGuideViewController: UIViewController {
     private let type: TutorialViewType
     private let titleLabel = GuideLabel(style: .largeTitle)
     private let descriptionLabel = GuideLabel(style: .title2)
-    private let guideLabel = GuideLabel(style: .callout)
     private let cautionLabel = GuideLabel(style: .callout)
     private var imageContainerView: GuideIconView?
     private let topButton = ASButton()
@@ -94,8 +93,6 @@ final class TutorialGuideViewController: UIViewController {
 
         titleLabel.text = type.title.localized()
         descriptionLabel.text = type.description.localized()
-        guideLabel.text = type.guide.localized()
-        guideLabel.textColor = .darkGray
         cautionLabel.isHidden = true
 
         if let caution = type.caution {
@@ -134,32 +131,26 @@ final class TutorialGuideViewController: UIViewController {
     private func setupLayout() {
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
-        view.addSubview(guideLabel)
         view.addSubview(cautionLabel)
         view.addSubview(topButton)
         view.addSubview(bottomButton)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        guideLabel.translatesAutoresizingMaskIntoConstraints = false
         cautionLabel.translatesAutoresizingMaskIntoConstraints = false
         topButton.translatesAutoresizingMaskIntoConstraints = false
         bottomButton.translatesAutoresizingMaskIntoConstraints = false
 
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 272),
+            titleLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -48),
             titleLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
 
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 48),
+            descriptionLabel.topAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: -50),
             descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
 
-            guideLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
-            guideLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            guideLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-
-            cautionLabel.topAnchor.constraint(equalTo: guideLabel.bottomAnchor, constant: 8),
+            cautionLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             cautionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             cautionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
 
