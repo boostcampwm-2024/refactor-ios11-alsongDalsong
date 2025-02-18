@@ -56,6 +56,9 @@ struct SelectMusicTutorialView: View {
             .scrollDismissesKeyboard(.immediately)
         }
         .background(.asLightGray)
+        .onDisappear {
+            stopMusic()
+        }
     }
     
     func playMusic() {

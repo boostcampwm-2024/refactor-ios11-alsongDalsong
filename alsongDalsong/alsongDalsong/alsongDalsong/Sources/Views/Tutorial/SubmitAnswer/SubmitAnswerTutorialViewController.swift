@@ -1,4 +1,4 @@
-import UIKit
+import SwiftUI
 
 final class SubmitAnswerTutorialViewController: UIViewController {
     private var progressBar = ProgressBar()
@@ -85,7 +85,12 @@ final class SubmitAnswerTutorialViewController: UIViewController {
     private func setupAction() {
         selectAnswerButton.addAction(
             UIAction { [weak self] _ in
-            // show Select music
+                let musicView = SelectMusicTutorialView { music in
+                    self?.viewModel.selectedMusic = music
+                    self?.viewModel.selectedMusicData = Data()
+                }
+                let viewController = UIHostingController(rootView: musicView)
+                self?.present(viewController, animated: true)
             }, for: .touchUpInside)
         
         submitButton.addAction(
