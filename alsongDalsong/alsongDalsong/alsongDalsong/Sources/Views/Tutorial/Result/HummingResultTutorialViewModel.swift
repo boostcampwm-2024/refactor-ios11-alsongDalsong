@@ -1,6 +1,5 @@
 import ASAIKit
 import ASEntity
-import ASLogKit
 import ASMusicKit
 import Combine
 import Foundation
@@ -51,11 +50,19 @@ final class HummingResultTutorialViewModel: ObservableObject {
                     recordOrder: nil,
                     fileUrl: tutorialPlayers[previousIndex].rehummingURL
                 )
-                
-                let submit = ASEntity.Answer(
-                    player: players[beforePreviousIndex],
-                    music: tutorialPlayers[beforePreviousIndex].submittedMusic
-                )
+                let submit: Answer
+                // Player인 경우
+                if let unwrappedSubmit = tutorialPlayers[i].submittedMusic {
+                    submit = ASEntity.Answer(
+                        player: players[beforePreviousIndex],
+                        music: unwrappedSubmit
+                    )
+                } else {
+                    submit = await makeAISubmit(
+                        url: tutorialPlayers[beforePreviousIndex].rehummingURL,
+                        player: players[beforePreviousIndex]
+                    )
+                }
                 let mappedAnswer: MappedAnswer = await mapAnswer(answer)
                 let mappedRecords: [MappedRecord] = await mapRecords([humming, rehumming])
                 let mappedSubmit: MappedAnswer = await mapAnswer(submit)
@@ -95,6 +102,7 @@ final class HummingResultTutorialViewModel: ObservableObject {
                 resultPhase = .none
                 await startPlaying()
                 if totalResult.isEmpty { isTutorialFinished = true }
+
             case .none:
                 resultPhase = .answer
                 await startPlaying()
@@ -183,12 +191,23 @@ final class HummingResultTutorialViewModel: ObservableObject {
         return try? await URLSession.shared.data(from: url).0
     }
     
-    private func makeAISubmit(data: Data?) async -> Answer {
-        guard let data else { return Answer(player: .playerStub2, music: TutorialData.loser) }
-        let result = await ASAIAnalyzer.analyzeAudioFile(audioData: data)
-//        Logger.debug(result)
-        // 현준, 숲님 작업 부분 합쳐야함 (현재는 임시)
-        return Answer(player: .playerStub2, music: TutorialData.loser)
+    private func makeAISubmit(url: URL?, player: Player) async -> Answer {
+        guard let url else { return Answer(player: .playerStub2, music: TutorialData.loser) }
+        guard let result = await ASAIAnalyzer.analyzeAudioURL(audioURL: url, mode: .full()) else {
+            LogHandler.handleDebug("분석실패 - \(player.nickname)")
+            return ASEntity.Answer(
+                player: player,
+                music: TutorialData.loser
+            )
+        }
+        LogHandler.handleDebug("\(player.nickname) 의 노래 분석 결과")
+        LogHandler.handleDebug("분석 결과: \(result.bestClassification)")
+        LogHandler.handleDebug("정확도: \(result.confidence)")
+        let music = try? await ASMusicAPI().search(for: result.bestClassification).first
+        return ASEntity.Answer(
+            player: player,
+            music: music
+        )
     }
 }
 
@@ -202,39 +221,39 @@ private extension ResultPhase {
         }
     }
 }
-
-struct TutorialPlayer {
-    var name: String?
-    var avatarURL: URL?
-    var selectedMusic: Music?
-    var hummingURL: URL?
-    var rehummingURL: URL?
-    var submittedMusic: Music?
-    
-    static let playerStub1 = TutorialPlayer(
-        name: "Player1",
-        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
-        selectedMusic: TutorialData.superShy,
-        hummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
-        rehummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
-        submittedMusic: TutorialData.loser
-    )
-    
-    static let playerStub2 = TutorialPlayer(
-        name: "AI1",
-        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
-        selectedMusic: TutorialData.loser,
-        hummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
-        rehummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
-        submittedMusic: TutorialData.superShy
-    )
-    
-    static let playerStub3 = TutorialPlayer(
-        name: "AI2",
-        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
-        selectedMusic: TutorialData.loser,
-        hummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
-        rehummingURL: Bundle.main.url(forResource: "loser", withExtension: "mid"),
-        submittedMusic: TutorialData.superShy
-    )
-}
+//
+//struct TutorialPlayer {
+//    var name: String?
+//    var avatarURL: URL?
+//    var selectedMusic: Music?
+//    var hummingURL: URL?
+//    var rehummingURL: URL?
+//    var submittedMusic: Music?
+//    
+//    static let playerStub1 = TutorialPlayer(
+//        name: "Player1",
+//        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
+//        selectedMusic: TutorialData.loser,
+//        hummingURL: Bundle.main.url(forResource: "loserHumming", withExtension: "m4a"),
+//        rehummingURL: Bundle.main.url(forResource: "loserHumming_basic_pitch", withExtension: "mid"),
+//        submittedMusic: TutorialData.loser
+//    )
+//    
+//    static let playerStub2 = TutorialPlayer(
+//        name: "AI1",
+//        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
+//        selectedMusic: TutorialData.loser,
+//        hummingURL: Bundle.main.url(forResource: "loserHumming", withExtension: "m4a"),
+//        rehummingURL: Bundle.main.url(forResource: "loserHumming_basic_pitch", withExtension: "mid"),
+//        submittedMusic: nil
+//    )
+//    
+//    static let playerStub3 = TutorialPlayer(
+//        name: "AI2",
+//        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
+//        selectedMusic: TutorialData.loser,
+//        hummingURL: Bundle.main.url(forResource: "loserHumming", withExtension: "m4a"),
+//        rehummingURL: Bundle.main.url(forResource: "loserHumming_basic_pitch", withExtension: "mid"),
+//        submittedMusic: nil
+//    )
+//}
