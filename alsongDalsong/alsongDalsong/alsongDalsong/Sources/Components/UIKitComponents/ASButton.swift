@@ -60,7 +60,7 @@ final class ASButton: UIButton {
         configurationUpdateHandler = { [weak self] _ in
             guard let self else { return }
             if isHighlighted {
-                transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+                transform = CGAffineTransform(translationX: 3, y: 3)
             }
             else {
                 transform = .identity

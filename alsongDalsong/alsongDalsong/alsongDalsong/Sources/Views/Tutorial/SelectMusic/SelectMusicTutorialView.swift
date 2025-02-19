@@ -38,7 +38,7 @@ struct SelectMusicTutorialView: View {
             
             ASSearchBar(text: $text, placeHolder: String(localized: "곡 제목을 검색하세요"))
             
-            List([TutorialData.superShy, TutorialData.loser]) { music in
+            List([TutorialData.superShy, TutorialData.loser, TutorialData.theMoonOfSeoul]) { music in
                 Button {
                     selectedMusic = music
                     playMusic()

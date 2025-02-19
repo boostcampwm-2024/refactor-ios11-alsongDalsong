@@ -13,11 +13,16 @@ final class SelectMusicTutorialViewController: UIViewController {
     private let avatarData: Data?
     private let inviteCode: String?
 
+    private var player = TutorialPlayer()
+    private var aiPlayer1 = TutorialPlayer()
+    private var aiPlayer2 = TutorialPlayer()
+
     init(avatars: [URL]?, selectedAvatar: URL?, avatarData: Data?, inviteCode: String?) {
         self.avatars = avatars
         self.selectedAvatar = selectedAvatar
         self.avatarData = avatarData
         self.inviteCode = inviteCode
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -113,10 +118,48 @@ final class SelectMusicTutorialViewController: UIViewController {
                 selectedAvatar: self?.selectedAvatar,
                 avatarData: self?.avatarData,
                 inviteCode: self?.inviteCode,
-                selectedMusic: self?.selectedMusic
+                player: TutorialPlayer(avatarURL: self?.selectedAvatar, selectedMusic: self?.selectedMusic),
+                aiPlayer1: TutorialPlayer(avatarURL: self?.randomAvatar(), selectedMusic: self?.randomMusic()),
+                aiPlayer2: TutorialPlayer(avatarURL: self?.randomAvatar(), selectedMusic: self?.randomMusic())
             )
+
             self?.navigationController?.pushViewController(tutorialViewController, animated: true)
         }, for: .touchUpInside)
+    }
+}
+
+private extension SelectMusicTutorialViewController {
+    func randomAvatar() -> URL? {
+        var availableAvatars: [URL]
+
+        if let selectedAvatar = selectedAvatar {
+            availableAvatars = avatars?.filter {
+                $0 != player.avatarURL &&
+                $0 != aiPlayer1.avatarURL &&
+                $0 != aiPlayer2.avatarURL
+            } ?? []
+        } else {
+            availableAvatars = avatars ?? []
+        }
+
+        return availableAvatars.randomElement()
+    }
+
+    func randomMusic() -> Music? {
+        let allMusic = [TutorialData.superShy, TutorialData.loser, TutorialData.theMoonOfSeoul]
+        var availableMusic: [Music]
+
+        if let selectedMusic = selectedMusic {
+            availableMusic = allMusic.filter {
+                $0 != player.selectedMusic &&
+                $0 != aiPlayer1.selectedMusic &&
+                $0 != aiPlayer2.selectedMusic
+            }
+        } else {
+            availableMusic = allMusic
+        }
+
+        return availableMusic.randomElement()
     }
 }
 

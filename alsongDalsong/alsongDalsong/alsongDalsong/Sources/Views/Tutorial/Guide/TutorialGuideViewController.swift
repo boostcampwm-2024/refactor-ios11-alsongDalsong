@@ -7,7 +7,6 @@ final class TutorialGuideViewController: UIViewController {
     private let type: TutorialViewType
     private let titleLabel = GuideLabel(style: .largeTitle)
     private let descriptionLabel = GuideLabel(style: .title2)
-    private let guideLabel = GuideLabel(style: .callout)
     private let cautionLabel = GuideLabel(style: .callout)
     private var imageContainerView: GuideIconView?
     private let topButton = ASButton()
@@ -17,36 +16,29 @@ final class TutorialGuideViewController: UIViewController {
     private let selectedAvatar: URL?
     private let avatarData: Data?
     private let inviteCode: String?
-    private let selectedMusic: Music?
-    private let recordedData: Data?
 
-    init(type: TutorialViewType) {
-        self.type = type
-        self.avatars = nil
-        self.selectedAvatar = nil
-        self.avatarData = nil
-        self.inviteCode = nil
-        self.selectedMusic = nil
-        self.recordedData = nil
-        super.init(nibName: nil, bundle: nil)
-    }
+    private let player: TutorialPlayer?
+    private let aiPlayer1: TutorialPlayer?
+    private let aiPlayer2: TutorialPlayer?
 
     init(
         type: TutorialViewType,
-        avatars: [URL]?,
-        selectedAvatar: URL?,
-        avatarData: Data?,
-        inviteCode: String?,
-        selectedMusic: Music? = nil,
-        recordedData: Data? = nil
+        avatars: [URL]? = nil,
+        selectedAvatar: URL? = nil,
+        avatarData: Data? = nil,
+        inviteCode: String? = nil,
+        player: TutorialPlayer? = .init(),
+        aiPlayer1: TutorialPlayer? = .init(),
+        aiPlayer2: TutorialPlayer? = .init()
     ) {
         self.type = type
         self.avatars = avatars
         self.selectedAvatar = selectedAvatar
         self.avatarData = avatarData
         self.inviteCode = inviteCode
-        self.selectedMusic = selectedMusic
-        self.recordedData = recordedData
+        self.player = player
+        self.aiPlayer1 = aiPlayer1
+        self.aiPlayer2 = aiPlayer2
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -94,8 +86,6 @@ final class TutorialGuideViewController: UIViewController {
 
         titleLabel.text = type.title.localized()
         descriptionLabel.text = type.description.localized()
-        guideLabel.text = type.guide.localized()
-        guideLabel.textColor = .darkGray
         cautionLabel.isHidden = true
 
         if let caution = type.caution {
@@ -134,32 +124,26 @@ final class TutorialGuideViewController: UIViewController {
     private func setupLayout() {
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
-        view.addSubview(guideLabel)
         view.addSubview(cautionLabel)
         view.addSubview(topButton)
         view.addSubview(bottomButton)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        guideLabel.translatesAutoresizingMaskIntoConstraints = false
         cautionLabel.translatesAutoresizingMaskIntoConstraints = false
         topButton.translatesAutoresizingMaskIntoConstraints = false
         bottomButton.translatesAutoresizingMaskIntoConstraints = false
 
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 272),
+            titleLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -48),
             titleLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
 
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 48),
+            descriptionLabel.topAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: -50),
             descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
 
-            guideLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
-            guideLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            guideLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-
-            cautionLabel.topAnchor.constraint(equalTo: guideLabel.bottomAnchor, constant: 8),
+            cautionLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             cautionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             cautionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
 
@@ -285,7 +269,9 @@ private extension TutorialGuideViewController {
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
             inviteCode: inviteCode,
-            selectedMusic: selectedMusic
+            player: player,
+            aiPlayer1: aiPlayer1,
+            aiPlayer2: aiPlayer2
         )
         navigationController?.pushViewController(hummingViewController, animated: true)
     }
@@ -301,15 +287,15 @@ private extension TutorialGuideViewController {
         navigationController?.pushViewController(rehummingViewController, animated: true)
     }
 
+    // TODO: -
+
     func navigateToResultGuide() {
         let tutorialViewController = TutorialGuideViewController(
             type: .result,
             avatars: avatars,
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
-            inviteCode: inviteCode,
-            selectedMusic: selectedMusic,
-            recordedData: recordedData
+            inviteCode: inviteCode
         )
         navigationController?.pushViewController(tutorialViewController, animated: true)
     }
@@ -320,8 +306,8 @@ private extension TutorialGuideViewController {
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
             inviteCode: inviteCode,
-            selectedMusic: selectedMusic,
-            recordedData: recordedData
+            selectedMusic: Music(),
+            recordedData: Data()
         )
         navigationController?.pushViewController(hummingResultViewController, animated: true)
     }
