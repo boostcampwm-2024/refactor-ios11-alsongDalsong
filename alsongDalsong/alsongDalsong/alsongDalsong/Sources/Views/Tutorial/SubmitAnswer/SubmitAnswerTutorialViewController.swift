@@ -1,4 +1,5 @@
 import SwiftUI
+import ASEntity
 
 final class SubmitAnswerTutorialViewController: UIViewController {
     private var progressBar = ProgressBar()
@@ -9,8 +10,51 @@ final class SubmitAnswerTutorialViewController: UIViewController {
     private let submitButton = ASButton()
     private var buttonStack = UIStackView()
     
-    private let viewModel = SubmitAnswerTutorialViewModel()
+    private let viewModel: SubmitAnswerTutorialViewModel
+    
+    private let avatars: [URL]?
+    private let selectedAvatar: URL?
+    private let avatarData: Data?
+    private let inviteCode: String?
 
+    private var player: TutorialPlayer?
+    private var aiPlayer1: TutorialPlayer?
+    private var aiPlayer2: TutorialPlayer?
+    
+    init(
+        avatars: [URL]?,
+        selectedAvatar: URL?,
+        avatarData: Data?,
+        inviteCode: String?,
+        player: TutorialPlayer?,
+        aiPlayer1: TutorialPlayer?,
+        aiPlayer2: TutorialPlayer?
+    ) {
+        self.avatars = avatars
+        self.selectedAvatar = selectedAvatar
+        self.avatarData = avatarData
+        self.inviteCode = inviteCode
+        self.player = player
+        self.aiPlayer1 = aiPlayer1
+        self.aiPlayer2 = aiPlayer2
+        viewModel = SubmitAnswerTutorialViewModel(
+            humming: Music(
+                id: "",
+                title: nil,
+                artist: nil,
+                artworkUrl: Bundle.main.url(forResource: "AreYouCrazyHuman", withExtension: "png"),
+                previewUrl: aiPlayer1?.rehummingURL,
+                artworkBackgroundColor: nil
+            )
+        )
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBind()
@@ -35,6 +79,21 @@ final class SubmitAnswerTutorialViewController: UIViewController {
         view.addSubview(progressBar)
         view.addSubview(scrollView)
         view.addSubview(buttonStack)
+        
+        let backButtonImage = UIImage(systemName: "chevron.left")
+        let backButtonAction = UIAction { [weak self] _ in
+            let alert = DefaultAlertController(
+                titleText: .back,
+                primaryButtonText: .back,
+                secondaryButtonText: .cancel
+            ) { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            self?.navigationController?.presentAlert(alert)
+        }
+        let backButton = UIBarButtonItem(image: backButtonImage, primaryAction: backButtonAction)
+        navigationItem.leftBarButtonItem = backButton
+        
     }
     
     private func setupLayout() {
@@ -95,7 +154,26 @@ final class SubmitAnswerTutorialViewController: UIViewController {
         
         submitButton.addAction(
             UIAction { [weak self] _ in
-            // next view
+                Task {
+                    await AudioHelper.shared.stopPlaying()
+                }
+                
+                self?.player?.submittedMusic = self?.viewModel.selectedMusic
+                self?.aiPlayer1?.submittedMusic = nil
+                self?.aiPlayer2?.submittedMusic = nil
+
+                let tutorialViewController = TutorialGuideViewController(
+                    type: .result,
+                    avatars: self?.avatars,
+                    selectedAvatar: self?.selectedAvatar,
+                    avatarData: self?.avatarData,
+                    inviteCode: self?.inviteCode,
+                    player: self?.player,
+                    aiPlayer1: self?.aiPlayer1,
+                    aiPlayer2: self?.aiPlayer2
+                )
+
+                self?.navigationController?.pushViewController(tutorialViewController, animated: true)
             }, for: .touchUpInside
         )
     }
@@ -103,5 +181,13 @@ final class SubmitAnswerTutorialViewController: UIViewController {
 
 @available(iOS 17, *)
 #Preview {
-    SubmitAnswerTutorialViewController()
+    SubmitAnswerTutorialViewController(
+        avatars: nil,
+        selectedAvatar: nil,
+        avatarData: nil,
+        inviteCode: nil,
+        player: nil,
+        aiPlayer1: nil,
+        aiPlayer2: nil
+    )
 }

@@ -13,16 +13,26 @@ final class SelectMusicTutorialViewController: UIViewController {
     private let avatarData: Data?
     private let inviteCode: String?
 
-    private var player = TutorialPlayer()
-    private var aiPlayer1 = TutorialPlayer()
-    private var aiPlayer2 = TutorialPlayer()
+    private var player: TutorialPlayer?
+    private var aiPlayer1: TutorialPlayer?
+    private var aiPlayer2: TutorialPlayer?
 
-    init(avatars: [URL]?, selectedAvatar: URL?, avatarData: Data?, inviteCode: String?) {
+    init(
+        avatars: [URL]?,
+        selectedAvatar: URL?,
+        avatarData: Data?,
+        inviteCode: String?,
+        player: TutorialPlayer?,
+        aiPlayer1: TutorialPlayer?,
+        aiPlayer2: TutorialPlayer?
+    ) {
         self.avatars = avatars
         self.selectedAvatar = selectedAvatar
         self.avatarData = avatarData
         self.inviteCode = inviteCode
-
+        self.player = player
+        self.aiPlayer1 = aiPlayer1
+        self.aiPlayer2 = aiPlayer2
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -111,6 +121,7 @@ final class SelectMusicTutorialViewController: UIViewController {
             Task {
                 await AudioHelper.shared.stopPlaying()
             }
+            self?.updatePlayers()
 
             let tutorialViewController = TutorialGuideViewController(
                 type: .humming,
@@ -118,9 +129,9 @@ final class SelectMusicTutorialViewController: UIViewController {
                 selectedAvatar: self?.selectedAvatar,
                 avatarData: self?.avatarData,
                 inviteCode: self?.inviteCode,
-                player: TutorialPlayer(avatarURL: self?.selectedAvatar, selectedMusic: self?.selectedMusic),
-                aiPlayer1: TutorialPlayer(avatarURL: self?.randomAvatar(), selectedMusic: self?.randomMusic()),
-                aiPlayer2: TutorialPlayer(avatarURL: self?.randomAvatar(), selectedMusic: self?.randomMusic())
+                player: self?.player,
+                aiPlayer1: self?.aiPlayer1,
+                aiPlayer2: self?.aiPlayer2
             )
 
             self?.navigationController?.pushViewController(tutorialViewController, animated: true)
@@ -129,46 +140,27 @@ final class SelectMusicTutorialViewController: UIViewController {
 }
 
 private extension SelectMusicTutorialViewController {
-    func randomAvatar() -> URL? {
-        var availableAvatars: [URL]
-
-        if let selectedAvatar = selectedAvatar {
-            availableAvatars = avatars?.filter {
-                $0 != player.avatarURL &&
-                $0 != aiPlayer1.avatarURL &&
-                $0 != aiPlayer2.avatarURL
-            } ?? []
-        } else {
-            availableAvatars = avatars ?? []
+    func updatePlayers() {
+        player?.selectedMusic = selectedMusic
+        if player?.selectedMusic == TutorialData.loser {
+            aiPlayer1?.selectedMusic = TutorialData.superShy
+            aiPlayer2?.selectedMusic = TutorialData.theMoonOfSeoul
+        } else if player?.selectedMusic == TutorialData.superShy {
+            aiPlayer1?.selectedMusic = TutorialData.theMoonOfSeoul
+            aiPlayer2?.selectedMusic = TutorialData.loser
+        } else if player?.selectedMusic == TutorialData.theMoonOfSeoul {
+            aiPlayer1?.selectedMusic = TutorialData.loser
+            aiPlayer2?.selectedMusic = TutorialData.superShy
         }
-
-        return availableAvatars.randomElement()
-    }
-
-    func randomMusic() -> Music? {
-        let allMusic = [TutorialData.superShy, TutorialData.loser, TutorialData.theMoonOfSeoul]
-        var availableMusic: [Music]
-
-        if let selectedMusic = selectedMusic {
-            availableMusic = allMusic.filter {
-                $0 != player.selectedMusic &&
-                $0 != aiPlayer1.selectedMusic &&
-                $0 != aiPlayer2.selectedMusic
-            }
-        } else {
-            availableMusic = allMusic
-        }
-
-        return availableMusic.randomElement()
     }
 }
 
-@available(iOS 17, *)
-#Preview {
-    UINavigationController(rootViewController: SelectMusicTutorialViewController(
-        avatars: nil,
-        selectedAvatar: nil,
-        avatarData: nil,
-        inviteCode: nil
-    ))
-}
+//@available(iOS 17, *)
+//#Preview {
+//    UINavigationController(rootViewController: SelectMusicTutorialViewController(
+//        avatars: nil,
+//        selectedAvatar: nil,
+//        avatarData: nil,
+//        inviteCode: nil
+//    ))
+//}

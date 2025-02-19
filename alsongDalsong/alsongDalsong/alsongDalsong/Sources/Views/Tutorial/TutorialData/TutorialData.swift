@@ -15,7 +15,7 @@ enum TutorialData {
         id: "1314236146",
         title: "LOSER",
         artist: "BIGBANG",
-        artworkUrl: URL(string: "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/1f/7e/2a/1f7e2ae3-45aa-430f-e95d-6b2aff4e0b4c/BIGBANG_M_ONLINE.jpg/300x300bb.jpg"),
+        artworkUrl: URL(string: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/5b/9b/8e/5b9b8ef2-998e-1210-8454-dfebfbf6271c/BB_COVER_IMAGE_4000.jpg/300x300bb.jpg"),
         previewUrl: URL(string: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/dc/2f/21/dc2f21a7-b30a-2056-751b-76927ae9b3bb/mzaf_12471769798914044064.plus.aac.p.m4a"),
         artworkBackgroundColor: "#BA1718"
     )
@@ -28,7 +28,4 @@ enum TutorialData {
         previewUrl: URL(string: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/86/0b/fd/860bfd34-9062-72c7-7788-9976c6210a3e/mzaf_5174102604307340089.plus.aac.p.m4a"),
         artworkBackgroundColor: "#2A1921"
     )
-
-    static let aiLoser = Music(id: "aiLoser", title: "AI의 허밍을 듣고 따라 불러보세요", artist: "", artworkUrl: URL(string: "https://blog.kakaocdn.net/dn/bxdtFz/btqAfmWl2Zl/anXjXtfAfFUC0OOgkIcMWk/img.jpg"), previewUrl: Record.AIRecord.loser.fileUrl, artworkBackgroundColor: nil)
-    static let aiSuperShy = Music(Record.AIRecord.superShy)
 }

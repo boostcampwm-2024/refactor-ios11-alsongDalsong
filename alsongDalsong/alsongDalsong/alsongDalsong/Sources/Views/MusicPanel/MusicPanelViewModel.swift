@@ -82,7 +82,8 @@ final class MusicPanelViewModel: @unchecked Sendable {
                 if isMIDI, let midiUrl = music?.previewUrl {
                     await AudioHelper.shared.startPlayingMIDI(
                         midiUrl,
-                        sourceType: .imported(type)
+                        sourceType: .imported(type),
+                        option: .partial(time: 8)
                     )
                     return
                 }

@@ -8,7 +8,7 @@ enum Constant {
 
 public actor ASMIDIPlayer {
     private var globalTunning: Float = 0.0
-    private var overallGain: Float = 0.0
+    private var overallGain: Float = 10.0
     
     private let audioEngine = AVAudioEngine()
     private let audioSampler = AVAudioUnitSampler()

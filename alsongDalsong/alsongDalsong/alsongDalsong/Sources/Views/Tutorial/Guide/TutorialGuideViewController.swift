@@ -27,9 +27,9 @@ final class TutorialGuideViewController: UIViewController {
         selectedAvatar: URL? = nil,
         avatarData: Data? = nil,
         inviteCode: String? = nil,
-        player: TutorialPlayer? = .init(),
-        aiPlayer1: TutorialPlayer? = .init(),
-        aiPlayer2: TutorialPlayer? = .init()
+        player: TutorialPlayer? = nil,
+        aiPlayer1: TutorialPlayer? = nil,
+        aiPlayer2: TutorialPlayer? = nil
     ) {
         self.type = type
         self.avatars = avatars
@@ -198,7 +198,7 @@ final class TutorialGuideViewController: UIViewController {
                 case .rehumming:
                     navigateToRehumming()
                 case .submitAnswer:
-                    navigateToResultGuide()
+                    navigateToSubmitAnswer()
                 case .result:
                     navigateToResult()
                 case .finished:
@@ -248,7 +248,10 @@ private extension TutorialGuideViewController {
             avatars: avatars,
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
-            inviteCode: inviteCode
+            inviteCode: inviteCode,
+            player: player,
+            aiPlayer1: aiPlayer1,
+            aiPlayer2: aiPlayer2
         )
         navigationController?.pushViewController(tutorialViewController, animated: true)
     }
@@ -258,7 +261,10 @@ private extension TutorialGuideViewController {
             avatars: avatars,
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
-            inviteCode: inviteCode
+            inviteCode: inviteCode,
+            player: player,
+            aiPlayer1: aiPlayer1,
+            aiPlayer2: aiPlayer2
         )
         navigationController?.pushViewController(selectMusicViewController, animated: true)
     }
@@ -282,20 +288,36 @@ private extension TutorialGuideViewController {
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
             inviteCode: inviteCode,
-            selectedMusic: player?.selectedMusic
+            player: player,
+            aiPlayer1: aiPlayer1,
+            aiPlayer2: aiPlayer2
         )
         navigationController?.pushViewController(rehummingViewController, animated: true)
     }
-
-    // TODO: -
-
+    
+    func navigateToSubmitAnswer() {
+        let submitAnswerViewController = SubmitAnswerTutorialViewController(
+            avatars: avatars,
+            selectedAvatar: selectedAvatar,
+            avatarData: avatarData,
+            inviteCode: inviteCode,
+            player: player,
+            aiPlayer1: aiPlayer1,
+            aiPlayer2: aiPlayer2
+        )
+        navigationController?.pushViewController(submitAnswerViewController, animated: true)
+    }
+    
     func navigateToResultGuide() {
         let tutorialViewController = TutorialGuideViewController(
             type: .result,
             avatars: avatars,
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
-            inviteCode: inviteCode
+            inviteCode: inviteCode,
+            player: player,
+            aiPlayer1: aiPlayer1,
+            aiPlayer2: aiPlayer2
         )
         navigationController?.pushViewController(tutorialViewController, animated: true)
     }

@@ -151,9 +151,8 @@ final class HummingTutorialViewController: UIViewController {
             self?.viewModel.isRecording = true
         }, for: .touchUpInside)
 
-        // TODO: - updatePlayers
-
         submitButton.addAction(UIAction { [weak self] _ in
+            self?.updatePlayers()
             let tutorialViewController = TutorialGuideViewController(
                 type: .rehumming,
                 avatars: self?.avatars,
@@ -171,7 +170,22 @@ final class HummingTutorialViewController: UIViewController {
 
 private extension HummingTutorialViewController {
     func updatePlayers() {
-
+        guard let documentsURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        let fileURL = documentsURL.appendingPathComponent(UUID().uuidString).appendingPathExtension("m4a")
+        try? viewModel.recordedData?.write(to: fileURL)
+        player?.hummingURL = fileURL
+        if player?.selectedMusic == TutorialData.loser {
+            aiPlayer1?.hummingURL = Bundle.main.url(forResource: "Super Shy", withExtension: "mid")
+            aiPlayer2?.hummingURL = Bundle.main.url(forResource: "Moon of Seoul", withExtension: "mid")
+        } else if player?.selectedMusic == TutorialData.superShy {
+            aiPlayer1?.hummingURL = Bundle.main.url(forResource: "Moon of Seoul", withExtension: "mid")
+            aiPlayer2?.hummingURL = Bundle.main.url(forResource: "Loser", withExtension: "mid")
+        } else if player?.selectedMusic == TutorialData.theMoonOfSeoul {
+            aiPlayer1?.hummingURL = Bundle.main.url(forResource: "Loser", withExtension: "mid")
+            aiPlayer2?.hummingURL = Bundle.main.url(forResource: "Super Shy", withExtension: "mid")
+        }
     }
 }
 
@@ -182,8 +196,8 @@ private extension HummingTutorialViewController {
         selectedAvatar: nil,
         avatarData: nil,
         inviteCode: nil,
-        player: TutorialPlayer(),
-        aiPlayer1: TutorialPlayer(),
-        aiPlayer2: TutorialPlayer()
+        player: TutorialPlayer(name: nil, avatarURL: nil),
+        aiPlayer1: TutorialPlayer(name: nil, avatarURL: nil),
+        aiPlayer2: TutorialPlayer(name: nil, avatarURL: nil)
     ))
 }

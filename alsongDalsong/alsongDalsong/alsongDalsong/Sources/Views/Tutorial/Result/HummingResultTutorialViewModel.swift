@@ -53,7 +53,7 @@ final class HummingResultTutorialViewModel: ObservableObject {
                 )
                 let submit: Answer
                 // Player인 경우
-                if let unwrappedSubmit = tutorialPlayers[i].submittedMusic {
+                if let unwrappedSubmit = tutorialPlayers[beforePreviousIndex].submittedMusic {
                     submit = ASEntity.Answer(
                         player: players[beforePreviousIndex],
                         music: unwrappedSubmit
@@ -195,15 +195,11 @@ final class HummingResultTutorialViewModel: ObservableObject {
     private func makeAISubmit(url: URL?, player: Player) async -> Answer {
         guard let url else { return Answer(player: .playerStub2, music: TutorialData.loser) }
         guard let result = await ASAIAnalyzer.analyzeAudioURL(audioURL: url, mode: .full()) else {
-            LogHandler.handleDebug("분석실패 - \(player.nickname)")
             return ASEntity.Answer(
                 player: player,
                 music: TutorialData.loser
             )
         }
-        LogHandler.handleDebug("\(player.nickname) 의 노래 분석 결과")
-        LogHandler.handleDebug("분석 결과: \(result.bestClassification)")
-        LogHandler.handleDebug("정확도: \(result.confidence)")
         let music = try? await ASMusicAPI().search(for: result.bestClassification).first
         return ASEntity.Answer(
             player: player,

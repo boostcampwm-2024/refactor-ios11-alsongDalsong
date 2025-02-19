@@ -1,4 +1,5 @@
 import ASEntity
+import ASAIKit
 import UIKit
 
 final class RehummingTutorialViewController: UIViewController {
@@ -15,21 +16,37 @@ final class RehummingTutorialViewController: UIViewController {
     private let selectedAvatar: URL?
     private let avatarData: Data?
     private let inviteCode: String?
-    private let selectedMusic: Music?
+    
+    private var player: TutorialPlayer?
+    private var aiPlayer1: TutorialPlayer?
+    private var aiPlayer2: TutorialPlayer?
 
     init(
         avatars: [URL]?,
         selectedAvatar: URL?,
         avatarData: Data?,
         inviteCode: String?,
-        selectedMusic: Music?
+        player: TutorialPlayer?,
+        aiPlayer1: TutorialPlayer?,
+        aiPlayer2: TutorialPlayer?
     ) {
         self.avatars = avatars
         self.selectedAvatar = selectedAvatar
         self.avatarData = avatarData
         self.inviteCode = inviteCode
-        self.selectedMusic = selectedMusic
-        self.viewModel = RehummingTutorialViewModel(selectedMusic: Music(id: "", title: nil, artist: nil, artworkUrl: Bundle.main.url(forResource: "AreYouCrazyHuman", withExtension: "png"), previewUrl: Bundle.main.url(forResource: "Super Shy", withExtension: "mid"), artworkBackgroundColor: nil))
+        self.player = player
+        self.aiPlayer1 = aiPlayer1
+        self.aiPlayer2 = aiPlayer2
+        self.viewModel = RehummingTutorialViewModel(
+            selectedMusic: Music(
+                id: "",
+                title: nil,
+                artist: nil,
+                artworkUrl: Bundle.main.url(forResource: "AreYouCrazyHuman", withExtension: "png"),
+                previewUrl: aiPlayer1?.hummingURL,
+                artworkBackgroundColor: nil
+            )
+        )
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -145,15 +162,33 @@ final class RehummingTutorialViewController: UIViewController {
         }, for: .touchUpInside)
 
         submitButton.addAction(UIAction { [weak self] _ in
+            self?.updatePlayers()
             let tutorialViewController = TutorialGuideViewController(
                 type: .submitAnswer,
                 avatars: self?.avatars,
                 selectedAvatar: self?.selectedAvatar,
                 avatarData: self?.avatarData,
-                inviteCode: self?.inviteCode
+                inviteCode: self?.inviteCode,
+                player: self?.player,
+                aiPlayer1: self?.aiPlayer1,
+                aiPlayer2: self?.aiPlayer2
             )
             self?.navigationController?.pushViewController(tutorialViewController, animated: true)
         }, for: .touchUpInside)
+    }
+}
+
+extension RehummingTutorialViewController {
+    func updatePlayers() {
+        guard let documentsURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        let fileURL = documentsURL.appendingPathComponent(UUID().uuidString).appendingPathExtension("m4a")
+        try? viewModel.recordedData?.write(to: fileURL)
+        self.player?.rehummingURL = fileURL
+        self.aiPlayer1?.rehummingURL = aiPlayer2?.hummingURL
+        self.aiPlayer2?.rehummingURL = ASAIAnalyzer.m4aToMIDI(audioData: viewModel.recordedData)
+        
     }
 }
 
@@ -164,6 +199,8 @@ final class RehummingTutorialViewController: UIViewController {
         selectedAvatar: nil,
         avatarData: nil,
         inviteCode: nil,
-        selectedMusic: nil
+        player: nil,
+        aiPlayer1: nil,
+        aiPlayer2: nil
     ))
 }
