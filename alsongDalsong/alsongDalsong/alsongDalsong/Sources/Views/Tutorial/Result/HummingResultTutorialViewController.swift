@@ -25,7 +25,10 @@ final class HummingResultTutorialViewController: UIViewController {
         avatarData: Data?,
         inviteCode: String?,
         selectedMusic: Music?,
-        recordedData: Data?
+        recordedData: Data?,
+        player: TutorialPlayer?,
+        aiPlayer1: TutorialPlayer?,
+        aiPlayer2: TutorialPlayer?
     ) {
         self.avatars = avatars
         self.selectedAvatar = selectedAvatar
@@ -34,9 +37,9 @@ final class HummingResultTutorialViewController: UIViewController {
         self.selectedMusic = selectedMusic
         self.recordedData = recordedData
         self.viewModel = HummingResultTutorialViewModel(
-            player: TutorialPlayer.playerStub1,
-            aiPlayer1: TutorialPlayer.playerStub2,
-            aiPlayer2: TutorialPlayer.playerStub3
+            player: player,
+            aiPlayer1: aiPlayer1,
+            aiPlayer2: aiPlayer2
         )
         super.init(nibName: nil, bundle: nil)
     }
@@ -204,6 +207,9 @@ final class HummingResultTutorialViewController: UIViewController {
         avatarData: nil,
         inviteCode: nil,
         selectedMusic: nil,
-        recordedData: nil
+        recordedData: nil,
+        player: nil,
+        aiPlayer1: nil,
+        aiPlayer2: nil
     ))
 }

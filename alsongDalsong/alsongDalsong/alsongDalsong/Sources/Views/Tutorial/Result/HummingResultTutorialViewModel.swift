@@ -13,23 +13,24 @@ final class HummingResultTutorialViewModel: ObservableObject {
 
     private var totalResult: [Result] = []
     
-    private let tutorialPlayers: [TutorialPlayer]
-    private lazy var players: [Player] = tutorialPlayers.map {
+    private let tutorialPlayers: [TutorialPlayer?]
+    private lazy var players: [Player] = tutorialPlayers.compactMap {
         Player(
             id: UUID().uuidString,
-            avatarUrl: $0.avatarURL,
-            nickname: $0.name,
+            avatarUrl: $0?.avatarURL,
+            nickname: $0?.name,
             order: nil
         )
     }
     
-    init(player: TutorialPlayer, aiPlayer1: TutorialPlayer, aiPlayer2: TutorialPlayer) {
+    init(player: TutorialPlayer?, aiPlayer1: TutorialPlayer?, aiPlayer2: TutorialPlayer?) {
         self.tutorialPlayers = [player, aiPlayer1, aiPlayer2]
     }
     
     @MainActor
     func setDatasource() {
         Task {
+            guard let tutorialPlayers = tutorialPlayers as? [TutorialPlayer] else { return }
             let count = tutorialPlayers.count
             for i in 0 ..< count {
                 let previousIndex = (i - 1 + count) % count
@@ -221,39 +222,3 @@ private extension ResultPhase {
         }
     }
 }
-//
-//struct TutorialPlayer {
-//    var name: String?
-//    var avatarURL: URL?
-//    var selectedMusic: Music?
-//    var hummingURL: URL?
-//    var rehummingURL: URL?
-//    var submittedMusic: Music?
-//    
-//    static let playerStub1 = TutorialPlayer(
-//        name: "Player1",
-//        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
-//        selectedMusic: TutorialData.loser,
-//        hummingURL: Bundle.main.url(forResource: "loserHumming", withExtension: "m4a"),
-//        rehummingURL: Bundle.main.url(forResource: "loserHumming_basic_pitch", withExtension: "mid"),
-//        submittedMusic: TutorialData.loser
-//    )
-//    
-//    static let playerStub2 = TutorialPlayer(
-//        name: "AI1",
-//        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
-//        selectedMusic: TutorialData.loser,
-//        hummingURL: Bundle.main.url(forResource: "loserHumming", withExtension: "m4a"),
-//        rehummingURL: Bundle.main.url(forResource: "loserHumming_basic_pitch", withExtension: "mid"),
-//        submittedMusic: nil
-//    )
-//    
-//    static let playerStub3 = TutorialPlayer(
-//        name: "AI2",
-//        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/46624468?v=4"),
-//        selectedMusic: TutorialData.loser,
-//        hummingURL: Bundle.main.url(forResource: "loserHumming", withExtension: "m4a"),
-//        rehummingURL: Bundle.main.url(forResource: "loserHumming_basic_pitch", withExtension: "mid"),
-//        submittedMusic: nil
-//    )
-//}

@@ -293,7 +293,10 @@ private extension TutorialGuideViewController {
             avatarData: avatarData,
             inviteCode: inviteCode,
             selectedMusic: Music(),
-            recordedData: Data()
+            recordedData: Data(),
+            player: player,
+            aiPlayer1: aiPlayer1,
+            aiPlayer2: aiPlayer2
         )
         self.navigationController?.pushViewController(hummingResultViewController, animated: true)
     }
