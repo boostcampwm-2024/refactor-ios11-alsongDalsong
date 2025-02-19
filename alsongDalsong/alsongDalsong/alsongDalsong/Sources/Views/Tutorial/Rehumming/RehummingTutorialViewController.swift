@@ -187,7 +187,7 @@ extension RehummingTutorialViewController {
         try? viewModel.recordedData?.write(to: fileURL)
         self.player?.rehummingURL = fileURL
         self.aiPlayer1?.rehummingURL = aiPlayer2?.hummingURL
-        self.aiPlayer2?.rehummingURL = ASAIAnalyzer.m4aToMIDI(audioData: viewModel.recordedData)
+        self.aiPlayer2?.rehummingURL = ASAIAnalyzer.m4aToMIDI(audioURL: self.player?.hummingURL)
         
     }
 }

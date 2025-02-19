@@ -9,12 +9,13 @@ public enum ASAIAnalyzer {
         let velocity: UInt7
     }
     
-    public static func m4aToMIDI(audioData: Data?) -> URL? {
-        
-        guard let audioData, let fileURL = makeFile(audioData),
-              let noteCreation = try? BasicPitch.predict(fileURL),
+    public static func m4aToMIDI(audioURL: URL?) -> URL? {
+        let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("mid")
+        guard let audioURL, let noteCreation = try? BasicPitch.predict(audioURL),
               let midiFile = try? noteCreation.genMidiFile() else { return nil }
-        return fileURL
+        let data = try? midiFile.rawData()
+        try? data?.write(to: outputURL)
+        return outputURL
     }
     
     public static func analyzeAudioFile(audioData: Data) async -> [TimedNote] {
