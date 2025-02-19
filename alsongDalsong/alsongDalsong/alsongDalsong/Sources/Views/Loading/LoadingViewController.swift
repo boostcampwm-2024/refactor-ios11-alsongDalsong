@@ -113,12 +113,21 @@ final class LoadingViewController: UIViewController {
     }
 
     private func navigateToTutorial(avatars: [URL], selectedAvatar: URL, avatarData: Data) {
+        
+        let avatarURL = Bundle.main.url(forResource: "AreYouCrazyHuman", withExtension: "png")
+        let player = TutorialPlayer(name: "나", avatarURL: avatars.randomElement())
+        let aiPlayer1 = TutorialPlayer(name: "AI Player1", avatarURL: avatarURL)
+        let aiPlayer2 = TutorialPlayer(name: "AI Player2", avatarURL: avatarURL)
+        
         let tutorialGuideViewController = TutorialGuideViewController(
             type: .lobby,
             avatars: avatars,
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
-            inviteCode: inviteCode
+            inviteCode: inviteCode,
+            player: player,
+            aiPlayer1: aiPlayer1,
+            aiPlayer2: aiPlayer2
         )
 
         let navigationController = UINavigationController(rootViewController: tutorialGuideViewController)
