@@ -150,9 +150,7 @@ final class RehummingTutorialViewController: UIViewController {
                 avatars: self?.avatars,
                 selectedAvatar: self?.selectedAvatar,
                 avatarData: self?.avatarData,
-                inviteCode: self?.inviteCode,
-                selectedMusic: self?.selectedMusic,
-                recordedData: self?.viewModel.recordedData
+                inviteCode: self?.inviteCode
             )
             self?.navigationController?.pushViewController(tutorialViewController, animated: true)
         }, for: .touchUpInside)

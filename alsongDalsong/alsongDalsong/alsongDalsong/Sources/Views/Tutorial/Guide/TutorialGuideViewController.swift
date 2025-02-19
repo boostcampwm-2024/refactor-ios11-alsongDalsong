@@ -282,7 +282,7 @@ private extension TutorialGuideViewController {
             selectedAvatar: selectedAvatar,
             avatarData: avatarData,
             inviteCode: inviteCode,
-            selectedMusic: selectedMusic
+            selectedMusic: player?.selectedMusic
         )
         navigationController?.pushViewController(rehummingViewController, animated: true)
     }
