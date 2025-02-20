@@ -88,6 +88,7 @@ final class HummingResultTutorialViewModel: ObservableObject {
     
     @MainActor
     private func updateResultPhase() {
+        guard !isTutorialFinished else { return }
         Task {
             switch resultPhase {
             case .answer:
