@@ -65,6 +65,8 @@ final class SubmitAnswerTutorialViewController: UIViewController {
     }
     
     private func setupUI() {
+        title = "정답 선택"
+        
         selectAnswerButton.setConfiguration(text: String(localized: "정답 선택"), backgroundColor: .asLightSky)
         submitButton.setConfiguration(text: String(localized: "정답 제출"), backgroundColor: .asLightGray)
         submitButton.updateButton(.disabled)
