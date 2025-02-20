@@ -201,11 +201,17 @@ final class HummingResultTutorialViewModel: ObservableObject {
                 music: TutorialData.loser
             )
         }
-        let music = try? await ASMusicAPI().search(for: result.bestClassification).first
-        return ASEntity.Answer(
-            player: player,
-            music: music
-        )
+        let musicTitle = result.bestClassification
+        switch musicTitle {
+        case "Loser":
+            return ASEntity.Answer(player: player, music: TutorialData.loser)
+        case "Super Shy":
+            return ASEntity.Answer(player: player, music: TutorialData.superShy)
+        case "Moon of Seoul":
+            return ASEntity.Answer(player: player, music: TutorialData.theMoonOfSeoul)
+        default:
+            return ASEntity.Answer(player: player, music: TutorialData.loser)
+        }
     }
 }
 
