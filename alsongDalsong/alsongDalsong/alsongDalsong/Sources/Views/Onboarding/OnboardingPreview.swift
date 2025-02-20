@@ -4,6 +4,7 @@ import ASRepositoryProtocol
 import SwiftUI
 import UIKit
 
+#if DEBUG
 struct OnboardingPreview: PreviewProvider {
     static var previews: some View {
         let roomActionRepository = RoomActionMockRepository()
@@ -22,3 +23,4 @@ struct OnboardingPreview: PreviewProvider {
         ).toPreview()
     }
 }
+#endif

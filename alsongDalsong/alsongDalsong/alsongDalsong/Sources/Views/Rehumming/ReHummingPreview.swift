@@ -4,6 +4,7 @@ import ASRepositoryProtocol
 import SwiftUI
 import UIKit
 
+#if DEBUG
 struct ReHummingPreview: PreviewProvider {
     static var previews: some View {
         let gameStatusRepository = GameStatusMockRepository(status: .humming)
@@ -17,3 +18,4 @@ struct ReHummingPreview: PreviewProvider {
         return RehummingViewController(viewModel: rehummingViewModel).toPreview()
     }
 }
+#endif

@@ -4,6 +4,7 @@ import ASRepositoryProtocol
 import SwiftUI
 import UIKit
 
+#if DEBUG
 struct HummingResultPreview: PreviewProvider {
     static var previews: some View {
         let hummingResultRepository = HummingResultMockRepository()
@@ -23,3 +24,4 @@ struct HummingResultPreview: PreviewProvider {
         return HummingResultViewController(viewModel: hummingResultViewModel).toPreview()
     }
 }
+#endif

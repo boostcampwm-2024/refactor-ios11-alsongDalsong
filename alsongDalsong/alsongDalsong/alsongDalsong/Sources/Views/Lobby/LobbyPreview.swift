@@ -4,6 +4,7 @@ import ASRepositoryProtocol
 import SwiftUI
 import UIKit
 
+#if DEBUG
 struct LobbyPreview: PreviewProvider {
     static var previews: some View {
         let playerRepository = PlayersMockRepository()
@@ -20,3 +21,4 @@ struct LobbyPreview: PreviewProvider {
         return LobbyViewController(lobbyViewModel: lobbyViewModel).toPreview()
     }
 }
+#endif
