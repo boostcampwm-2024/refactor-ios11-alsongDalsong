@@ -1,5 +1,5 @@
-import ASEntity
 import ASAIKit
+import ASEntity
 import UIKit
 
 final class RehummingTutorialViewController: UIViewController {
@@ -16,7 +16,7 @@ final class RehummingTutorialViewController: UIViewController {
     private let selectedAvatar: URL?
     private let avatarData: Data?
     private let inviteCode: String?
-    
+
     private var player: TutorialPlayer?
     private var aiPlayer1: TutorialPlayer?
     private var aiPlayer2: TutorialPlayer?
@@ -185,10 +185,19 @@ extension RehummingTutorialViewController {
         }
         let fileURL = documentsURL.appendingPathComponent(UUID().uuidString).appendingPathExtension("m4a")
         try? viewModel.recordedData?.write(to: fileURL)
-        self.player?.rehummingURL = fileURL
-        self.aiPlayer1?.rehummingURL = aiPlayer2?.hummingURL
-        self.aiPlayer2?.rehummingURL = ASAIAnalyzer.m4aToMIDI(audioURL: self.player?.hummingURL)
-        
+        player?.rehummingURL = fileURL
+        aiPlayer1?.rehummingURL = aiPlayer2?.hummingURL
+        guard let aiHumming = ASAIAnalyzer.m4aToMIDI(audioURL: player?.hummingURL) else {
+            if player?.selectedMusic == TutorialData.loser {
+                aiPlayer2?.rehummingURL = Bundle.main.url(forResource: "Loser", withExtension: "mid")
+            } else if player?.selectedMusic == TutorialData.superShy {
+                aiPlayer2?.rehummingURL = Bundle.main.url(forResource: "Super Shy", withExtension: "mid")
+            } else if player?.selectedMusic == TutorialData.theMoonOfSeoul {
+                aiPlayer2?.rehummingURL = Bundle.main.url(forResource: "Moon of Seoul", withExtension: "mid")
+            }
+            return
+        }
+        aiPlayer2?.rehummingURL = aiHumming
     }
 }
 
